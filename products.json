@@ -1,24 +1,34 @@
 [
-    {
-        "id": 1,
-        "name": "Ring Spinning Frame RS-8000",
-        "price": "$12,500.00",
-        "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-        "description": "High quality spinning frame for industrial use.",
-        "features": [
-            "High efficiency",
-            "Low power consumption"
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Rapier Loom - Premium Series",
-        "price": "$45,000.00",
-        "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-        "description": "Premium series rapier loom for fine fabrics.",
-        "features": [
-            "Advanced control system",
-            "High speed"
-        ]
-    }
+  {
+    "id": 1,
+    "name": "Ring Spinning Frame RS-8000",
+    "price": "$12,500.00",
+    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    "description": "High quality spinning frame for industrial use.",
+    "features": [
+      "High efficiency",
+      "Low power consumption"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Rapier Loom - Premium Series",
+    "price": "$45,000.00",
+    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    "description": "Premium series rapier loom for fine fabrics.",
+    "features": [
+      "Advanced control system",
+      "High speed"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "zzz",
+    "price": "zzzz",
+    "image": "/static/uploads/9416032e-eb48-4777-8389-20f07c8c27a0_ChatGPT Image Feb 17, 2026, 01_43_08 PM.png",
+    "description": "zz",
+    "features": [
+      "zzz"
+    ]
+  }
 ]
