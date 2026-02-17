@@ -7,6 +7,8 @@ export interface Product {
   outOfStock?: boolean;
   discount?: string;
   countdown?: boolean;
+  description?: string;
+  features?: string[];
 }
 
 export interface Category {

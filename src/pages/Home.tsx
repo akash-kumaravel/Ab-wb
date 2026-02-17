@@ -59,7 +59,16 @@ const Home: React.FC = () => {
       setLoading(true);
       const data = await ProductService.getAllProducts();
       // If no products from API, use fallback constants
-      setProducts(data.length > 0 ? data : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+
+      // If no products from API, we can still use fallback constants or just show API products.
+      // For now, let's prioritize API products but fall back if empty to keep the site looking populated for the demo.
+      // Ideally, we should just use data.
+      if (data.length > 0) {
+        setProducts(data);
+      } else {
+        setProducts([...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+      }
+      setLoading(false);
       setLoading(false);
     };
 
@@ -75,7 +84,7 @@ const Home: React.FC = () => {
       <PopularCategories navigate={navigate} />
       <PromotionalBanners />
       <SpecialOffers navigate={navigate} products={products} loading={loading} />
-      <CategoryMiniListsSection navigate={navigate} />
+      <CategoryMiniListsSection navigate={navigate} products={products} />
     </>
   );
 };
@@ -125,9 +134,8 @@ const HeroSection: React.FC = () => {
         {heroSlides.map((slide, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              idx === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             <img
               src={slide.image}
@@ -157,9 +165,8 @@ const HeroSection: React.FC = () => {
             <div
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
-                idx === currentSlide ? 'bg-blue-600 w-8' : 'bg-gray-600 hover:bg-gray-500'
-              }`}
+              className={`w-3 h-3 rounded-full cursor-pointer transition-all ${idx === currentSlide ? 'bg-blue-600 w-8' : 'bg-gray-600 hover:bg-gray-500'
+                }`}
             ></div>
           ))}
         </div>
@@ -290,11 +297,23 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
 
 
 // CATEGORY MINI LISTS SECTION
-const CategoryMiniListsSection: React.FC<{ navigate: any }> = ({ navigate }) => (
+const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }> = ({ navigate, products }) => (
   <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
-    <CategoryMiniList title="Spinning Machinery" products={TRENDING_PRODUCTS.slice(0, 3)} navigate={navigate} />
-    <CategoryMiniList title="Weaving Equipment" products={SPECIAL_OFFERS.slice(0, 3)} navigate={navigate} />
-    <CategoryMiniList title="Finishing Systems" products={EXHAUST_PRODUCTS} navigate={navigate} />
+    <CategoryMiniList
+      title="Spinning Machinery"
+      products={products.length > 0 ? products.slice(0, 3) : TRENDING_PRODUCTS.slice(0, 3)}
+      navigate={navigate}
+    />
+    <CategoryMiniList
+      title="Weaving Equipment"
+      products={products.length > 3 ? products.slice(3, 6) : SPECIAL_OFFERS.slice(0, 3)}
+      navigate={navigate}
+    />
+    <CategoryMiniList
+      title="Finishing Systems"
+      products={products.length > 6 ? products.slice(6, 9) : EXHAUST_PRODUCTS}
+      navigate={navigate}
+    />
   </section>
 );
 

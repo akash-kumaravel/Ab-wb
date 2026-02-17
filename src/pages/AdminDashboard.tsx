@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import getApiBaseURL from '../config/apiConfig';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, Plus, Trash2, Edit2, Upload } from 'lucide-react';
 
@@ -37,7 +38,7 @@ const AdminDashboard: React.FC = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/products');
+      const response = await fetch(`${getApiBaseURL()}/api/products`);
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -67,8 +68,8 @@ const AdminDashboard: React.FC = () => {
 
     try {
       const url = editingId
-        ? `http://localhost:5000/api/products/${editingId}`
-        : 'http://localhost:5000/api/products';
+        ? `${getApiBaseURL()}/api/products/${editingId}`
+        : `${getApiBaseURL()}/api/products`;
 
       const method = editingId ? 'PUT' : 'POST';
 
@@ -126,7 +127,7 @@ const AdminDashboard: React.FC = () => {
   const handleDelete = async (id: number) => {
     if (confirm('Are you sure you want to delete this product?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+        const response = await fetch(`${getApiBaseURL()}/api/products/${id}`, {
           method: 'DELETE',
         });
 
@@ -176,11 +177,10 @@ const AdminDashboard: React.FC = () => {
       <div className="max-w-[1400px] mx-auto px-6 py-8">
         {/* MESSAGE */}
         {message && (
-          <div className={`mb-6 p-4 rounded-sm border ${
-            message.includes('Error')
-              ? 'bg-red-900/30 border-red-600 text-red-400'
-              : 'bg-green-900/30 border-green-600 text-green-400'
-          }`}>
+          <div className={`mb-6 p-4 rounded-sm border ${message.includes('Error')
+            ? 'bg-red-900/30 border-red-600 text-red-400'
+            : 'bg-green-900/30 border-green-600 text-green-400'
+            }`}>
             {message}
           </div>
         )}
@@ -365,8 +365,8 @@ const AdminDashboard: React.FC = () => {
 
         {/* SERVER STATUS */}
         <div className="mt-8 p-4 bg-gray-900 border border-gray-800 rounded-sm text-sm text-gray-400">
-          <p>🔄 Server: <span className="text-blue-400">http://localhost:5000</span></p>
-          <p className="mt-2">Make sure the Python server is running to manage products.</p>
+          <p>🔄 Server: <span className="text-blue-400">{getApiBaseURL()}</span></p>
+          <p className="mt-2">Connected to Hugging Face Backend (or localhost in dev).</p>
         </div>
       </div>
     </div>
