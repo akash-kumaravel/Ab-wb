@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Facebook, Github, Instagram, Twitter, Youtube } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -8,6 +8,7 @@ import {
   SPECIAL_OFFERS,
 } from '../constants';
 import { Product, Category } from '../types';
+import ProductService from '../services/ProductService';
 
 // ============================================
 // PAGE CONSTANTS
@@ -50,18 +51,31 @@ const EXHAUST_PRODUCTS = [
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const data = await ProductService.getAllProducts();
+      // If no products from API, use fallback constants
+      setProducts(data.length > 0 ? data : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <>
       <HeroSection />
 
       <TrustBadges />
-      <TrendingProducts navigate={navigate} />
+      <TrendingProducts navigate={navigate} products={products} loading={loading} />
       <PopularCategories navigate={navigate} />
       <PromotionalBanners />
-      <SpecialOffers navigate={navigate} />
+      <SpecialOffers navigate={navigate} products={products} loading={loading} />
       <CategoryMiniListsSection navigate={navigate} />
-      <RecommendationSection />
     </>
   );
 };
@@ -177,7 +191,7 @@ const TrustBadges: React.FC = () => (
 
 
 // TRENDING PRODUCTS SECTION
-const TrendingProducts: React.FC<{ navigate: any }> = ({ navigate }) => (
+const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => (
   <section className="mt-20">
     <div className="flex flex-col md:flex-row items-baseline justify-between mb-8 border-b border-gray-800 pb-4">
       <h2 className="text-2xl font-bold tracking-tight">
@@ -195,13 +209,19 @@ const TrendingProducts: React.FC<{ navigate: any }> = ({ navigate }) => (
         </span>
       </div>
     </div>
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px border border-gray-800 bg-gray-800">
-      {TRENDING_PRODUCTS.map((product) => (
-        <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
-          <ProductCard product={product} />
-        </div>
-      ))}
-    </div>
+    {loading ? (
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px border border-gray-800 bg-gray-800 min-h-[250px] flex items-center justify-center">
+        <p className="text-gray-400">Loading products...</p>
+      </div>
+    ) : (
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px border border-gray-800 bg-gray-800">
+        {products.slice(0, 5).map((product) => (
+          <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
+    )}
   </section>
 );
 
@@ -245,21 +265,26 @@ const PromotionalBanners: React.FC = () => (
 
 
 // SPECIAL OFFERS SECTION
-const SpecialOffers: React.FC<{ navigate: any }> = ({ navigate }) => (
+const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => (
   <section className="mt-24">
     <h2 className="mb-8 border-b border-gray-800 pb-4 text-2xl font-bold">
       Special <span className="font-light">Offers</span>
     </h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800">
-      {SPECIAL_OFFERS.map((product) => (
-        <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
-          <ProductCard
-            product={product}
-            showCountdown={product.countdown}
-          />
-        </div>
-      ))}
-    </div>
+    {loading ? (
+      <div className="text-center py-8 text-gray-400">
+        Loading products...
+      </div>
+    ) : (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800">
+        {products.slice(0, 4).map((product) => (
+          <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
+            <ProductCard
+              product={product}
+            />
+          </div>
+        ))}
+      </div>
+    )}
   </section>
 );
 
@@ -274,35 +299,7 @@ const CategoryMiniListsSection: React.FC<{ navigate: any }> = ({ navigate }) => 
 );
 
 
-// RECOMMENDATION SECTION
-const RecommendationSection: React.FC = () => (
-  <section className="mt-20 py-12 px-4 bg-blue-600">
-    <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
-      <div className="text-center lg:text-left">
-        <h2 className="text-3xl font-bold text-white">Upgrade Your Textile Production</h2>
-        <p className="mt-2 text-sm text-blue-100">
-          Get special pricing on bulk machinery orders with code{' '}
-          <span className="font-bold text-black">TEXTILE2026</span>
-        </p>
-      </div>
-      <div className="flex flex-col sm:flex-row items-center gap-8">
-        <button className="px-10 py-4 bg-black text-white rounded-full font-bold uppercase text-sm hover:bg-gray-900 transition-colors shadow-xl">
-          Discover Now
-        </button>
-        <div className="flex gap-4">
-          {SOCIAL_ICONS.map((Icon, i) => (
-            <div
-              key={i}
-              className="p-3 bg-blue-500/50 border border-blue-400 rounded-full hover:bg-white hover:text-blue-600 transition-all cursor-pointer"
-            >
-              <Icon size={20} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-);
+
 
 
 // ============================================

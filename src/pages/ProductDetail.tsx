@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ShoppingCart, Heart, Share2 } from 'lucide-react';
+import { ChevronLeft, Heart, Share2 } from 'lucide-react';
 import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
+import { Product } from '../types';
+import ProductService from '../services/ProductService';
 
 // ============================================
 // PRODUCT DETAIL PAGE
@@ -10,37 +12,58 @@ import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
 const ProductDetail: React.FC = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
-  // Find product from either trending or special offers
-  const product = useMemo(() => {
-    const allProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-    return allProducts.find(p => p.id === parseInt(productId || '1'));
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const products = await ProductService.getAllProducts();
+      const fallback = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
+      const productsToUse = products.length > 0 ? products : fallback;
+      
+      setAllProducts(productsToUse);
+
+      const found = productsToUse.find(p => p.id === parseInt(productId || '1'));
+      setProduct(found || null);
+
+      if (found) {
+        setRelatedProducts(
+          productsToUse.filter(p => p.id !== found.id).slice(0, 4)
+        );
+      }
+      setLoading(false);
+    };
+
+    fetchData();
   }, [productId]);
-
-  if (!product) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">Product Not Found</h1>
-          <button
-            onClick={() => navigate('/')}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm transition-all"
-          >
-            Back to All Products
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Get related products (same category approximately)
-  const relatedProducts = useMemo(() => {
-    const allProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-    return allProducts.filter(p => p.id !== product.id).slice(0, 4);
-  }, [product.id]);
 
   return (
     <div className="min-h-screen bg-black">
+      {loading && (
+        <div className="flex items-center justify-center min-h-screen">
+          <p className="text-gray-400">Loading product...</p>
+        </div>
+      )}
+      
+      {!loading && !product && (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-white mb-4">Product Not Found</h1>
+            <button
+              onClick={() => navigate('/')}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm transition-all"
+            >
+              Back to All Products
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!loading && product && (
+        <>
       {/* BREADCRUMB */}
       <div className="max-w-[1400px] mx-auto px-4 py-6 flex items-center gap-2 text-sm text-gray-500">
         <button
@@ -139,12 +162,8 @@ const ProductDetail: React.FC = () => {
 
             {/* ACTIONS */}
             <div className="flex gap-4 pt-6">
-              <button className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-sm transition-colors">
-                <ShoppingCart size={20} />
-                Add to Cart
-              </button>
               <button className="flex-1 bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 rounded-sm border border-gray-800 hover:border-gray-700 transition-colors">
-                Buy Now
+                Contact for Inquiry
               </button>
             </div>
 
@@ -189,6 +208,8 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
       </section>
+      </>
+      )}
     </div>
   );
 };

@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
 import { Product } from '../types';
+import ProductService from '../services/ProductService';
 
 // ============================================
 // SEARCH RESULTS PAGE
@@ -11,8 +12,19 @@ const SearchResults: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const query = searchParams.get('q') || '';
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const allProducts = useMemo(() => [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS], []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const data = await ProductService.getAllProducts();
+      setAllProducts(data.length > 0 ? data : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
 
   const results = useMemo(() => {
     if (!query.trim()) return [];

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { TRENDING_PRODUCTS, SPECIAL_OFFERS, CATEGORIES } from '../constants';
 import { Product } from '../types';
+import ProductService from '../services/ProductService';
 
 // ============================================
 // SHOP PAGE
@@ -10,19 +11,31 @@ import { Product } from '../types';
 const Shop: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const allProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-  const categoryParam = searchParams.get('category');
-  const [selectedCategory, setSelectedCategory] = React.useState<number | null>(
-    categoryParam ? parseInt(categoryParam) : null
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(
+    searchParams.get('category') ? parseInt(searchParams.get('category') || '0') : null
   );
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const data = await ProductService.getAllProducts();
+      // If no products from API, use fallback constants
+      setProducts(data.length > 0 ? data : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
+
   const filteredProducts = selectedCategory
-    ? allProducts.filter(p => {
+    ? products.filter(p => {
         // Simple category filtering based on product ID mapped to category ID
         const categoryId = (p.id % CATEGORIES.length) + 1;
         return categoryId === selectedCategory;
       })
-    : allProducts;
+    : products;
 
   const ProductCardShop: React.FC<{ product: Product }> = ({ product }) => (
     <div
