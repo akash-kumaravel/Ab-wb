@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "ccc",
+    "price": "ccccc",
+    "image": "/static/uploads/4ff96729-9d88-46ba-beb4-5aa8255bd442_ChatGPT Image Feb 17, 2026, 12_23_23 PM.png",
+    "description": "ccc",
+    "features": [
+      "ccc"
+    ]
+  }
+]
