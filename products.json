@@ -20,15 +20,5 @@
       "Advanced control system",
       "High speed"
     ]
-  },
-  {
-    "id": 3,
-    "name": "zzz",
-    "price": "zzzz",
-    "image": "/static/uploads/9416032e-eb48-4777-8389-20f07c8c27a0_ChatGPT Image Feb 17, 2026, 01_43_08 PM.png",
-    "description": "zz",
-    "features": [
-      "zzz"
-    ]
   }
 ]
