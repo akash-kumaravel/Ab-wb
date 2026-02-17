@@ -6,7 +6,7 @@ import { LogOut, Plus, Trash2, Edit2, Upload } from 'lucide-react';
 interface ProductForm {
   name: string;
   price: string;
-  image: string;
+  image: string | File | null;
   description: string;
   features: string;
 }
@@ -23,6 +23,7 @@ const AdminDashboard: React.FC = () => {
     description: '',
     features: '',
   });
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -61,6 +62,17 @@ const AdminDashboard: React.FC = () => {
     }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setFormData(prev => ({
+        ...prev,
+        image: file,
+      }));
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -73,17 +85,26 @@ const AdminDashboard: React.FC = () => {
 
       const method = editingId ? 'PUT' : 'POST';
 
+      const data = new FormData();
+      data.append('name', formData.name);
+      data.append('price', formData.price);
+      data.append('description', formData.description);
+
+      // Handle features as JSON string
+      const featuresArray = formData.features.split('\n').filter(f => f.trim());
+      data.append('features', JSON.stringify(featuresArray));
+
+      // Handle image
+      if (formData.image instanceof File) {
+        data.append('image', formData.image);
+      } else if (typeof formData.image === 'string') {
+        data.append('image', formData.image);
+      }
+
       const response = await fetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          features: formData.features
-            .split('\n')
-            .filter(f => f.trim()),
-        }),
+        // Do NOT set Content-Type header when using FormData, browser does it automatically
+        body: data,
       });
 
       if (response.ok) {
@@ -95,6 +116,7 @@ const AdminDashboard: React.FC = () => {
           description: '',
           features: '',
         });
+        setImagePreview(null);
         setEditingId(null);
         setShowForm(false);
         fetchProducts();
@@ -118,8 +140,9 @@ const AdminDashboard: React.FC = () => {
       price: product.price,
       image: product.image,
       description: product.description,
-      features: product.features.join('\n'),
+      features: Array.isArray(product.features) ? product.features.join('\n') : product.features || '',
     });
+    setImagePreview(product.image); // Show existing image
     setEditingId(product.id);
     setShowForm(true);
   };
@@ -153,6 +176,7 @@ const AdminDashboard: React.FC = () => {
       description: '',
       features: '',
     });
+    setImagePreview(null);
     setEditingId(null);
     setShowForm(false);
   };
@@ -237,20 +261,48 @@ const AdminDashboard: React.FC = () => {
                   />
                 </div>
 
-                {/* IMAGE URL */}
+                {/* IMAGE UPLOAD */}
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
-                    Image URL *
+                    Product Image *
                   </label>
-                  <input
-                    type="text"
-                    name="image"
-                    value={formData.image}
-                    onChange={handleInputChange}
-                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="e.g., https://example.com/image.jpg"
-                    required
-                  />
+
+                  <div className="flex gap-4 items-start">
+                    <div className="flex-1">
+                      <div className="relative border border-gray-700 border-dashed rounded-sm bg-black hover:border-blue-500 transition-colors">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
+                        <div className="p-4 flex flex-col items-center justify-center text-gray-400">
+                          <Upload size={24} className="mb-2" />
+                          <span className="text-sm">Click to upload image</span>
+                          <span className="text-xs text-gray-600 mt-1">or drag and drop</span>
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        name="image"
+                        value={typeof formData.image === 'string' ? formData.image : ''}
+                        onChange={handleInputChange}
+                        placeholder="Or enter Image URL manually"
+                        className="w-full mt-2 bg-black border border-gray-800 rounded-sm py-2 px-3 text-sm text-gray-400 focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+
+                    {/* PREVIEW */}
+                    {imagePreview && (
+                      <div className="w-24 h-24 bg-gray-900 border border-gray-800 rounded-sm overflow-hidden flex-shrink-0">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* DESCRIPTION */}
