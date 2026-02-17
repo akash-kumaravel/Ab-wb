@@ -18,13 +18,20 @@ class ProductService {
   static async getAllProducts(): Promise<Product[]> {
     try {
       const response = await fetch(`${API_BASE_URL}/api/products`);
-      
+
       if (!response.ok) {
         throw new Error(`API error: ${response.statusText}`);
       }
-      
+
       const products = await response.json();
-      return products;
+
+      // Normalize image URLs
+      return products.map((product: any) => ({
+        ...product,
+        image: product.image.startsWith('/')
+          ? `${API_BASE_URL}${product.image}`
+          : product.image
+      }));
     } catch (error) {
       console.error('Error fetching products:', error);
       // Return empty array on error instead of throwing
@@ -35,12 +42,17 @@ class ProductService {
   static async getProductById(id: number): Promise<Product | null> {
     try {
       const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
-      
+
       if (!response.ok) {
         throw new Error(`API error: ${response.statusText}`);
       }
-      
+
       const product = await response.json();
+
+      if (product && product.image && product.image.startsWith('/')) {
+        product.image = `${API_BASE_URL}${product.image}`;
+      }
+
       return product;
     } catch (error) {
       console.error(`Error fetching product ${id}:`, error);
