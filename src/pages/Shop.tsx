@@ -46,11 +46,7 @@ const Shop: React.FC = () => {
   }, []);
 
   const filteredProducts = selectedCategory
-    ? products.filter(p => {
-        // Simple category filtering based on product ID mapped to category ID
-        const categoryId = (p.id % CATEGORIES.length) + 1;
-        return categoryId === selectedCategory;
-      })
+    ? products.filter(p => p.category === selectedCategory)
     : products;
 
   const ProductCardShop: React.FC<{ product: Product }> = ({ product }) => (

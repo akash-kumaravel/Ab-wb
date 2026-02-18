@@ -6,6 +6,7 @@ import { LogOut, Plus, Trash2, Edit2, Upload } from 'lucide-react';
 interface ProductForm {
   name: string;
   price: string;
+  category: number | string;
   image: string | File | null;
   description: string;
   features: string;
@@ -19,6 +20,7 @@ const AdminDashboard: React.FC = () => {
   const [formData, setFormData] = useState<ProductForm>({
     name: '',
     price: '',
+    category: 1,
     image: '',
     description: '',
     features: '',
@@ -88,6 +90,7 @@ const AdminDashboard: React.FC = () => {
       const data = new FormData();
       data.append('name', formData.name);
       data.append('price', formData.price);
+      data.append('category', formData.category.toString());
       data.append('description', formData.description);
 
       // Handle features as JSON string
@@ -112,6 +115,7 @@ const AdminDashboard: React.FC = () => {
         setFormData({
           name: '',
           price: '',
+          category: 1,
           image: '',
           description: '',
           features: '',
@@ -138,6 +142,7 @@ const AdminDashboard: React.FC = () => {
     setFormData({
       name: product.name,
       price: product.price,
+      category: product.category || 1,
       image: product.image,
       description: product.description,
       features: Array.isArray(product.features) ? product.features.join('\n') : product.features || '',
@@ -172,6 +177,7 @@ const AdminDashboard: React.FC = () => {
     setFormData({
       name: '',
       price: '',
+      category: 1,
       image: '',
       description: '',
       features: '',
@@ -259,6 +265,26 @@ const AdminDashboard: React.FC = () => {
                     placeholder="e.g., $19,500.00"
                     required
                   />
+                </div>
+
+                {/* CATEGORY */}
+                <div>
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Category *
+                  </label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    required
+                  >
+                    <option value={1}>Sulzer Weaving Machine</option>
+                    <option value={2}>Air-Jet Weaving Machine</option>
+                    <option value={3}>OE</option>
+                    <option value={4}>Spares & Parts</option>
+                    <option value={5}>Scrap</option>
+                  </select>
                 </div>
 
                 {/* IMAGE UPLOAD */}

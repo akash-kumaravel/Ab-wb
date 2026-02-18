@@ -34,55 +34,49 @@ export const TRUST_BADGES = [
 export const CATEGORIES = [
   {
     id: 1,
-    name: 'Spinning & Yarn',
+    name: 'Sulzer Weaving Machine',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
-    subCategories: ['Blow Room Equipment', 'Carding Machines', 'Combers', 'Ring Frames']
+    subCategories: ['Weaving Machines', 'Parts', 'Accessories']
   },
   {
     id: 2,
-    name: 'Weaving & Prep',
+    name: 'Air-Jet Weaving Machine',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
-    subCategories: ['Rapier Looms', 'Warping Machines', 'Auxiliary Equipment', 'Sizing Machines']
+    subCategories: ['Air-Jet Looms', 'Components', 'Upgrades']
   },
   {
     id: 3,
-    name: 'Knitting',
+    name: 'OE',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
-    subCategories: ['Circular Knitting', 'Flat Knitting', 'Machine Parts', 'Accessories']
+    subCategories: ['Original Equipment', 'OE Parts', 'Accessories']
   },
   {
     id: 4,
-    name: 'Dyeing & Finishing',
+    name: 'Spares & Parts',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
-    subCategories: ['Singeing Machines', 'Bleaching Equipment', 'Reeling Machines', 'Brushing Machines']
+    subCategories: ['Spindles', 'Rollers', 'Needles', 'Modules']
   },
   {
     id: 5,
-    name: 'Processing',
+    name: 'Scrap',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
-    subCategories: ['Color Matching', 'Quality Control', 'Inspection Systems', 'Automation']
-  },
-  {
-    id: 6,
-    name: 'Spares & Parts',
-    icon: '/assets/shutterstock_1069102985-1920w.jpeg',
-    subCategories: ['Spindles', 'Rollers', 'Needles', 'Control Modules']
+    subCategories: ['Metal Scrap', 'Machine Scrap', 'Waste Materials']
   }
 ];
 
 export const TRENDING_PRODUCTS = [
-  { id: 1, name: 'Ring Spinning Frame RS-8000', price: '$12,500.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 2, name: 'Rapier Loom - Premium Series', price: '$45,000.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 3, name: 'Circular Knitting Machine CK-2000', price: '$8,900.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 4, name: 'Carding Machine CM-500', price: '$9,200.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 5, name: 'Warping Machine WM-3000', price: '$15,800.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' }
+  { id: 1, name: 'Ring Spinning Frame RS-8000', price: '$12,500.00', category: 1, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
+  { id: 2, name: 'Rapier Loom - Premium Series', price: '$45,000.00', category: 2, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
+  { id: 3, name: 'Circular Knitting Machine CK-2000', price: '$8,900.00', category: 3, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
+  { id: 4, name: 'Carding Machine CM-500', price: '$9,200.00', category: 4, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
+  { id: 5, name: 'Warping Machine WM-3000', price: '$15,800.00', category: 1, image: '/assets/shutterstock_1069102985-1920w.jpeg' }
 ];
 
 export const SPECIAL_OFFERS = [
-  { id: 10, name: 'Bleaching Machine BL-1500', price: '$18,900.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 11, name: 'Singeing Machine SG-2000', price: '$16,500.00', image: '/assets/shutterstock_1069102985-1920w.jpeg', countdown: true },
-  { id: 12, name: 'Winding Machine WD-1000', price: '$7,500.00', image: '/assets/shutterstock_1069102985-1920w.jpeg', outOfStock: false },
-  { id: 13, name: 'Comber Machine CB-600', price: '$11,200.00', image: '/assets/shutterstock_1069102985-1920w.jpeg' }
+  { id: 10, name: 'Bleaching Machine BL-1500', price: '$18,900.00', category: 4, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
+  { id: 11, name: 'Singeing Machine SG-2000', price: '$16,500.00', category: 2, image: '/assets/shutterstock_1069102985-1920w.jpeg', countdown: true },
+  { id: 12, name: 'Winding Machine WD-1000', price: '$7,500.00', category: 1, image: '/assets/shutterstock_1069102985-1920w.jpeg', outOfStock: false },
+  { id: 13, name: 'Comber Machine CB-600', price: '$11,200.00', category: 3, image: '/assets/shutterstock_1069102985-1920w.jpeg' }
 ];
 
 export const BRAND_LOGOS = [
