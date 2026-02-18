@@ -29,6 +29,22 @@ const Shop: React.FC = () => {
     fetchProducts();
   }, []);
 
+  // Re-fetch products when visible to get newly added items
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (!document.hidden) {
+        ProductService.getAllProducts().then(data => {
+          if (data.length > 0) {
+            setProducts(data);
+          }
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
+
   const filteredProducts = selectedCategory
     ? products.filter(p => {
         // Simple category filtering based on product ID mapped to category ID

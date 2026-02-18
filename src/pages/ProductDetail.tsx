@@ -96,20 +96,32 @@ const ProductDetail: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
               {/* PRODUCT IMAGE */}
               <div className="flex items-center justify-center">
-                <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden border border-gray-800 group">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    <button className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors">
-                      <Heart size={18} className="text-white" />
-                    </button>
-                    <button className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors">
-                      <Share2 size={18} className="text-white" />
-                    </button>
-                  </div>
+                <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden border border-gray-800 group flex items-center justify-center">
+                  {product.image ? (
+                    <>
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+                        }}
+                      />
+                      <div className="absolute top-4 right-4 flex gap-2">
+                        <button className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors">
+                          <Heart size={18} className="text-white" />
+                        </button>
+                        <button className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors">
+                          <Share2 size={18} className="text-white" />
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                      <span className="text-gray-500 text-lg">No Image Available</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -196,12 +208,22 @@ const ProductDetail: React.FC = () => {
                     onClick={() => navigate(`/product/${relProd.id}`)}
                     className="cursor-pointer group"
                   >
-                    <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden mb-4 border border-gray-800 hover:border-blue-500 transition-colors">
-                      <img
-                        src={relProd.image}
-                        alt={relProd.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                    <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden mb-4 border border-gray-800 hover:border-blue-500 transition-colors flex items-center justify-center">
+                      {relProd.image ? (
+                        <img
+                          src={relProd.image}
+                          alt={relProd.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                          <span className="text-gray-500">No Image</span>
+                        </div>
+                      )}
                     </div>
                     <h3 className="text-sm font-bold text-gray-300 group-hover:text-blue-500 transition-colors line-clamp-2 mb-2">
                       {relProd.name}

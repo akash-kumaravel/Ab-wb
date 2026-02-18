@@ -15,7 +15,7 @@ const SearchResults: React.FC = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useMemo(() => {
     const fetchProducts = async () => {
       setLoading(true);
       const data = await ProductService.getAllProducts();
@@ -24,6 +24,22 @@ const SearchResults: React.FC = () => {
     };
 
     fetchProducts();
+  }, []);
+
+  // Re-fetch products when page becomes visible to get newly added items
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (!document.hidden) {
+        ProductService.getAllProducts().then(data => {
+          if (data.length > 0) {
+            setAllProducts(data);
+          }
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   const results = useMemo(() => {
@@ -41,12 +57,22 @@ const SearchResults: React.FC = () => {
       onClick={() => navigate(`/product/${product.id}`)}
       className="group cursor-pointer"
     >
-      <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden mb-4 border border-gray-800 hover:border-blue-500 transition-colors">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+      <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden mb-4 border border-gray-800 hover:border-blue-500 transition-colors flex items-center justify-center">
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+            }}
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+            <span className="text-gray-500">No Image</span>
+          </div>
+        )}
       </div>
       <h3 className="text-sm font-bold text-gray-300 group-hover:text-blue-500 transition-colors line-clamp-2 mb-2">
         {product.name}

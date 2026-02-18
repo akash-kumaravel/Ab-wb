@@ -69,10 +69,25 @@ const Home: React.FC = () => {
         setProducts([...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
       }
       setLoading(false);
-      setLoading(false);
     };
 
     fetchProducts();
+  }, []);
+
+  // Re-fetch products when page becomes visible to get newly added items
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (!document.hidden) {
+        ProductService.getAllProducts().then(data => {
+          if (data.length > 0) {
+            setProducts(data);
+          }
+        });
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   return (
@@ -386,15 +401,25 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div
       className={`relative bg-black border-gray-800 transition-all duration-300 group hover:z-20 ${containerClass}`}
     >
-      <div className={`relative flex items-center justify-center ${imageContainerClass}`}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className={`relative flex items-center justify-center bg-gray-900 rounded-sm ${imageContainerClass}`}>
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 rounded-sm"
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+            }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            No Image
+          </div>
+        )}
 
         {product.outOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none rounded-sm">
             <span className="bg-red-600 text-white font-black px-3 py-1 text-[10px] uppercase rounded-sm shadow-lg">
               Out of Stock
             </span>
@@ -419,21 +444,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </h3>
         <p className="mt-2 text-lg font-black text-blue-500">{product.price}</p>
       </div>
-
-      {!horizontal && (
-        <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-          <div className="p-2 bg-blue-600 rounded-full cursor-pointer hover:bg-white hover:text-blue-600 transition-all shadow-xl">
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.28l-.31-1.243A1 1 0 005 4H3z" />
-            </svg>
-          </div>
-          <div className="p-2 bg-[#111111] rounded-full cursor-pointer hover:bg-blue-600 transition-all shadow-xl">
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-            </svg>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
@@ -446,11 +456,21 @@ const CategoryCard: React.FC<{ category: Category; navigate: any }> = ({ categor
     className="flex gap-6 p-6 bg-[#050505] border border-transparent rounded-sm group cursor-pointer hover:border-blue-500 transition-all transform hover:-translate-y-1"
   >
     <div className="relative w-32 h-32 flex-shrink-0 flex items-center justify-center bg-[#0c0c0c] rounded-sm overflow-hidden">
-      <img
-        src={category.icon}
-        alt={category.name}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
+      {category.icon ? (
+        <img
+          src={category.icon}
+          alt={category.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            const img = e.target as HTMLImageElement;
+            img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+          }}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-gray-500 text-sm">
+          No Image
+        </div>
+      )}
     </div>
 
     <div>
@@ -492,11 +512,21 @@ const CategoryMiniList: React.FC<CategoryMiniListProps> = ({ title, products, na
             className="flex items-center gap-4 cursor-pointer group"
           >
             <div className="relative w-20 h-20 flex-shrink-0 flex items-center justify-center bg-[#080808] border border-gray-800 rounded-sm group-hover:border-blue-500 transition-colors">
-              <img
-                src={p.image}
-                className="w-full h-full object-cover"
-                alt={p.name}
-              />
+              {p.image ? (
+                <img
+                  src={p.image}
+                  className="w-full h-full object-cover rounded-sm"
+                  alt={p.name}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+                  }}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-500 text-xs rounded-sm">
+                  No Image
+                </div>
+              )}
             </div>
 
             <div>
