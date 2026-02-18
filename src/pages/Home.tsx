@@ -213,39 +213,73 @@ const TrustBadges: React.FC = () => (
 
 
 // TRENDING PRODUCTS SECTION
-const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => (
-  <section className="mt-20">
-    <div className="flex flex-col md:flex-row items-baseline justify-between mb-8 border-b border-gray-800 pb-4">
-      <h2 className="text-2xl font-bold tracking-tight">
-        Trending <span className="font-light">Products</span>
-      </h2>
-      <div className="flex space-x-8 text-sm mt-4 md:mt-0">
-        <span className="pb-4 font-bold text-blue-500 border-b-2 border-blue-500 cursor-pointer">
-          Best Sellers
-        </span>
-        <span className="pb-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
-          New Arrivals
-        </span>
-        <span className="pb-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
-          Special Offers
-        </span>
+const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => {
+  const [showMore, setShowMore] = React.useState(false);
+  const initialCount = 4;
+  const displayedProducts = showMore ? products : products.slice(0, initialCount);
+  const hasMoreProducts = products.length > initialCount;
+
+  return (
+    <section className="mt-20">
+      <div className="flex flex-col md:flex-row items-baseline justify-between mb-8 border-b border-gray-800 pb-4">
+        <h2 className="text-2xl font-bold tracking-tight">
+          Trending <span className="font-light">Products</span>
+        </h2>
+        <div className="flex space-x-8 text-sm mt-4 md:mt-0">
+          <span className="pb-4 font-bold text-blue-500 border-b-2 border-blue-500 cursor-pointer">
+            Best Sellers
+          </span>
+          <span className="pb-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
+            New Arrivals
+          </span>
+          <span className="pb-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
+            Special Offers
+          </span>
+        </div>
       </div>
-    </div>
-    {loading ? (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px border border-gray-800 bg-gray-800 min-h-[250px] flex items-center justify-center">
-        <p className="text-gray-400">Loading products...</p>
-      </div>
-    ) : (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px border border-gray-800 bg-gray-800">
-        {products.slice(0, 5).map((product) => (
-          <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
-            <ProductCard product={product} />
+      {loading ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800 min-h-[250px] flex items-center justify-center">
+          <p className="text-gray-400">Loading products...</p>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800">
+            {displayedProducts.map((product) => (
+              <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
+                <ProductCard product={product} />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    )}
-  </section>
-);
+
+          {hasMoreProducts && (
+            <div className="flex items-center justify-center mt-8">
+              <button
+                onClick={() => setShowMore(!showMore)}
+                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm transition-colors flex items-center gap-2"
+              >
+                {showMore ? (
+                  <>
+                    <span>Show Less</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                    </svg>
+                  </>
+                ) : (
+                  <>
+                    <span>See More ({products.length - initialCount} more)</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </section>
+  );
+};
 
 
 // CATEGORIES SECTION
