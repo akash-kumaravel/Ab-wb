@@ -38,5 +38,15 @@
     "features": [
       "wwww"
     ]
+  },
+  {
+    "id": 5,
+    "name": "weeee",
+    "price": "eeee",
+    "image": "/static/uploads/78cb74ec-5e6f-4fca-ab61-74b4e8dcefec_grok-image-8ba13e5b-ea0a-4d7c-876c-313507e3b91e.png",
+    "description": "eee",
+    "features": [
+      "eee"
+    ]
   }
 ]
