@@ -238,12 +238,12 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
         </div>
       </div>
       {loading ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800 min-h-[250px] flex items-center justify-center">
+        <div className="flex items-center justify-center py-20">
           <p className="text-gray-400">Loading products...</p>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {displayedProducts.map((product) => (
               <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
                 <ProductCard product={product} />
@@ -252,7 +252,7 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
           </div>
 
           {hasMoreProducts && (
-            <div className="flex items-center justify-center mt-8">
+            <div className="flex items-center justify-center mt-12">
               <button
                 onClick={() => setShowMore(!showMore)}
                 className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm transition-colors flex items-center gap-2"
@@ -331,7 +331,7 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
         Loading products...
       </div>
     ) : (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px border border-gray-800 bg-gray-800">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.slice(0, 4).map((product) => (
           <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
             <ProductCard
