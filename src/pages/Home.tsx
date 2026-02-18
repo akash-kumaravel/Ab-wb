@@ -362,25 +362,32 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
 
 
 // CATEGORY MINI LISTS SECTION
-const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }> = ({ navigate, products }) => (
-  <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
-    <CategoryMiniList
-      title="Sulzer Weaving Machine"
-      products={products.length > 0 ? products.slice(0, 3) : TRENDING_PRODUCTS.slice(0, 3)}
-      navigate={navigate}
-    />
-    <CategoryMiniList
-      title="Air-Jet Weaving Machine"
-      products={products.length > 3 ? products.slice(3, 6) : SPECIAL_OFFERS.slice(0, 3)}
-      navigate={navigate}
-    />
-    <CategoryMiniList
-      title="OE"
-      products={products.length > 6 ? products.slice(6, 9) : EXHAUST_PRODUCTS}
-      navigate={navigate}
-    />
-  </section>
-);
+const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }> = ({ navigate, products }) => {
+  // Filter products by category (1=Sulzer, 2=Air-Jet, 3=OE)
+  const sulzerProducts = products.filter(p => p.category === 1).slice(0, 3);
+  const airJetProducts = products.filter(p => p.category === 2).slice(0, 3);
+  const oeProducts = products.filter(p => p.category === 3).slice(0, 3);
+
+  return (
+    <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <CategoryMiniList
+        title="Sulzer Weaving Machine"
+        products={sulzerProducts.length > 0 ? sulzerProducts : TRENDING_PRODUCTS.slice(0, 3)}
+        navigate={navigate}
+      />
+      <CategoryMiniList
+        title="Air-Jet Weaving Machine"
+        products={airJetProducts.length > 0 ? airJetProducts : SPECIAL_OFFERS.slice(0, 3)}
+        navigate={navigate}
+      />
+      <CategoryMiniList
+        title="OE"
+        products={oeProducts.length > 0 ? oeProducts : EXHAUST_PRODUCTS}
+        navigate={navigate}
+      />
+    </section>
+  );
+};
 
 
 
