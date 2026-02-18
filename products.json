@@ -1,16 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "1111",
-    "price": "20000",
-    "category": 1,
-    "image": "/static/uploads/420edf2c-5f74-41f4-887c-05cff65638af_0d20a902-09eb-428f-a7ac-20cb08cfa720.jpg",
-    "description": "11111",
-    "features": [
-      "33333"
-    ]
-  },
-  {
     "id": 2,
     "name": "Aravind",
     "price": "20",
