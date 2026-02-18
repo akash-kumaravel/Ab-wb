@@ -12,6 +12,18 @@ interface ProductForm {
   features: string;
 }
 
+interface SpecialOfferForm {
+  productId: number | string;
+  discount: string;
+  specialOfferPrice: string;
+}
+  price: string;
+  category: number | string;
+  image: string | File | null;
+  description: string;
+  features: string;
+}
+
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<any[]>([]);
@@ -25,6 +37,11 @@ const AdminDashboard: React.FC = () => {
     image: '',
     description: '',
     features: '',
+  });
+  const [specialOfferForm, setSpecialOfferForm] = useState<SpecialOfferForm>({
+    productId: '',
+    discount: '',
+    specialOfferPrice: '',
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -87,54 +104,89 @@ const AdminDashboard: React.FC = () => {
     setMessage('');
 
     try {
-      const url = editingId
-        ? `${getApiBaseURL()}/api/products/${editingId}`
-        : `${getApiBaseURL()}/api/products`;
+      if (formType === 'special-offer') {
+        // Handle Special Offer
+        if (!specialOfferForm.productId || !specialOfferForm.specialOfferPrice) {
+          setMessage('Please select a product and enter special offer price');
+          setLoading(false);
+          return;
+        }
 
-      const method = editingId ? 'PUT' : 'POST';
-
-      const data = new FormData();
-      data.append('name', formData.name);
-      data.append('price', formData.price);
-      data.append('category', formData.category.toString());
-      data.append('description', formData.description);
-
-      // Handle features as JSON string
-      const featuresArray = formData.features.split('\n').filter(f => f.trim());
-      data.append('features', JSON.stringify(featuresArray));
-
-      // Handle image
-      if (formData.image instanceof File) {
-        data.append('image', formData.image);
-      } else if (typeof formData.image === 'string') {
-        data.append('image', formData.image);
-      }
-
-      const response = await fetch(url, {
-        method,
-        // Do NOT set Content-Type header when using FormData, browser does it automatically
-        body: data,
-      });
-
-      if (response.ok) {
-        setMessage(editingId ? 'Product updated successfully!' : 'Product added successfully!');
-        setFormData({
-          name: '',
-          price: '',
-          category: 1,
-          image: '',
-          description: '',
-          features: '',
+        const response = await fetch(`${getApiBaseURL()}/api/products/${specialOfferForm.productId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            discount: specialOfferForm.discount,
+            specialOfferPrice: specialOfferForm.specialOfferPrice,
+            isSpecialOffer: true,
+          }),
         });
-        setImagePreview(null);
-        setEditingId(null);
-        setShowForm(false);
-        fetchProducts();
 
-        // Clear message after 3 seconds
-        setTimeout(() => setMessage(''), 3000);
-      } else {
-        setMessage('Error saving product. Please try again.');
+        if (response.ok) {
+          setMessage('Special offer added successfully!');
+          setSpecialOfferForm({
+            productId: '',
+            discount: '',
+            specialOfferPrice: '',
+          });
+          setShowForm(false);
+          setFormType(null);
+          fetchProducts();
+          setTimeout(() => setMessage(''), 3000);
+        } else {
+          setMessage('Error adding special offer. Please try again.');
+        }
+      } else if (formType === 'product') {
+        // Handle Product
+        const url = editingId
+          ? `${getApiBaseURL()}/api/products/${editingId}`
+          : `${getApiBaseURL()}/api/products`;
+
+        const method = editingId ? 'PUT' : 'POST';
+
+        const data = new FormData();
+        data.append('name', formData.name);
+        data.append('price', formData.price);
+        data.append('category', formData.category.toString());
+        data.append('description', formData.description);
+
+        // Handle features as JSON string
+        const featuresArray = formData.features.split('\n').filter(f => f.trim());
+        data.append('features', JSON.stringify(featuresArray));
+
+        // Handle image
+        if (formData.image instanceof File) {
+          data.append('image', formData.image);
+        } else if (typeof formData.image === 'string') {
+          data.append('image', formData.image);
+        }
+
+        const response = await fetch(url, {
+          method,
+          body: data,
+        });
+
+        if (response.ok) {
+          setMessage(editingId ? 'Product updated successfully!' : 'Product added successfully!');
+          setFormData({
+            name: '',
+            price: '',
+            category: 1,
+            image: '',
+            description: '',
+            features: '',
+          });
+          setImagePreview(null);
+          setEditingId(null);
+          setShowForm(false);
+          setFormType(null);
+          fetchProducts();
+          setTimeout(() => setMessage(''), 3000);
+        } else {
+          setMessage('Error saving product. Please try again.');
+        }
       }
     } catch (error) {
       setMessage('Error connecting to server. Make sure it\'s running.');
@@ -432,48 +484,64 @@ const AdminDashboard: React.FC = () => {
             <h2 className="text-2xl font-bold mb-6">Add Special Offer</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* PRODUCT SELECTION */}
                 <div>
                   <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
-                    Offer Name *
+                    Select Product *
+                  </label>
+                  <select
+                    value={specialOfferForm.productId}
+                    onChange={(e) => setSpecialOfferForm({ ...specialOfferForm, productId: e.target.value })}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    required
+                  >
+                    <option value="">-- Select a product --</option>
+                    {products.map((product) => (
+                      <option key={product.id} value={product.id}>
+                        {product.name} (${product.price})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* DISCOUNT PERCENTAGE */}
+                <div>
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Discount Percentage *
                   </label>
                   <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={specialOfferForm.discount}
+                    onChange={(e) => setSpecialOfferForm({ ...specialOfferForm, discount: e.target.value })}
                     className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="e.g., Exclusive Discount"
+                    placeholder="e.g., 20"
                     required
                   />
                 </div>
+
+                {/* SPECIAL OFFER PRICE */}
                 <div>
                   <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
-                    Discount Price *
+                    Special Offer Price *
                   </label>
                   <input
                     type="text"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleInputChange}
+                    value={specialOfferForm.specialOfferPrice}
+                    onChange={(e) => setSpecialOfferForm({ ...specialOfferForm, specialOfferPrice: e.target.value })}
                     className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="e.g., 20% OFF"
-                    required
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
-                    Description *
-                  </label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors h-24 resize-none"
-                    placeholder="Enter offer details"
+                    placeholder="e.g., 15,999.00"
                     required
                   />
                 </div>
               </div>
+
+              {/* INFO MESSAGE */}
+              <div className="bg-blue-900/20 border border-blue-600/30 rounded-sm p-4 text-sm text-blue-300">
+                This will mark the selected product as a special offer and display it in the Special Offers section.
+              </div>
+
               <div className="flex gap-4 pt-6">
                 <button
                   type="submit"
@@ -481,7 +549,7 @@ const AdminDashboard: React.FC = () => {
                   className="flex-1 flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 text-white font-bold py-3 rounded-sm uppercase tracking-wider transition-colors disabled:cursor-not-allowed"
                 >
                   <Upload size={18} />
-                  {loading ? 'Saving...' : 'Add Offer'}
+                  {loading ? 'Saving...' : 'Add Special Offer'}
                 </button>
                 <button
                   type="button"

@@ -217,8 +217,10 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
   const [showMore, setShowMore] = React.useState(false);
   const initialCount = 4;
 
-  const displayedProducts = showMore ? products : products.slice(0, initialCount);
-  const hasMoreProducts = products.length > initialCount;
+  // Filter out products that are special offers
+  const trendingProducts = products.filter(p => !p.isSpecialOffer);
+  const displayedProducts = showMore ? trendingProducts : trendingProducts.slice(0, initialCount);
+  const hasMoreProducts = trendingProducts.length > initialCount;
 
   return (
     <section className="mt-20">
@@ -260,7 +262,7 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
                   </>
                 ) : (
                   <>
-                    <span>See More ({products.length - initialCount} more)</span>
+                    <span>See More ({trendingProducts.length - initialCount} more)</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -315,39 +317,48 @@ const PromotionalBanners: React.FC = () => (
 
 
 // SPECIAL OFFERS SECTION
-const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => (
-  <section className="mt-24 bg-gradient-to-r from-blue-950/30 via-black to-blue-950/30 border border-blue-900/50 rounded-sm p-8">
-    <div className="flex items-center gap-3 mb-8 pb-4 border-b border-blue-900/50">
-      <div className="px-3 py-1 bg-blue-600 text-white text-xs font-black uppercase rounded-sm">
-        Limited Time
+const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => {
+  // Filter to show only special offer products
+  const specialOfferProducts = products.filter(p => p.isSpecialOffer);
+
+  return (
+    <section className="mt-24 bg-gradient-to-r from-blue-950/30 via-black to-blue-950/30 border border-blue-900/50 rounded-sm p-8">
+      <div className="flex items-center gap-3 mb-8 pb-4 border-b border-blue-900/50">
+        <div className="px-3 py-1 bg-blue-600 text-white text-xs font-black uppercase rounded-sm">
+          Limited Time
+        </div>
+        <h2 className="text-2xl font-bold">
+          Special <span className="font-light">Offers</span>
+        </h2>
       </div>
-      <h2 className="text-2xl font-bold">
-        Special <span className="font-light">Offers</span>
-      </h2>
-    </div>
-    {loading ? (
-      <div className="text-center py-8 text-gray-400">
-        Loading products...
-      </div>
-    ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.slice(0, 4).map((product) => (
-          <div 
-            key={product.id} 
-            onClick={() => navigate(`/product/${product.id}`)} 
-            className="cursor-pointer relative group"
-          >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm opacity-0 group-hover:opacity-20 blur transition-all duration-300 -z-10"></div>
-            <ProductCard product={product} />
-            <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-sm text-xs font-bold">
-              Hot Deal
+      {loading ? (
+        <div className="text-center py-8 text-gray-400">
+          Loading products...
+        </div>
+      ) : specialOfferProducts.length === 0 ? (
+        <div className="text-center py-8 text-gray-400">
+          No special offers available at this time.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {specialOfferProducts.slice(0, 4).map((product) => (
+            <div 
+              key={product.id} 
+              onClick={() => navigate(`/product/${product.id}`)} 
+              className="cursor-pointer relative group"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm opacity-0 group-hover:opacity-20 blur transition-all duration-300 -z-10"></div>
+              <ProductCard product={product} />
+              <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-sm text-xs font-bold">
+                Hot Deal
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    )}
-  </section>
-);
+          ))}
+        </div>
+      )}
+    </section>
+  );
+};
 
 
 // CATEGORY MINI LISTS SECTION
@@ -481,7 +492,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <h3 className="text-sm font-medium text-gray-300 group-hover:text-blue-500 transition-colors cursor-pointer line-clamp-2 leading-snug">
           {product.name}
         </h3>
-        <p className="mt-2 text-lg font-black text-blue-500">{product.price}</p>
+        {product.isSpecialOffer && product.specialOfferPrice ? (
+          <div className="mt-2 flex items-center gap-2">
+            <p className="text-sm text-gray-500 line-through">{product.price}</p>
+            <p className="text-lg font-black text-green-500">{product.specialOfferPrice}</p>
+          </div>
+        ) : (
+          <p className="mt-2 text-lg font-black text-blue-500">{product.price}</p>
+        )}
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ export interface Product {
   category?: number;
   outOfStock?: boolean;
   discount?: string;
+  specialOfferPrice?: string;
+  isSpecialOffer?: boolean;
   countdown?: boolean;
   description?: string;
   features?: string[];
