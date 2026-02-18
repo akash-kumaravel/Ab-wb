@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Aravind",
+    "price": "fff",
+    "category": 1,
+    "image": "/static/uploads/736eab91-9ee9-4bdd-86e9-3363539a031c_0d20a902-09eb-428f-a7ac-20cb08cfa720.jpg",
+    "description": "ff",
+    "features": [
+      "fff"
+    ]
+  }
+]
