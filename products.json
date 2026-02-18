@@ -8,5 +8,15 @@
     "features": [
       "gg"
     ]
+  },
+  {
+    "id": 2,
+    "name": "Aravind",
+    "price": "20000",
+    "image": "/static/uploads/b6a3f5ea-1fa4-4259-800a-bccab43c76f6_ChatGPT Image Feb 17, 2026, 02_13_37 PM.png",
+    "description": "ww",
+    "features": [
+      "www"
+    ]
   }
 ]
