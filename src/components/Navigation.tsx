@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
+import { slugify } from '../utils/slugify';
 
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
@@ -31,8 +32,8 @@ const Navigation: React.FC = () => {
     }
   };
 
-  const handleProductClick = (productId: number) => {
-    navigate(`/product/${productId}`);
+  const handleProductClick = (product: any) => {
+    navigate(`/product/${slugify(product.name)}`);
     setSearchQuery('');
     setShowDropdown(false);
   };
@@ -79,7 +80,7 @@ const Navigation: React.FC = () => {
                   {searchResults.map((product) => (
                     <div
                       key={product.id}
-                      onClick={() => handleProductClick(product.id)}
+                      onClick={() => handleProductClick(product)}
                       className="flex items-center gap-3 p-3 border-b border-gray-800 hover:bg-gray-800 cursor-pointer transition-colors last:border-b-0"
                     >
                       <img

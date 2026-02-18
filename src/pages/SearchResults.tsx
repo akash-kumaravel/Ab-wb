@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
 import { Product } from '../types';
 import ProductService from '../services/ProductService';
+import { slugify } from '../utils/slugify';
 
 // ============================================
 // SEARCH RESULTS PAGE
@@ -54,7 +55,7 @@ const SearchResults: React.FC = () => {
 
   const ProductCardSearch: React.FC<{ product: Product }> = ({ product }) => (
     <div
-      onClick={() => navigate(`/product/${product.id}`)}
+      onClick={() => navigate(`/product/${slugify(product.name)}`)}
       className="group cursor-pointer"
     >
       <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden mb-4 border border-gray-800 hover:border-blue-500 transition-colors flex items-center justify-center">

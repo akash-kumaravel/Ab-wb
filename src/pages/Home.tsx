@@ -9,6 +9,7 @@ import {
 } from '../constants';
 import { Product, Category } from '../types';
 import ProductService from '../services/ProductService';
+import { slugify } from '../utils/slugify';
 
 // ============================================
 // PAGE CONSTANTS
@@ -217,7 +218,7 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
-                <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
+                <div key={product.id} onClick={() => navigate(`/product/${slugify(product.name)}`)} className="cursor-pointer">
                   <ProductCard product={product} />
                 </div>
               ))
@@ -323,7 +324,7 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
           {specialOfferProducts.slice(0, 4).map((product) => (
             <div 
               key={product.id} 
-              onClick={() => navigate(`/product/${product.id}`)} 
+              onClick={() => navigate(`/product/${slugify(product.name)}`)} 
               className="cursor-pointer relative group"
             >
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm opacity-0 group-hover:opacity-20 blur transition-all duration-300 -z-10"></div>
@@ -551,7 +552,7 @@ const CategoryMiniList: React.FC<CategoryMiniListProps> = ({ title, products, na
         {products.map((p) => (
           <div
             key={p.id}
-            onClick={() => navigate(`/product/${p.id}`)}
+            onClick={() => navigate(`/product/${slugify(p.name)}`)}
             className="flex items-center gap-4 cursor-pointer group"
           >
             <div className="relative w-20 h-20 flex-shrink-0 flex items-center justify-center bg-[#080808] border border-gray-800 rounded-sm group-hover:border-blue-500 transition-colors">

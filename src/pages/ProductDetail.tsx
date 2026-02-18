@@ -4,13 +4,14 @@ import { ChevronLeft, Heart, Share2 } from 'lucide-react';
 import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
 import { Product } from '../types';
 import ProductService from '../services/ProductService';
+import { slugify, findProductBySlug } from '../utils/slugify';
 
 // ============================================
 // PRODUCT DETAIL PAGE
 // ============================================
 
 const ProductDetail: React.FC = () => {
-  const { productId } = useParams();
+  const { productSlug } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
@@ -26,7 +27,7 @@ const ProductDetail: React.FC = () => {
 
       setAllProducts(productsToUse);
 
-      const found = productsToUse.find(p => p.id === parseInt(productId || '1'));
+      const found = findProductBySlug(productSlug || '', productsToUse);
       setProduct(found || null);
 
       if (found) {
@@ -38,7 +39,7 @@ const ProductDetail: React.FC = () => {
     };
 
     fetchData();
-  }, [productId]);
+  }, [productSlug]);
 
   return (
     <div className="min-h-screen bg-black">
@@ -205,7 +206,7 @@ const ProductDetail: React.FC = () => {
                 {relatedProducts.map(relProd => (
                   <div
                     key={relProd.id}
-                    onClick={() => navigate(`/product/${relProd.id}`)}
+                    onClick={() => navigate(`/product/${slugify(relProd.name)}`)}
                     className="cursor-pointer group"
                   >
                     <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden mb-4 border border-gray-800 hover:border-blue-500 transition-colors flex items-center justify-center">
