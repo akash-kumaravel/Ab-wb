@@ -23,27 +23,6 @@ const COUNTDOWN_ITEMS = [
   { value: '21', label: 'Sec' },
 ];
 
-const EXHAUST_PRODUCTS = [
-  {
-    id: 50,
-    name: 'Bleaching & Singeing Machine BS-1800',
-    price: '$19,500.00',
-    image: '/assets/shutterstock_1069102985-1920w.jpeg',
-  },
-  {
-    id: 51,
-    name: 'Reeling & Sizing Equipment RS-2500',
-    price: '$14,200.00',
-    image: '/assets/shutterstock_1069102985-1920w.jpeg',
-  },
-  {
-    id: 52,
-    name: 'Brushing & Sueding Machine BS-3000',
-    price: '$16,800.00',
-    image: '/assets/shutterstock_1069102985-1920w.jpeg',
-  },
-];
-
 
 // ============================================
 // HOME PAGE COMPONENT
@@ -372,17 +351,17 @@ const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }>
     <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
       <CategoryMiniList
         title="Sulzer Weaving Machine"
-        products={sulzerProducts.length > 0 ? sulzerProducts : TRENDING_PRODUCTS.slice(0, 3)}
+        products={sulzerProducts}
         navigate={navigate}
       />
       <CategoryMiniList
         title="Air-Jet Weaving Machine"
-        products={airJetProducts.length > 0 ? airJetProducts : SPECIAL_OFFERS.slice(0, 3)}
+        products={airJetProducts}
         navigate={navigate}
       />
       <CategoryMiniList
         title="OE"
-        products={oeProducts.length > 0 ? oeProducts : EXHAUST_PRODUCTS}
+        products={oeProducts}
         navigate={navigate}
       />
     </section>

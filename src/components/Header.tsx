@@ -30,12 +30,6 @@ const Header: React.FC = () => {
           Shop
         </Link>
         <Link
-          to="/blog"
-          className={`transition-colors ${isActive('/blog') ? 'text-blue-500' : 'hover:text-blue-500'}`}
-        >
-          Blog
-        </Link>
-        <Link
           to="/about"
           className={`transition-colors ${isActive('/about') ? 'text-blue-500' : 'hover:text-blue-500'}`}
         >

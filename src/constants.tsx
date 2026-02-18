@@ -64,20 +64,9 @@ export const CATEGORIES = [
   }
 ];
 
-export const TRENDING_PRODUCTS = [
-  { id: 1, name: 'Ring Spinning Frame RS-8000', price: '$12,500.00', category: 1, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 2, name: 'Rapier Loom - Premium Series', price: '$45,000.00', category: 2, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 3, name: 'Circular Knitting Machine CK-2000', price: '$8,900.00', category: 3, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 4, name: 'Carding Machine CM-500', price: '$9,200.00', category: 4, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 5, name: 'Warping Machine WM-3000', price: '$15,800.00', category: 1, image: '/assets/shutterstock_1069102985-1920w.jpeg' }
-];
+export const TRENDING_PRODUCTS = [];
 
-export const SPECIAL_OFFERS = [
-  { id: 10, name: 'Bleaching Machine BL-1500', price: '$18,900.00', category: 4, image: '/assets/shutterstock_1069102985-1920w.jpeg' },
-  { id: 11, name: 'Singeing Machine SG-2000', price: '$16,500.00', category: 2, image: '/assets/shutterstock_1069102985-1920w.jpeg', countdown: true },
-  { id: 12, name: 'Winding Machine WD-1000', price: '$7,500.00', category: 1, image: '/assets/shutterstock_1069102985-1920w.jpeg', outOfStock: false },
-  { id: 13, name: 'Comber Machine CB-600', price: '$11,200.00', category: 3, image: '/assets/shutterstock_1069102985-1920w.jpeg' }
-];
+export const SPECIAL_OFFERS = [];
 
 export const BRAND_LOGOS = [
   '/assets/shutterstock_1069102985-1920w.jpeg',
