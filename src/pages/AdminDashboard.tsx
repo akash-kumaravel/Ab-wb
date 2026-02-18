@@ -16,6 +16,7 @@ const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<any[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [formType, setFormType] = useState<'product' | 'special-offer' | 'category' | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formData, setFormData] = useState<ProductForm>({
     name: '',
@@ -190,6 +191,22 @@ const AdminDashboard: React.FC = () => {
     setImagePreview(null);
     setEditingId(null);
     setShowForm(false);
+    setFormType(null);
+  };
+
+  const openFormType = (type: 'product' | 'special-offer' | 'category') => {
+    setFormType(type);
+    setShowForm(true);
+    setFormData({
+      name: '',
+      price: '',
+      category: 1,
+      image: '',
+      description: '',
+      features: '',
+    });
+    setImagePreview(null);
+    setEditingId(null);
   };
 
   return (
@@ -220,19 +237,35 @@ const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* ADD PRODUCT BUTTON */}
+        {/* ADD BUTTONS */}
         {!showForm && (
-          <button
-            onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-sm font-bold mb-8 transition-colors"
-          >
-            <Plus size={20} />
-            Add New Product
-          </button>
+          <div className="flex gap-4 mb-8 flex-wrap">
+            <button
+              onClick={() => openFormType('product')}
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-sm font-bold transition-colors"
+            >
+              <Plus size={20} />
+              Add Product
+            </button>
+            <button
+              onClick={() => openFormType('special-offer')}
+              className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 px-6 py-3 rounded-sm font-bold transition-colors"
+            >
+              <Plus size={20} />
+              Add Special Offer
+            </button>
+            <button
+              onClick={() => openFormType('category')}
+              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-sm font-bold transition-colors"
+            >
+              <Plus size={20} />
+              Add Category
+            </button>
+          </div>
         )}
 
         {/* FORM SECTION */}
-        {showForm && (
+        {showForm && formType === 'product' && (
           <div className="bg-gray-900 border border-gray-800 rounded-sm p-8 mb-8">
             <h2 className="text-2xl font-bold mb-6">
               {editingId ? 'Edit Product' : 'Add New Product'}
@@ -393,7 +426,129 @@ const AdminDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* PRODUCTS TABLE */}
+        {/* SPECIAL OFFER FORM */}
+        {showForm && formType === 'special-offer' && (
+          <div className="bg-gray-900 border border-gray-800 rounded-sm p-8 mb-8">
+            <h2 className="text-2xl font-bold mb-6">Add Special Offer</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Offer Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="e.g., Exclusive Discount"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Discount Price *
+                  </label>
+                  <input
+                    type="text"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="e.g., 20% OFF"
+                    required
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Description *
+                  </label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors h-24 resize-none"
+                    placeholder="Enter offer details"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4 pt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 text-white font-bold py-3 rounded-sm uppercase tracking-wider transition-colors disabled:cursor-not-allowed"
+                >
+                  <Upload size={18} />
+                  {loading ? 'Saving...' : 'Add Offer'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 rounded-sm uppercase tracking-wider transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* CATEGORY FORM */}
+        {showForm && formType === 'category' && (
+          <div className="bg-gray-900 border border-gray-800 rounded-sm p-8 mb-8">
+            <h2 className="text-2xl font-bold mb-6">Add Category</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Category Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="e.g., Sulzer Weaving Machine"
+                    required
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Category Description *
+                  </label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors h-24 resize-none"
+                    placeholder="Enter category description"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4 pt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 text-white font-bold py-3 rounded-sm uppercase tracking-wider transition-colors disabled:cursor-not-allowed"
+                >
+                  <Upload size={18} />
+                  {loading ? 'Saving...' : 'Add Category'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 rounded-sm uppercase tracking-wider transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
         <div className="bg-gray-900 border border-gray-800 rounded-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
