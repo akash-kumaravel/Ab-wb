@@ -187,10 +187,10 @@ const ProductDetail: React.FC = () => {
                 <div className="bg-gray-900 p-4 rounded-sm border border-gray-800">
                   <h4 className="text-sm font-bold text-white mb-3 uppercase">Specifications</h4>
                   <div className="space-y-2 text-sm text-gray-400">
-                    <div className="flex justify-between"><span>Category:</span><span className="text-white">Textile Machinery</span></div>
-                    <div className="flex justify-between"><span>SKU:</span><span className="text-white">TM-{product.id}-001</span></div>
-                    <div className="flex justify-between"><span>Warranty:</span><span className="text-white">24 Months</span></div>
-                    <div className="flex justify-between"><span>Shipping:</span><span className="text-white">2-5 Business Days</span></div>
+                    <div className="flex justify-between"><span>Category:</span><span className="text-white">{product.categoryName || 'Textile Machinery'}</span></div>
+                    <div className="flex justify-between"><span>SKU:</span><span className="text-white">{product.sku || `TM-${product.id}-001`}</span></div>
+                    <div className="flex justify-between"><span>Warranty:</span><span className="text-white">{product.warranty || '24 Months'}</span></div>
+                    <div className="flex justify-between"><span>Shipping:</span><span className="text-white">{product.shipping || '2-5 Business Days'}</span></div>
                   </div>
                 </div>
               </div>

@@ -12,6 +12,10 @@ export interface Product {
   countdown?: boolean;
   description?: string;
   features?: string[];
+  sku?: string;
+  warranty?: string;
+  shipping?: string;
+  categoryName?: string;
 }
 
 export interface Category {
