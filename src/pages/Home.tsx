@@ -216,6 +216,7 @@ const TrustBadges: React.FC = () => (
 const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => {
   const [showMore, setShowMore] = React.useState(false);
   const initialCount = 4;
+
   const displayedProducts = showMore ? products : products.slice(0, initialCount);
   const hasMoreProducts = products.length > initialCount;
 
@@ -225,17 +226,6 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
         <h2 className="text-2xl font-bold tracking-tight">
           Trending <span className="font-light">Products</span>
         </h2>
-        <div className="flex space-x-8 text-sm mt-4 md:mt-0">
-          <span className="pb-4 font-bold text-blue-500 border-b-2 border-blue-500 cursor-pointer">
-            Best Sellers
-          </span>
-          <span className="pb-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
-            New Arrivals
-          </span>
-          <span className="pb-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
-            Special Offers
-          </span>
-        </div>
       </div>
       {loading ? (
         <div className="flex items-center justify-center py-20">
@@ -244,11 +234,15 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {displayedProducts.map((product) => (
-              <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
-                <ProductCard product={product} />
-              </div>
-            ))}
+            {displayedProducts.length > 0 ? (
+              displayedProducts.map((product) => (
+                <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
+                  <ProductCard product={product} />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-400 col-span-full text-center py-8">No products available</p>
+            )}
           </div>
 
           {hasMoreProducts && (
@@ -322,10 +316,15 @@ const PromotionalBanners: React.FC = () => (
 
 // SPECIAL OFFERS SECTION
 const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boolean }> = ({ navigate, products, loading }) => (
-  <section className="mt-24">
-    <h2 className="mb-8 border-b border-gray-800 pb-4 text-2xl font-bold">
-      Special <span className="font-light">Offers</span>
-    </h2>
+  <section className="mt-24 bg-gradient-to-r from-blue-950/30 via-black to-blue-950/30 border border-blue-900/50 rounded-sm p-8">
+    <div className="flex items-center gap-3 mb-8 pb-4 border-b border-blue-900/50">
+      <div className="px-3 py-1 bg-blue-600 text-white text-xs font-black uppercase rounded-sm">
+        Limited Time
+      </div>
+      <h2 className="text-2xl font-bold">
+        Special <span className="font-light">Offers</span>
+      </h2>
+    </div>
     {loading ? (
       <div className="text-center py-8 text-gray-400">
         Loading products...
@@ -333,10 +332,16 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
     ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.slice(0, 4).map((product) => (
-          <div key={product.id} onClick={() => navigate(`/product/${product.id}`)} className="cursor-pointer">
-            <ProductCard
-              product={product}
-            />
+          <div 
+            key={product.id} 
+            onClick={() => navigate(`/product/${product.id}`)} 
+            className="cursor-pointer relative group"
+          >
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm opacity-0 group-hover:opacity-20 blur transition-all duration-300 -z-10"></div>
+            <ProductCard product={product} />
+            <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-sm text-xs font-bold">
+              Hot Deal
+            </div>
           </div>
         ))}
       </div>
@@ -349,17 +354,17 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
 const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }> = ({ navigate, products }) => (
   <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
     <CategoryMiniList
-      title="Spinning Machinery"
+      title="Sulzer Weaving Machine"
       products={products.length > 0 ? products.slice(0, 3) : TRENDING_PRODUCTS.slice(0, 3)}
       navigate={navigate}
     />
     <CategoryMiniList
-      title="Weaving Equipment"
+      title="Air-Jet Weaving Machine"
       products={products.length > 3 ? products.slice(3, 6) : SPECIAL_OFFERS.slice(0, 3)}
       navigate={navigate}
     />
     <CategoryMiniList
-      title="Finishing Systems"
+      title="OE"
       products={products.length > 6 ? products.slice(6, 9) : EXHAUST_PRODUCTS}
       navigate={navigate}
     />
