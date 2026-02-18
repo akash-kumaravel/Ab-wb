@@ -17,12 +17,6 @@ interface SpecialOfferForm {
   discount: string;
   specialOfferPrice: string;
 }
-  price: string;
-  category: number | string;
-  image: string | File | null;
-  description: string;
-  features: string;
-}
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
