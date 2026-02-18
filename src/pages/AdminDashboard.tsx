@@ -62,6 +62,11 @@ const AdminDashboard: React.FC = () => {
       ...prev,
       [name]: value,
     }));
+    
+    // Update preview if image URL is entered manually
+    if (name === 'image' && typeof value === 'string' && value.trim()) {
+      setImagePreview(value);
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -320,11 +325,15 @@ const AdminDashboard: React.FC = () => {
 
                     {/* PREVIEW */}
                     {imagePreview && (
-                      <div className="w-24 h-24 bg-gray-900 border border-gray-800 rounded-sm overflow-hidden flex-shrink-0">
+                      <div className="w-32 h-32 bg-gray-900 border-2 border-blue-500 rounded-sm overflow-hidden flex-shrink-0 flex items-center justify-center">
                         <img
                           src={imagePreview}
                           alt="Preview"
                           className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.style.display = 'none';
+                          }}
                         />
                       </div>
                     )}
@@ -439,12 +448,6 @@ const AdminDashboard: React.FC = () => {
               </tbody>
             </table>
           </div>
-        </div>
-
-        {/* SERVER STATUS */}
-        <div className="mt-8 p-4 bg-gray-900 border border-gray-800 rounded-sm text-sm text-gray-400">
-          <p>🔄 Server: <span className="text-blue-400">{getApiBaseURL()}</span></p>
-          <p className="mt-2">Connected to Hugging Face Backend (or localhost in dev).</p>
         </div>
       </div>
     </div>
