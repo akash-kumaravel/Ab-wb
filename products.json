@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "gggg",
+    "price": "gggg",
+    "image": "/static/uploads/fc6ef0b3-4890-4197-afa2-76d5f576f115_image (17).jpg",
+    "description": "gg",
+    "features": [
+      "gg"
+    ]
+  }
+]
