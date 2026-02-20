@@ -106,51 +106,66 @@ const HomeMinimal: React.FC = () => {
       style={containerHeight ? { height: `${containerHeight}px` } : undefined}
     >
       <div className="flex flex-col h-full">
-        {/* HERO: ~40-45% of viewport */}
-        <header className="flex-none relative" style={heroH ? { height: `${heroH}px` } : undefined}>
-          <img
-            src="/assets/shutterstock_1069102985-1920w.jpeg"
-            alt="Hero"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </header>
+        {!selectedCategory && (
+          <>
+            {/* HERO: ~40-45% of viewport */}
+            <header className="flex-none relative" style={heroH ? { height: `${heroH}px` } : undefined}>
+              <img
+                src="/assets/shutterstock_1069102985-1920w.jpeg"
+                alt="Hero"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+            </header>
 
-        {/* small content */}
-        <div className="flex-none flex items-center justify-center px-4 sm:px-6" style={smallH ? { height: `${smallH}px` } : undefined}>
-          <p className="text-center text-sm lg:text-base text-gray-300 max-w-2xl">
-            Trusted by industry leaders — fast delivery, genuine spares, and expert support.
-          </p>
-        </div>
+            {/* small content */}
+            <div className="flex-none flex items-center justify-center px-4 sm:px-6" style={smallH ? { height: `${smallH}px` } : undefined}>
+              <p className="text-center text-sm lg:text-base text-gray-300 max-w-2xl">
+                Trusted by industry leaders — fast delivery, genuine spares, and expert support.
+              </p>
+            </div>
 
-        {/* heading */}
-        <div className="flex-none flex items-center justify-start px-4 sm:px-6" style={headingH ? { height: `${headingH}px` } : undefined}>
-          <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
-        </div>
+            {/* heading */}
+            <div className="flex-none flex items-center justify-start px-4 sm:px-6" style={headingH ? { height: `${headingH}px` } : undefined}>
+              <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
+            </div>
+          </>
+        )}
 
         {/* categories grid (exact trust-badges style) */}
-        <section className="mt-3 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 px-2 sm:px-6 h-full" style={categoriesH ? { height: `${categoriesH}px` } : undefined}>
+        <section className={`${selectedCategory ? 'mt-0' : 'mt-3 sm:mt-6'} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 px-2 sm:px-6 h-full`} style={selectedCategory || categoriesH ? { height: selectedCategory ? '100%' : `${categoriesH}px` } : undefined}>
           {selectedCategory ? (
             // Show filtered products for selected category
-            <div className="col-span-full h-full overflow-y-auto">
+            <div className="col-span-full h-full overflow-y-auto flex flex-col">
               {categoryProducts.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 pr-2">
-                  {categoryProducts.map((p) => (
-                    <div
-                      key={p.id}
-                      onClick={() => navigate(`/product/${slugify(p.name)}`)}
-                      className="flex flex-col items-center bg-[#080808] p-2 sm:p-3 border border-gray-800 rounded-sm cursor-pointer hover:border-blue-500 transition-colors"
+                <>
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
+                    <h2 className="text-lg font-bold">Products</h2>
+                    <button
+                      onClick={() => setSelectedCategory(null)}
+                      className="text-xs bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded-sm transition-colors"
                     >
-                      {p.image ? (
-                        <img src={p.image} alt={p.name} className="w-full h-16 object-cover rounded-sm mb-2" />
-                      ) : (
-                        <div className="w-full h-16 bg-gray-800 rounded-sm mb-2 flex items-center justify-center text-gray-500 text-xs">No Image</div>
-                      )}
-                      <h4 className="text-xs sm:text-xs font-bold text-center line-clamp-2">{p.name}</h4>
-                      <p className="text-xs text-gray-400 mt-1">{p.price}</p>
-                    </div>
-                  ))}
-                </div>
+                      ← Back
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4">
+                    {categoryProducts.map((p) => (
+                      <div
+                        key={p.id}
+                        onClick={() => navigate(`/product/${slugify(p.name)}`)}
+                        className="flex flex-col items-center bg-[#080808] p-2 sm:p-3 border border-gray-800 rounded-sm cursor-pointer hover:border-blue-500 transition-colors"
+                      >
+                        {p.image ? (
+                          <img src={p.image} alt={p.name} className="w-full h-16 object-cover rounded-sm mb-2" />
+                        ) : (
+                          <div className="w-full h-16 bg-gray-800 rounded-sm mb-2 flex items-center justify-center text-gray-500 text-xs">No Image</div>
+                        )}
+                        <h4 className="text-xs sm:text-xs font-bold text-center line-clamp-2">{p.name}</h4>
+                        <p className="text-xs text-gray-400 mt-1">{p.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
               ) : (
                 <div className="flex items-center justify-center h-full text-gray-400">No products in this category</div>
               )}
