@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Rieter R35",
+    "price": "\u20b98,00,000",
+    "category": 3,
+    "image": "/static/uploads/1ad0726d-8d1a-4a8f-a13c-b89a5993130a_f89d87c8-e18e-45eb-9144-a7293bacc563.jpg",
+    "description": "Rieter R35 is a reliable open-end spinning machine designed for cost-effective production of medium-count cotton and blended yarns.",
+    "features": [
+      "Rotor spinning technology",
+      "Stable yarn quality",
+      "Low maintenance design",
+      "Efficient energy utilisation",
+      "Easy operation interface"
+    ],
+    "model": "Rieter",
+    "series": "R35",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
+  }
+]
