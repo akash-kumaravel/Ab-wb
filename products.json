@@ -78,5 +78,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 5,
+    "name": "Sulzer G6200",
+    "price": "\u20b98,00,000",
+    "category": 1,
+    "image": "/static/uploads/d405f323-65e3-413d-83ac-a319ab54cfae_Generated Image February 20, 2026 - 11_15AM.png",
+    "description": "Sulzer G6200 is widely used for terry and patterned weaving with strong performance and weave precision.",
+    "features": [
+      "Electronic control system",
+      "High production efficiency",
+      "Reduced vibration design",
+      "Reliable yarn control",
+      "Wide fabric adaptability"
+    ],
+    "model": "Rieter",
+    "series": "G Series Rapier Loom",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
