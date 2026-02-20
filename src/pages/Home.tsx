@@ -475,25 +475,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       <div className="flex-1 mt-2">
-        <h3 className="text-sm font-medium text-gray-300 group-hover:text-blue-500 transition-colors cursor-pointer line-clamp-2 leading-snug">
+        <h3 className="text-sm font-medium text-gray-200 group-hover:text-blue-400 transition-colors cursor-pointer line-clamp-2 leading-snug">
           {product.name}
         </h3>
-        {product.model || product.series ? (
-          <div className="mt-2 text-xs text-gray-400">
-            <p className="line-clamp-1">
-              {product.model && <span className="font-medium">Model: {product.model}</span>}
-              {product.model && product.series && <span className="mx-1">•</span>}
-              {product.series && <span className="font-medium">Series: {product.series}</span>}
-            </p>
-          </div>
-        ) : null}
+        <div className="mt-2 text-xs text-gray-400 flex flex-col gap-1">
+          {product.model && <p>Model: <span className="text-gray-300 font-medium">{product.model}</span></p>}
+          {product.series && <p>Series: <span className="text-gray-300 font-medium">{product.series}</span></p>}
+        </div>
         {product.isSpecialOffer && product.specialOfferPrice ? (
           <div className="mt-3 flex items-center gap-2">
+            <span className="text-xs text-gray-500">Price:</span>
             <p className="text-sm text-gray-500 line-through">{product.price}</p>
             <p className="text-lg font-black text-green-500">{product.specialOfferPrice}</p>
           </div>
         ) : (
-          <p className="mt-3 text-lg font-black text-blue-400">{product.price}</p>
+          <div className="mt-3 flex items-center gap-2">
+            <span className="text-xs text-gray-400">Price:</span>
+            <p className="text-lg font-black text-blue-400">{product.price}</p>
+          </div>
         )}
       </div>
     </div>

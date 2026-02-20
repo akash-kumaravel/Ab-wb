@@ -8,8 +8,18 @@ export interface Product {
   name: string;
   price: string;
   image: string;
+  category?: number;
   description?: string;
   features?: string[];
+  model?: string;
+  series?: string;
+  warranty?: string;
+  shipping?: string;
+  categoryName?: string;
+  outOfStock?: boolean;
+  discount?: string;
+  specialOfferPrice?: string;
+  isSpecialOffer?: boolean;
   created_at?: string;
   updated_at?: string;
 }
