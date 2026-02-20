@@ -1,0 +1,186 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CATEGORIES } from '../constants';
+import { slugify } from '../utils/slugify';
+import { Product } from '../types';
+import { Truck, Headset, RefreshCcw, ShieldCheck } from 'lucide-react';
+import ProductService from '../services/ProductService';
+
+const HomeMinimal: React.FC = () => {
+  const navigate = useNavigate();
+  // show categories instead of individual products on this minimal home
+  const categories = CATEGORIES.slice(0, 4);
+
+  const [containerHeight, setContainerHeight] = useState<number | null>(null);
+  const [heroH, setHeroH] = useState<number | null>(null);
+  const [smallH, setSmallH] = useState<number | null>(null);
+  const [headingH, setHeadingH] = useState<number | null>(null);
+  const [categoriesH, setCategoriesH] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
+
+  // Fetch all products on mount
+  useEffect(() => {
+    ProductService.getAllProducts().then((data) => {
+      setAllProducts(data || []);
+    });
+  }, []);
+
+  // When a category is selected, filter products
+  useEffect(() => {
+    if (selectedCategory) {
+      const filtered = allProducts.filter((p) => p.category === selectedCategory);
+      setCategoryProducts(filtered);
+    } else {
+      setCategoryProducts([]);
+    }
+  }, [selectedCategory, allProducts]);
+
+  useEffect(() => {
+    const compute = () => {
+      const headerEl = document.querySelector('header');
+      const navEl = document.querySelector('nav');
+      // if header is absolute (overlay on root) don't subtract its height
+      let headerH = 0;
+      if (headerEl) {
+        try {
+          const isAbsolute = headerEl.classList.contains('absolute');
+          headerH = isAbsolute ? 0 : headerEl.getBoundingClientRect().height;
+        } catch (e) {
+          headerH = headerEl.getBoundingClientRect().height || 0;
+        }
+      }
+      const navH = navEl ? navEl.getBoundingClientRect().height : 0;
+      const available = Math.max(0, window.innerHeight - headerH - navH);
+      setContainerHeight(available);
+
+      // allocate proportions but clamp for very small screens
+      const ww = window.innerWidth;
+      let hHeroRatio = 0.42;
+      let hSmallRatio = 0.12;
+      let hHeadingRatio = 0.08;
+
+      // on very narrow screens give more space to categories
+      if (ww <= 420) {
+        hHeroRatio = 0.30;
+        hSmallRatio = 0.08;
+        hHeadingRatio = 0.06;
+      } else if (ww <= 640) {
+        hHeroRatio = 0.34;
+        hSmallRatio = 0.10;
+        hHeadingRatio = 0.07;
+      }
+
+      const hHero = Math.round(available * hHeroRatio);
+      const hSmall = Math.round(available * hSmallRatio);
+      const hHeading = Math.round(available * hHeadingRatio);
+      const hCats = Math.max(120, available - hHero - hSmall - hHeading);
+      setHeroH(hHero);
+      setSmallH(hSmall);
+      setHeadingH(hHeading);
+      setCategoriesH(hCats);
+    };
+
+    compute();
+    window.addEventListener('resize', compute);
+
+    const ResizeObserverCtor = (window as any).ResizeObserver;
+    const ro: any = ResizeObserverCtor ? new ResizeObserverCtor(() => compute()) : null;
+    const headerEl = document.querySelector('header');
+    const navEl = document.querySelector('nav');
+    if (ro) {
+      if (headerEl) ro.observe(headerEl);
+      if (navEl) ro.observe(navEl);
+    }
+
+    return () => {
+      window.removeEventListener('resize', compute);
+      if (ro) ro.disconnect();
+    };
+  }, []);
+
+  return (
+    <div
+      className="w-full overflow-hidden bg-black text-white"
+      style={containerHeight ? { height: `${containerHeight}px` } : undefined}
+    >
+      <div className="flex flex-col h-full">
+        {/* HERO: ~40-45% of viewport */}
+        <header className="flex-none relative" style={heroH ? { height: `${heroH}px` } : undefined}>
+          <img
+            src="/assets/shutterstock_1069102985-1920w.jpeg"
+            alt="Hero"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </header>
+
+        {/* small content */}
+        <div className="flex-none flex items-center justify-center px-4 sm:px-6" style={smallH ? { height: `${smallH}px` } : undefined}>
+          <p className="text-center text-sm lg:text-base text-gray-300 max-w-2xl">
+            Trusted by industry leaders — fast delivery, genuine spares, and expert support.
+          </p>
+        </div>
+
+        {/* heading */}
+        <div className="flex-none flex items-center justify-start px-4 sm:px-6" style={headingH ? { height: `${headingH}px` } : undefined}>
+          <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
+        </div>
+
+        {/* categories grid (exact trust-badges style) */}
+        <section className="mt-3 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 px-2 sm:px-6 h-full" style={categoriesH ? { height: `${categoriesH}px` } : undefined}>
+          {selectedCategory ? (
+            // Show filtered products for selected category
+            <div className="col-span-full h-full overflow-y-auto">
+              {categoryProducts.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 pr-2">
+                  {categoryProducts.map((p) => (
+                    <div
+                      key={p.id}
+                      onClick={() => navigate(`/product/${slugify(p.name)}`)}
+                      className="flex flex-col items-center bg-[#080808] p-2 sm:p-3 border border-gray-800 rounded-sm cursor-pointer hover:border-blue-500 transition-colors"
+                    >
+                      {p.image ? (
+                        <img src={p.image} alt={p.name} className="w-full h-16 object-cover rounded-sm mb-2" />
+                      ) : (
+                        <div className="w-full h-16 bg-gray-800 rounded-sm mb-2 flex items-center justify-center text-gray-500 text-xs">No Image</div>
+                      )}
+                      <h4 className="text-xs sm:text-xs font-bold text-center line-clamp-2">{p.name}</h4>
+                      <p className="text-xs text-gray-400 mt-1">{p.price}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-full text-gray-400">No products in this category</div>
+              )}
+            </div>
+          ) : (
+            // Show category buttons
+            categories.map((cat, idx) => {
+              const icons = [Truck, Headset, RefreshCcw, ShieldCheck];
+              const Icon = icons[idx % icons.length];
+              return (
+                <div
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className="flex items-center gap-3 sm:gap-5 p-2 sm:p-4 bg-[#080808] border border-gray-800 rounded-sm group hover:border-blue-500 transition-colors cursor-pointer h-full"
+                >
+                  <div className="transition-transform duration-300 group-hover:scale-110">
+                    <Icon className="text-blue-500 w-4 h-4 sm:w-8 sm:h-8" />
+                  </div>
+
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-bold uppercase">{cat.name}</h3>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default HomeMinimal;

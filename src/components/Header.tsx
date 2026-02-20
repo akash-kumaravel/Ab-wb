@@ -10,9 +10,9 @@ const Header: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between gap-6 bg-black py-8 px-4 md:px-10">
-      <Link to="/" className="text-4xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer">
-        AB TEXTILE MACHINARY
+    <header className={`sticky top-0 z-50 bg-black flex flex-row items-center justify-between gap-4 py-4 px-4 md:px-10`}>
+      <Link to="/" className={`flex-1 text-2xl md:text-4xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
+        <span className="block">AB TEXTILE<br/>MACHINARY</span>
       </Link>
 
       {/* NAVIGATION LINKS */}
@@ -22,6 +22,12 @@ const Header: React.FC = () => {
           className={`transition-colors ${isActive('/') ? 'text-blue-500' : 'hover:text-blue-500'}`}
         >
           Home
+        </Link>
+        <Link
+          to="/all-products"
+          className={`transition-colors ${isActive('/all-products') ? 'text-blue-500' : 'hover:text-blue-500'}`}
+        >
+          All Products
         </Link>
         <Link
           to="/shop"
@@ -51,25 +57,22 @@ const Header: React.FC = () => {
 const HeaderIcons: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex items-center space-x-8">
-      <AdminIcon navigate={navigate} />
+    <div className="flex items-center">
+      <AdminButton navigate={navigate} />
     </div>
   );
 };
 
 
-const AdminIcon: React.FC<{ navigate: any }> = ({ navigate }) => (
-  <div 
-    className="flex items-center gap-3 cursor-pointer group"
+const AdminButton: React.FC<{ navigate: any }> = ({ navigate }) => (
+  <button
     onClick={() => navigate('/admin')}
+    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-sm border border-blue-700 text-xs font-bold transition-all"
+    aria-label="Admin"
   >
-    <div className="relative">
-      <User size={24} className="group-hover:text-blue-500 transition-colors" />
-    </div>
-    <span className="hidden lg:block text-xs uppercase font-bold text-gray-400 group-hover:text-white transition-colors">
-      Admin
-    </span>
-  </div>
+    <User size={14} />
+    <span className="hidden sm:inline">Admin</span>
+  </button>
 );
 
 export default Header;

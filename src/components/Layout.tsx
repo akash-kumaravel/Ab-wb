@@ -14,6 +14,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const isRoot = location.pathname === '/';
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -44,14 +45,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <div ref={mainRef} className="min-h-screen bg-black text-white">
+    <div ref={mainRef} className={`min-h-screen bg-black text-white ${isRoot ? 'overflow-hidden' : ''}`}>
       <Header />
       <Navigation />
-      <main className="max-w-[1400px] mx-auto px-4 lg:px-10 py-8">
+      <main className={`max-w-[1400px] mx-auto px-4 lg:px-10 ${isRoot ? 'py-0' : 'py-8'}`}>
         {children}
       </main>
-      <Footer />
-      <WhatsAppButton />
+      {!isRoot && <Footer />}
+      {!isRoot && <WhatsAppButton />}
     </div>
   );
 };
