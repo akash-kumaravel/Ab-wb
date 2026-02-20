@@ -491,7 +491,15 @@ const AdminDashboard: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    MODEL */}
+                    name="sku"
+                    value={formData.sku}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="e.g., TM-1-001"
+                  />
+                </div>
+
+                {/* MODEL */}
                 <div>
                   <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
                     Model
@@ -518,14 +526,6 @@ const AdminDashboard: React.FC = () => {
                     onChange={handleInputChange}
                     className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="e.g., R35"
-                  />
-                </div>
-
-                {/* name="sku"
-                    value={formData.sku}
-                    onChange={handleInputChange}
-                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="e.g., TM-1-001"
                   />
                 </div>
 
