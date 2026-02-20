@@ -190,5 +190,21 @@
     "discount": "30",
     "specialOfferPrice": "\u20b96,00,000",
     "isSpecialOffer": true
+  },
+  {
+    "id": 10,
+    "name": "sulzer pu 290cm with kr1 dobby",
+    "price": "22,50,0000",
+    "category": 1,
+    "image": "/static/uploads/41161291-f4a6-428e-a7aa-9a97b91b482d_IMG_8348.jpeg",
+    "description": "* PU KR1 DOBBY 4 MACHINE \r\nACCESORIES:- \r\n\r\nFRAME - 6 no \r\nBEAM - 1.5 \r\nCLOTHROLL- 1.5\r\nACUMULATER- 2 \r\nFEEDER - 2 \r\nCONNECTING- 12\r\nTLL- YES ( NARO)\r\nNAME JACARD - SUMOTEX",
+    "features": [
+      "230 rpm with cotton running"
+    ],
+    "model": "pu",
+    "series": "92000 above",
+    "sku": "",
+    "warranty": "undefined",
+    "shipping": ""
   }
 ]
