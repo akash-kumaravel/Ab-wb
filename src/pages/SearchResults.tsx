@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
 import { Product } from '../types';
 import ProductService from '../services/ProductService';
 import { slugify } from '../utils/slugify';
@@ -16,11 +15,11 @@ const SearchResults: React.FC = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useMemo(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       const data = await ProductService.getAllProducts();
-      setAllProducts(data.length > 0 ? data : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+      setAllProducts(data);
       setLoading(false);
     };
 
@@ -45,7 +44,7 @@ const SearchResults: React.FC = () => {
 
   const results = useMemo(() => {
     if (!query.trim()) return [];
-    
+
     const lowerQuery = query.toLowerCase();
     return allProducts.filter(product =>
       product.name.toLowerCase().includes(lowerQuery) ||
