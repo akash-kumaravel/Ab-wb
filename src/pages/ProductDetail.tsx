@@ -1,10 +1,30 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, Heart, Share2 } from 'lucide-react';
-import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
+import { ChevronLeft, Share2, Check } from 'lucide-react';
 import { Product } from '../types';
 import ProductService from '../services/ProductService';
 import { slugify, findProductBySlug } from '../utils/slugify';
+
+const WHATSAPP_NUMBER = '919843140485';
+
+const buildWhatsAppMessage = (product: Product): string => {
+  const lines = [
+    `Hello! I am interested in the following product:`,
+    ``,
+    `*Product:* ${product.name}`,
+    product.model ? `*Model:* ${product.model}` : '',
+    product.series ? `*Series:* ${product.series}` : '',
+    `*Price:* ${product.price}`,
+    ``,
+    `Could you please provide more details and availability?`,
+  ].filter(l => l !== undefined);
+  return encodeURIComponent(lines.join('\n'));
+};
+
+const openWhatsApp = (product: Product) => {
+  const message = buildWhatsAppMessage(product);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+};
 
 // ============================================
 // PRODUCT DETAIL PAGE
@@ -18,6 +38,20 @@ const ProductDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [apiProducts, setApiProducts] = useState<Product[]>([]);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: product?.name || 'Product', url });
+      } catch (_) { }
+    } else {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   // Log immediately on mount and when productSlug changes
   React.useEffect(() => {
@@ -29,80 +63,37 @@ const ProductDetail: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      console.log('=== FETCH DATA START ===');
-      console.log('Product slug from URL:', productSlug);
-      console.log('Window location:', window.location.href);
-      
-      // Always start with constants as base - these are guaranteed to be valid
-      const baseProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-      console.log('Base products from constants:', baseProducts.length, 'products');
-      console.log('Base product names:', baseProducts.map(p => p.name));
-      
-      let productsToUse = [...baseProducts]; // Start with constants
-      
+
       try {
-        // Try to fetch from API
-        const fetchedApiProducts = await ProductService.getAllProducts();
-        console.log('API returned:', fetchedApiProducts);
-        
-        // Keep track of API products separately for related products
-        const validApiProducts = fetchedApiProducts && Array.isArray(fetchedApiProducts) 
-          ? fetchedApiProducts.filter(p => p?.name && p?.id)
+        const fetchedProducts = await ProductService.getAllProducts();
+        const validProducts = Array.isArray(fetchedProducts)
+          ? fetchedProducts.filter(p => p?.name && p?.id)
           : [];
-        setApiProducts(validApiProducts);
-        
-        // If API has valid products, add them (but keep constants as base)
-        if (validApiProducts.length > 0) {
-          console.log('API has products, combining with constants');
-          // Merge API products with constants (API first, then constants)
-          const idSet = new Set(validApiProducts.map(p => p?.id));
-          productsToUse = [...validApiProducts, ...baseProducts.filter(p => !idSet.has(p.id))];
+
+        setApiProducts(validProducts);
+        setAllProducts(validProducts);
+
+        let found: Product | null = null;
+        if (productSlug) {
+          found = findProductBySlug(productSlug, validProducts);
+          if (!found) {
+            found = validProducts.find(p => p.name.toLowerCase() === productSlug.toLowerCase()) || null;
+          }
         } else {
-          console.log('API returned no valid products, using only constants');
-          productsToUse = [...baseProducts];
+          found = validProducts[0] || null;
+        }
+
+        setProduct(found || null);
+
+        if (found) {
+          const related = validProducts.filter(p => p.id !== found!.id).slice(0, 4);
+          setRelatedProducts(related);
         }
       } catch (error) {
-        console.error('Error fetching from API:', error);
-        console.log('Using constants only');
-        productsToUse = [...baseProducts];
+        console.error('Error fetching product:', error);
+        setProduct(null);
       }
-      
-      console.log('Final products to search:', productsToUse.length, 'products');
-      setAllProducts(productsToUse);
 
-      let found: Product | null = null;
-
-      // If slug is undefined, show first product as fallback
-      if (!productSlug) {
-        console.log('No slug provided, using first available product');
-        found = productsToUse[0] || null;
-        console.log('First product:', found?.name);
-      } else {
-        // Search for product by slug
-        console.log('Searching for slug:', productSlug);
-        found = findProductBySlug(productSlug, productsToUse);
-        
-        if (!found) {
-          console.log('Slug not found');
-          found = productsToUse.find(p => p.name.toLowerCase() === productSlug.toLowerCase());
-        }
-        console.log('Found:', found?.name);
-      }
-      
-      setProduct(found || null);
-
-      if (found) {
-        // Show related products ONLY from server (API products)
-        const relatedFromServer = apiProducts
-          .filter(p => p.id !== found.id)
-          .slice(0, 4);
-        
-        console.log('Related products from server:', relatedFromServer.length);
-        setRelatedProducts(relatedFromServer);
-      } else {
-        console.warn('No product found! productsToUse:', productsToUse);
-      }
-      
       setLoading(false);
     };
 
@@ -127,7 +118,7 @@ const ProductDetail: React.FC = () => {
                 <h3 className="text-white font-bold mb-2 text-sm">Available Products ({allProducts.length}):</h3>
                 <ul className="text-gray-400 text-xs space-y-1">
                   {allProducts.map(p => (
-                    <li key={p.id} 
+                    <li key={p.id}
                       onClick={() => navigate(`/product/${slugify(p.name)}`)}
                       className="hover:text-blue-500 cursor-pointer"
                     >
@@ -194,11 +185,15 @@ const ProductDetail: React.FC = () => {
                         }}
                       />
                       <div className="absolute top-4 right-4 flex gap-2">
-                        <button className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors">
-                          <Heart size={18} className="text-white" />
-                        </button>
-                        <button className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors">
-                          <Share2 size={18} className="text-white" />
+                        <button
+                          onClick={handleShare}
+                          title={copied ? 'Link copied!' : 'Share product'}
+                          className="p-3 bg-blue-600/80 hover:bg-blue-600 rounded-full transition-colors flex items-center gap-1"
+                        >
+                          {copied
+                            ? <Check size={18} className="text-white" />
+                            : <Share2 size={18} className="text-white" />
+                          }
                         </button>
                       </div>
                     </>
@@ -269,8 +264,15 @@ const ProductDetail: React.FC = () => {
 
                 {/* ACTIONS */}
                 <div className="flex gap-4 pt-6">
-                  <button className="flex-1 bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 rounded-sm border border-gray-800 hover:border-gray-700 transition-colors">
-                    Contact for Inquiry
+                  <button
+                    onClick={() => openWhatsApp(product)}
+                    className="flex-1 flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-sm transition-colors"
+                  >
+                    {/* WhatsApp Icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    WhatsApp Enquiry
                   </button>
                 </div>
 

@@ -51,14 +51,13 @@ const Contact: React.FC = () => {
           <div className="space-y-8">
             <div>
               <h3 className="text-lg font-bold text-white mb-8">Contact Information</h3>
-              
+
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <Phone className="text-blue-500 flex-shrink-0 mt-1" size={24} />
                   <div>
                     <p className="text-gray-400 text-sm">Phone</p>
-                    <p className="text-white font-bold">+1-800-TEXTILE-1</p>
-                    <p className="text-white font-bold">+92-300-1234567</p>
+                    <p className="text-white font-bold">+91 98431 40485</p>
                   </div>
                 </div>
 
@@ -75,8 +74,8 @@ const Contact: React.FC = () => {
                   <MapPin className="text-blue-500 flex-shrink-0 mt-1" size={24} />
                   <div>
                     <p className="text-gray-400 text-sm">Address</p>
-                    <p className="text-white font-bold">Lahore, Pakistan</p>
-                    <p className="text-gray-400 text-sm">Industrial Area, Mills District</p>
+                    <p className="text-white font-bold">MR COMPLEX, CHETTIPALAYAM ROAD</p>
+                    <p className="text-gray-400 text-sm">PALLADAM</p>
                   </div>
                 </div>
 
@@ -96,7 +95,7 @@ const Contact: React.FC = () => {
           <div className="lg:col-span-2">
             <div className="bg-gray-900 p-8 border border-gray-800 rounded-sm">
               <h3 className="text-2xl font-bold text-white mb-6">Send us a Message</h3>
-              
+
               {submitted ? (
                 <div className="flex items-center justify-center h-96">
                   <div className="text-center">
