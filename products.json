@@ -18,5 +18,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 2,
+    "name": "Rieter R36",
+    "price": "\u20b99,00,000",
+    "category": 3,
+    "image": "/static/uploads/c8dab19e-0744-4826-9b7b-bdbcbc5139b4_f89d87c8-e18e-45eb-9144-a7293bacc563.jpg",
+    "description": "Rieter R36 delivers enhanced control for yarn consistency and is suited for compact to mid-scale OE spinning applications.",
+    "features": [
+      "Automated piecing system",
+      "Precise rotor speed control",
+      "Reduced yarn breaks",
+      "Centralised suction",
+      "Simple servicing access"
+    ],
+    "model": "Rieter",
+    "series": "R36",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
