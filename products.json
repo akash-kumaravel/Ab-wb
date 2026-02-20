@@ -98,5 +98,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 6,
+    "name": "Sulzer G6300",
+    "price": "\u20b98,00,000",
+    "category": 1,
+    "image": "/static/uploads/043ce359-0878-4eaf-9c3a-cef68b7fb16b_d4c1f36c-5736-40f3-a441-78c58aa00c55.jpg",
+    "description": "Sulzer G6300 offers stable operation and improved output for high-speed rapier weaving in industrial environments.",
+    "features": [
+      "Optimised rapier motion",
+      "Increased output",
+      "Reduced weft waste",
+      "Flexible width options",
+      "Easy maintenance"
+    ],
+    "model": "Sulzer",
+    "series": "G Series Rapier Loom",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
