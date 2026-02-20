@@ -80,7 +80,10 @@
     "series": "G Series Rapier Loom",
     "sku": "",
     "warranty": "24",
-    "shipping": "10"
+    "shipping": "10",
+    "discount": "40",
+    "specialOfferPrice": "500000",
+    "isSpecialOffer": true
   },
   {
     "id": 5,
