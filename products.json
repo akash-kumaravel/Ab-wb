@@ -1,16 +1,1 @@
-[
-  {
-    "id": 1,
-    "name": "aaaa",
-    "price": "aaaa",
-    "category": 2,
-    "image": "/static/uploads/e4b7a3e6-832a-479d-b7df-052cd41004e2_ChatGPT Image Feb 17, 2026, 12_35_35 PM.png",
-    "description": "aaa",
-    "features": [
-      "aaa"
-    ],
-    "sku": "aa",
-    "warranty": "aaa",
-    "shipping": "aaa"
-  }
-]
+[]
