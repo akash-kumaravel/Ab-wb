@@ -17,7 +17,10 @@
     "series": "R35",
     "sku": "",
     "warranty": "24",
-    "shipping": "10"
+    "shipping": "10",
+    "discount": "30",
+    "specialOfferPrice": "600000",
+    "isSpecialOffer": true
   },
   {
     "id": 2,
