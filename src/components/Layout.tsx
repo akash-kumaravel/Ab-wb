@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from './Header';
 import Navigation from './Navigation';
 import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -50,6 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };
