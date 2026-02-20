@@ -51,11 +51,15 @@ const FooterAbout: React.FC = () => (
     <div className="space-y-4">
       <div>
         <p className="text-xs font-bold uppercase text-gray-400">Address:</p>
-        <p className="text-sm text-gray-500">4710-4890 Breckinridge St, London, UK</p>
+        <p className="text-sm text-gray-500">MR COMPLEX, CHETTIPALAYAM ROAD, PALLADAM</p>
       </div>
       <div>
         <p className="text-xs font-bold uppercase text-gray-400">Need Help?</p>
-        <p className="text-2xl font-bold text-blue-500">Call: 1-800-TEXTILE-01</p>
+        <p className="text-2xl font-bold text-blue-500">Call: +91 98431 40485</p>
+        <div className="mt-2 flex gap-3">
+          <a href="tel:+919843140485" className="text-sm text-blue-500 hover:text-blue-400 transition-colors font-semibold">📞 Call</a>
+          <a href="https://wa.me/919843140485" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-500 hover:text-blue-400 transition-colors font-semibold">💬 WhatsApp</a>
+        </div>
       </div>
     </div>
   </div>
