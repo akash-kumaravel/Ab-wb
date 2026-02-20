@@ -10,7 +10,6 @@ interface ProductForm {
   image: string | File | null;
   description: string;
   features: string;
-  sku: string;
   warranty: string;
   shipping: string;
   model: string;
@@ -36,7 +35,6 @@ const AdminDashboard: React.FC = () => {
     image: '',
     description: '',
     features: '',
-    sku: '',
     warranty: '',
     shipping: '',
     model: '',
@@ -155,7 +153,6 @@ const AdminDashboard: React.FC = () => {
         data.append('price', formData.price);
         data.append('category', formData.category.toString());
         data.append('description', formData.description);
-        data.append('sku', formData.sku);
         data.append('model', formData.model);
         data.append('series', formData.series);
         data.append('warranty', formData.warranty);
@@ -188,7 +185,6 @@ const AdminDashboard: React.FC = () => {
             model: '',
             series: '',
             features: '',
-            sku: '',
             warranty: '',
             shipping: '',
           });
@@ -220,8 +216,6 @@ const AdminDashboard: React.FC = () => {
       image: product.image,
       description: product.description,
       features: Array.isArray(product.features) ? product.features.join('\n') : product.features || '',
-      sku: product.sku || '',
-      warranty: product.warranty || '',
       shipping: product.shipping || '',
     });
     setImagePreview(product.image); // Show existing image
@@ -260,7 +254,6 @@ const AdminDashboard: React.FC = () => {
       image: '',
       description: '',
       features: '',
-      sku: '',
       warranty: '',
       shipping: '',
     });
@@ -282,8 +275,6 @@ const AdminDashboard: React.FC = () => {
       image: '',
       description: '',
       features: '',
-      sku: '',
-      warranty: '',
       shipping: '',
     });
     setImagePreview(null);
@@ -481,21 +472,6 @@ const AdminDashboard: React.FC = () => {
                     className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors h-32 resize-none font-mono text-sm"
                     placeholder="High-precision engineering&#10;Energy-efficient operation&#10;24/7 Technical support"
                     required
-                  />
-                </div>
-
-                {/* SKU */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
-                    SKU
-                  </label>
-                  <input
-                    type="text"
-                    name="sku"
-                    value={formData.sku}
-                    onChange={handleInputChange}
-                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="e.g., TM-1-001"
                   />
                 </div>
 
