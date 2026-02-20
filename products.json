@@ -58,5 +58,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 4,
+    "name": "Sulzer G6100",
+    "price": "\u20b98,00,000",
+    "category": 1,
+    "image": "/static/uploads/10fdad64-f718-488c-9746-75284918b476_Generated Image February 20, 2026 - 11_14AM.png",
+    "description": "The Sulzer G6100 is a reliable rapier weaving machine efficient for a wide range of fabrics including cotton and blended textiles.",
+    "features": [
+      "Shuttleless rapier weft insertion",
+      "High weaving speed",
+      "Dobby/Jacquard compatibility",
+      "Robust mechanical frame",
+      "Smooth fabric take-up"
+    ],
+    "model": "Sulzer",
+    "series": "G Series Rapier Loom",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
