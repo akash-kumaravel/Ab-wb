@@ -186,6 +186,9 @@
     "series": "L Series Air-Jet Loom",
     "sku": "",
     "warranty": "24",
-    "shipping": "10"
+    "shipping": "10",
+    "discount": "30",
+    "specialOfferPrice": "\u20b96,00,000",
+    "isSpecialOffer": true
   }
 ]
