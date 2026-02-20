@@ -39,7 +39,7 @@ const AdminLogin: React.FC = () => {
       <div className="w-full max-w-md">
         {/* HEADER */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-black tracking-tighter mb-2">AUTIMA</h1>
+          <h1 className="text-4xl font-black tracking-tighter mb-2">AB TEXTILE MACHINARY</h1>
           <p className="text-gray-400 text-sm uppercase tracking-wider">Admin Panel</p>
         </div>
 

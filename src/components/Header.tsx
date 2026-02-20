@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between gap-6 bg-black py-8 px-4 md:px-10">
       <Link to="/" className="text-4xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer">
-        AUTIMA
+        AB TEXTILE MACHINARY
       </Link>
 
       {/* NAVIGATION LINKS */}

@@ -7,13 +7,25 @@ export const slugify = (name: string): string => {
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/[^\w-]+/g, '') // Remove special characters except hyphens
-    .replace(/-+/g, '-'); // Replace multiple hyphens with single hyphen
+    .replace(/[^\w-]/g, '') // Remove special chars except hyphens and word chars
+    .replace(/-+/g, '-') // Replace multiple hyphens with single
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 };
 
 /**
- * Find a product by slug (matches against product name)
+ * Find a product by slug, also supports numeric IDs for backwards compatibility
  */
-export const findProductBySlug = (slug: string, products: any[]): any | null => {
-  return products.find(p => slugify(p.name) === slug) || null;
+export const findProductBySlug = (slugOrId: string, products: any[]): any | null => {
+  if (!slugOrId || !products.length) return null;
+  
+  // First, try matching by numeric ID (backwards compatibility)
+  const numId = parseInt(slugOrId);
+  if (!isNaN(numId)) {
+    const byId = products.find(p => p.id === numId);
+    if (byId) return byId;
+  }
+  
+  // Then try matching by slug
+  const normalizedSlug = slugify(slugOrId);
+  return products.find(p => slugify(p.name) === normalizedSlug) || null;
 };

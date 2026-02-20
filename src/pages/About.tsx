@@ -11,7 +11,7 @@ const About: React.FC = () => {
       {/* PAGE HEADER */}
       <section className="bg-gradient-to-b from-blue-600/20 to-transparent py-20 px-4">
         <div className="max-w-[1400px] mx-auto">
-          <h1 className="text-5xl font-bold text-white mb-4">About AUTIMA</h1>
+          <h1 className="text-5xl font-bold text-white mb-4">About AB TEXTILE MACHINARY</h1>
           <p className="text-gray-400 text-lg">
             Leading provider of premium textile machinery and equipment worldwide
           </p>
@@ -24,7 +24,7 @@ const About: React.FC = () => {
           <div>
             <h2 className="text-3xl font-bold text-white mb-6">Who We Are</h2>
             <p className="text-gray-400 leading-relaxed mb-4">
-              AUTIMA is a global leader in textile machinery manufacturing and distribution. 
+              AB TEXTILE MACHINARY is a global leader in textile machinery manufacturing and distribution. 
               With over 20 years of industry experience, we deliver innovative solutions 
               that drive textile production excellence worldwide.
             </p>
@@ -88,7 +88,7 @@ const About: React.FC = () => {
         <div className="bg-blue-600/10 border border-blue-600/50 p-12 rounded-sm text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
           <p className="text-gray-400 mb-6">
-            Contact our sales team to discover how AUTIMA can transform your textile production
+            Contact our sales team to discover how AB TEXTILE MACHINARY can transform your textile production
           </p>
           <a href="/contact" className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm transition-colors">
             Get in Touch

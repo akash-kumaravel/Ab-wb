@@ -21,19 +21,28 @@ const ProductDetail: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const products = await ProductService.getAllProducts();
-      const fallback = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-      const productsToUse = products.length > 0 ? products : fallback;
+      try {
+        const products = await ProductService.getAllProducts();
+        console.log('Fetched products:', products);
+        console.log('Looking for slug:', productSlug);
+        
+        const fallback: Product[] = [];
+        const productsToUse = products.length > 0 ? products : fallback;
 
-      setAllProducts(productsToUse);
+        setAllProducts(productsToUse);
 
-      const found = findProductBySlug(productSlug || '', productsToUse);
-      setProduct(found || null);
+        const found = findProductBySlug(productSlug || '', productsToUse);
+        console.log('Found product:', found);
+        
+        setProduct(found || null);
 
-      if (found) {
-        setRelatedProducts(
-          productsToUse.filter(p => p.id !== found.id).slice(0, 4)
-        );
+        if (found) {
+          setRelatedProducts(
+            productsToUse.filter(p => p.id !== found.id).slice(0, 4)
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
       }
       setLoading(false);
     };
