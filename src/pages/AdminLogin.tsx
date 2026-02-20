@@ -107,15 +107,6 @@ const AdminLogin: React.FC = () => {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-
-          {/* DEMO CREDENTIALS */}
-          <div className="mt-8 pt-6 border-t border-gray-800">
-            <p className="text-xs text-gray-500 text-center uppercase tracking-wider mb-3">Demo Credentials</p>
-            <div className="bg-black rounded-sm p-3 space-y-1 text-xs text-gray-400">
-              <p><span className="text-gray-500">Username:</span> Admin</p>
-              <p><span className="text-gray-500">Password:</span> Admin@123</p>
-            </div>
-          </div>
         </div>
 
         {/* BACK LINK */}
