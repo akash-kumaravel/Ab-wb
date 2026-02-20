@@ -18,38 +18,79 @@ const ProductDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
+  // Log immediately on mount and when productSlug changes
+  React.useEffect(() => {
+    console.log('=== PRODUCT DETAIL PAGE MOUNT ===');
+    console.log('Current URL:', window.location.href);
+    console.log('useParams productSlug:', productSlug);
+  }, [productSlug]);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      console.log('=== FETCH DATA START ===');
+      console.log('Product slug from URL:', productSlug);
+      console.log('Window location:', window.location.href);
+      
+      // Always start with constants as base - these are guaranteed to be valid
+      const baseProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
+      console.log('Base products from constants:', baseProducts.length, 'products');
+      console.log('Base product names:', baseProducts.map(p => p.name));
+      
+      let productsToUse = [...baseProducts]; // Start with constants
+      
       try {
-        const products = await ProductService.getAllProducts();
-        console.log('Fetched products:', products);
-        console.log('Looking for slug:', productSlug);
+        // Try to fetch from API
+        const apiProducts = await ProductService.getAllProducts();
+        console.log('API returned:', apiProducts);
         
-        // Use fetched products, or combine with fallback if needed
-        const productsToUse = products.length > 0 ? products : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-        
-        console.log('Using products:', productsToUse);
-        setAllProducts(productsToUse);
-
-        const found = findProductBySlug(productSlug || '', productsToUse);
-        console.log('Found product:', found);
-        
-        setProduct(found || null);
-
-        if (found) {
-          setRelatedProducts(
-            productsToUse.filter(p => p.id !== found.id).slice(0, 4)
-          );
+        // If API has valid products, add them (but keep constants as base)
+        if (apiProducts && Array.isArray(apiProducts) && apiProducts.length > 0) {
+          console.log('API has products, combining with constants');
+          // Merge API products with constants (API first, then constants)
+          const idSet = new Set(apiProducts.map(p => p?.id));
+          const validApiProducts = apiProducts.filter(p => p?.name && p?.id);
+          productsToUse = [...validApiProducts, ...baseProducts.filter(p => !idSet.has(p.id))];
+        } else {
+          console.log('API returned no valid products, using only constants');
         }
       } catch (error) {
-        console.error('Error fetching products:', error);
-        // Fallback to constants if API fails
-        const fallbackProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
-        setAllProducts(fallbackProducts);
-        const found = findProductBySlug(productSlug || '', fallbackProducts);
-        setProduct(found || null);
+        console.error('Error fetching from API:', error);
+        console.log('Using constants only');
       }
+      
+      console.log('Final products to search:', productsToUse.length, 'products');
+      setAllProducts(productsToUse);
+
+      let found: Product | null = null;
+
+      // If slug is undefined, show first product as fallback
+      if (!productSlug) {
+        console.log('No slug provided, using first available product');
+        found = productsToUse[0] || null;
+        console.log('First product:', found?.name);
+      } else {
+        // Search for product by slug
+        console.log('Searching for slug:', productSlug);
+        found = findProductBySlug(productSlug, productsToUse);
+        
+        if (!found) {
+          console.log('Slug not found');
+          found = productsToUse.find(p => p.name.toLowerCase() === productSlug.toLowerCase());
+        }
+        console.log('Found:', found?.name);
+      }
+      
+      setProduct(found || null);
+
+      if (found) {
+        setRelatedProducts(
+          productsToUse.filter(p => p.id !== found.id).slice(0, 4)
+        );
+      } else {
+        console.warn('No product found! productsToUse:', productsToUse);
+      }
+      
       setLoading(false);
     };
 
@@ -65,9 +106,25 @@ const ProductDetail: React.FC = () => {
       )}
 
       {!loading && !product && (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
+        <div className="min-h-screen flex items-center justify-center px-4">
+          <div className="text-center max-w-md">
             <h1 className="text-3xl font-bold text-white mb-4">Product Not Found</h1>
+            <p className="text-gray-400 mb-2 text-sm">Slug: {productSlug || 'None'}</p>
+            {allProducts.length > 0 && (
+              <div className="mb-6 text-left bg-gray-900 p-4 rounded-sm border border-gray-800">
+                <h3 className="text-white font-bold mb-2 text-sm">Available Products ({allProducts.length}):</h3>
+                <ul className="text-gray-400 text-xs space-y-1">
+                  {allProducts.map(p => (
+                    <li key={p.id} 
+                      onClick={() => navigate(`/product/${slugify(p.name)}`)}
+                      className="hover:text-blue-500 cursor-pointer"
+                    >
+                      {p.id}. {p.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <button
               onClick={() => navigate('/')}
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm transition-all"

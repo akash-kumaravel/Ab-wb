@@ -217,11 +217,21 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {displayedProducts.length > 0 ? (
-              displayedProducts.map((product) => (
-                <div key={product.id} onClick={() => navigate(`/product/${slugify(product.name)}`)} className="cursor-pointer">
-                  <ProductCard product={product} />
-                </div>
-              ))
+              displayedProducts.map((product) => {
+                const slug = slugify(product.name);
+                return (
+                  <div 
+                    key={product.id} 
+                    onClick={() => {
+                      console.log('Clicking product:', product.name, 'slug:', slug);
+                      navigate(`/product/${slug}`);
+                    }} 
+                    className="cursor-pointer"
+                  >
+                    <ProductCard product={product} />
+                  </div>
+                );
+              })
             ) : (
               <p className="text-gray-400 col-span-full text-center py-8">No products available</p>
             )}

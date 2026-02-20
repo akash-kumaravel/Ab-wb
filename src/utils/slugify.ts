@@ -16,21 +16,22 @@ export const slugify = (name: string): string => {
  * Find a product by slug, also supports numeric IDs for backwards compatibility
  */
 export const findProductBySlug = (slugOrId: string, products: any[]): any | null => {
-  if (!slugOrId || !products.length) return null;
+  if (!slugOrId || !products || !products.length) return null;
   
-  // First, try matching by numeric ID (backwards compatibility)
+  const normalizedSlug = slugify(slugOrId);
+  
+  // Try matching by numeric ID
   const numId = parseInt(slugOrId);
   if (!isNaN(numId)) {
     const byId = products.find(p => p.id === numId);
     if (byId) return byId;
   }
   
-  // Then try matching by slug
-  const normalizedSlug = slugify(slugOrId);
+  // Try exact slug match
   const bySlug = products.find(p => slugify(p.name) === normalizedSlug);
   if (bySlug) return bySlug;
   
-  // Finally, try case-insensitive partial match (more lenient)
+  // Try case-insensitive partial match
   const lowerInput = slugOrId.toLowerCase();
   const partialMatch = products.find(p => 
     p.name.toLowerCase().includes(lowerInput) || 
