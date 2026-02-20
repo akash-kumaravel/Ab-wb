@@ -38,16 +38,7 @@ const Home: React.FC = () => {
     const fetchProducts = async () => {
       setLoading(true);
       const data = await ProductService.getAllProducts();
-      // If no products from API, use fallback constants
-
-      // If no products from API, we can still use fallback constants or just show API products.
-      // For now, let's prioritize API products but fall back if empty to keep the site looking populated for the demo.
-      // Ideally, we should just use data.
-      if (data.length > 0) {
-        setProducts(data);
-      } else {
-        setProducts([...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
-      }
+      setProducts(data);
       setLoading(false);
     };
 
@@ -59,9 +50,7 @@ const Home: React.FC = () => {
     const handleVisibility = () => {
       if (!document.hidden) {
         ProductService.getAllProducts().then(data => {
-          if (data.length > 0) {
-            setProducts(data);
-          }
+          setProducts(data);
         });
       }
     };
