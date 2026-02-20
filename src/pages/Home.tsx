@@ -490,18 +490,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {product.name}
         </h3>
         {product.model || product.series ? (
-          <div className="mt-1 text-xs text-gray-500 space-y-0.5">
-            {product.model && <p>Model: {product.model}</p>}
-            {product.series && <p>Series: {product.series}</p>}
+          <div className="mt-2 text-xs text-gray-400">
+            <p className="line-clamp-1">
+              {product.model && <span className="font-medium">Model: {product.model}</span>}
+              {product.model && product.series && <span className="mx-1">•</span>}
+              {product.series && <span className="font-medium">Series: {product.series}</span>}
+            </p>
           </div>
         ) : null}
         {product.isSpecialOffer && product.specialOfferPrice ? (
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <p className="text-sm text-gray-500 line-through">{product.price}</p>
             <p className="text-lg font-black text-green-500">{product.specialOfferPrice}</p>
           </div>
         ) : (
-          <p className="mt-2 text-lg font-black text-blue-500">{product.price}</p>
+          <p className="mt-3 text-lg font-black text-blue-400">{product.price}</p>
         )}
       </div>
     </div>
