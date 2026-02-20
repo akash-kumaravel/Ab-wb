@@ -17,6 +17,7 @@ const ProductDetail: React.FC = () => {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [apiProducts, setApiProducts] = useState<Product[]>([]);
 
   // Log immediately on mount and when productSlug changes
   React.useEffect(() => {
@@ -41,22 +42,29 @@ const ProductDetail: React.FC = () => {
       
       try {
         // Try to fetch from API
-        const apiProducts = await ProductService.getAllProducts();
-        console.log('API returned:', apiProducts);
+        const fetchedApiProducts = await ProductService.getAllProducts();
+        console.log('API returned:', fetchedApiProducts);
+        
+        // Keep track of API products separately for related products
+        const validApiProducts = fetchedApiProducts && Array.isArray(fetchedApiProducts) 
+          ? fetchedApiProducts.filter(p => p?.name && p?.id)
+          : [];
+        setApiProducts(validApiProducts);
         
         // If API has valid products, add them (but keep constants as base)
-        if (apiProducts && Array.isArray(apiProducts) && apiProducts.length > 0) {
+        if (validApiProducts.length > 0) {
           console.log('API has products, combining with constants');
           // Merge API products with constants (API first, then constants)
-          const idSet = new Set(apiProducts.map(p => p?.id));
-          const validApiProducts = apiProducts.filter(p => p?.name && p?.id);
+          const idSet = new Set(validApiProducts.map(p => p?.id));
           productsToUse = [...validApiProducts, ...baseProducts.filter(p => !idSet.has(p.id))];
         } else {
           console.log('API returned no valid products, using only constants');
+          productsToUse = [...baseProducts];
         }
       } catch (error) {
         console.error('Error fetching from API:', error);
         console.log('Using constants only');
+        productsToUse = [...baseProducts];
       }
       
       console.log('Final products to search:', productsToUse.length, 'products');
@@ -84,9 +92,13 @@ const ProductDetail: React.FC = () => {
       setProduct(found || null);
 
       if (found) {
-        setRelatedProducts(
-          productsToUse.filter(p => p.id !== found.id).slice(0, 4)
-        );
+        // Show related products ONLY from server (API products)
+        const relatedFromServer = apiProducts
+          .filter(p => p.id !== found.id)
+          .slice(0, 4);
+        
+        console.log('Related products from server:', relatedFromServer.length);
+        setRelatedProducts(relatedFromServer);
       } else {
         console.warn('No product found! productsToUse:', productsToUse);
       }
