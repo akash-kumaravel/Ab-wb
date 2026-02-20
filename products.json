@@ -158,5 +158,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 9,
+    "name": "AIR-JET L5000",
+    "price": "\u20b98,00,000",
+    "category": 2,
+    "image": "/static/uploads/12d780b5-db15-4529-af4d-32fe195f8456_64735d78-f0b6-4cd7-8885-47999259bada.jpg",
+    "description": "Sulzer L5300 offers precision weaving with enhanced automation and consistent quality for medium to high-speed weaving.",
+    "features": [
+      "High-efficiency air-jet system",
+      "Stable weaving performance",
+      "Reduced downtime",
+      "Flexible fabric applications",
+      "Modern control interface"
+    ],
+    "model": "AIR-JET",
+    "series": "L Series Air-Jet Loom",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
