@@ -1,24 +1,32 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { TRENDING_PRODUCTS, SPECIAL_OFFERS } from '../constants';
 import { slugify } from '../utils/slugify';
+import ProductService, { Product } from '../services/ProductService';
 
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const allProducts = useMemo(() => [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS], []);
+  // Fetch products from server on mount
+  useEffect(() => {
+    ProductService.getAllProducts().then(data => {
+      setAllProducts(data);
+    });
+  }, []);
 
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
-    
+
     const lowerQuery = searchQuery.toLowerCase();
     return allProducts
       .filter(product =>
-        product.name.toLowerCase().includes(lowerQuery)
+        product.name.toLowerCase().includes(lowerQuery) ||
+        product.model?.toLowerCase().includes(lowerQuery) ||
+        product.series?.toLowerCase().includes(lowerQuery)
       )
       .slice(0, 6);
   }, [searchQuery, allProducts]);
@@ -32,7 +40,7 @@ const Navigation: React.FC = () => {
     }
   };
 
-  const handleProductClick = (product: any) => {
+  const handleProductClick = (product: Product) => {
     navigate(`/product/${slugify(product.name)}`);
     setSearchQuery('');
     setShowDropdown(false);
@@ -83,11 +91,21 @@ const Navigation: React.FC = () => {
                       onClick={() => handleProductClick(product)}
                       className="flex items-center gap-3 p-3 border-b border-gray-800 hover:bg-gray-800 cursor-pointer transition-colors last:border-b-0"
                     >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-12 h-12 object-cover rounded-sm"
-                      />
+                      {product.image ? (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-12 h-12 object-cover rounded-sm"
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-12 h-12 bg-gray-800 rounded-sm flex items-center justify-center text-gray-500 text-xs">
+                          No Img
+                        </div>
+                      )}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-white truncate">{product.name}</p>
                         <p className="text-xs text-blue-500 font-bold">{product.price}</p>
