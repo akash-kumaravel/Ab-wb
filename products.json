@@ -38,5 +38,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 3,
+    "name": "Rieter R40",
+    "price": "\u20b910,00,000",
+    "category": 3,
+    "image": "/static/uploads/42589e72-9e5a-4a49-bdbb-f98f868dbde3_f89d87c8-e18e-45eb-9144-a7293bacc563.jpg",
+    "description": "Rieter R40 offers improved throughput and handling for cotton, polyester, and blended yarns with solid energy efficiency.",
+    "features": [
+      "High rotor speed performance",
+      "Auto doffing capability",
+      "Yarn monitoring system",
+      "Flexible count range",
+      "Low energy consumption"
+    ],
+    "model": "Rieter",
+    "series": "R40",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
