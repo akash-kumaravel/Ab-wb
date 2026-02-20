@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Rieter R35",
+    "price": "200000",
+    "category": 3,
+    "image": "/static/uploads/4aea3b4c-37df-4a1f-904d-28c09607057b_csm_r-70-rotor-spinning-machine-flexibility-rieter-94078_4de2b575f6.jpg",
+    "description": "aaaa",
+    "features": [
+      "aaaaa"
+    ],
+    "sku": "R35",
+    "warranty": "24 month",
+    "shipping": "5"
+  }
+]
