@@ -64,9 +64,85 @@ export const CATEGORIES = [
   }
 ];
 
-export const TRENDING_PRODUCTS = [];
+export const TRENDING_PRODUCTS = [
+  {
+    id: 1,
+    name: 'Ring Spinning Frame RS-8000',
+    model: 'Rieter',
+    series: 'R35',
+    price: '$45,000',
+    image: '/assets/shutterstock_1069102985-1920w.jpeg',
+    category: 1,
+    description: 'High-speed ring spinning frame with advanced automation',
+    features: ['High-precision spindles', 'Auto doffing', 'Energy efficient', '24/7 support'],
+    sku: 'TM-1-001',
+    warranty: '24 Months',
+    shipping: '2-5 Business Days'
+  },
+  {
+    id: 2,
+    name: 'Air-Jet Weaving Loom AJL-2000',
+    model: 'Sulzer',
+    series: 'S500',
+    price: '$85,000',
+    image: '/assets/shutterstock_1069102985-1920w.jpeg',
+    category: 2,
+    description: 'Advanced air-jet weaving machine for high production',
+    features: ['High speed', 'Low noise', 'Flexible design', 'Easy maintenance'],
+    sku: 'TM-2-001',
+    warranty: '24 Months',
+    shipping: '2-5 Business Days'
+  },
+  {
+    id: 3,
+    name: 'Knitting Machine KM-500',
+    model: 'Stoll',
+    series: 'CMS',
+    price: '$35,000',
+    image: '/assets/shutterstock_1069102985-1920w.jpeg',
+    category: 3,
+    description: 'Professional knitting machine for textile production',
+    features: ['Precision control', 'Multiple gauge options', 'Compact design'],
+    sku: 'TM-3-001',
+    warranty: '24 Months',
+    shipping: '2-5 Business Days'
+  },
+  {
+    id: 4,
+    name: 'Dyeing Machine DM-1500',
+    model: 'ALSTOM',
+    series: 'H300',
+    price: '$65,000',
+    image: '/assets/shutterstock_1069102985-1920w.jpeg',
+    category: 4,
+    description: 'Industrial dyeing and processing machine',
+    features: ['Temperature control', 'Chemical dosing', 'Eco-friendly', 'Automation ready'],
+    sku: 'TM-4-001',
+    warranty: '24 Months',
+    shipping: '2-5 Business Days'
+  }
+];
 
-export const SPECIAL_OFFERS = [];
+export const SPECIAL_OFFERS = [
+  {
+    id: 5,
+    name: 'Spinning Frame SF-6000',
+    model: 'Rieter',
+    series: 'R25',
+    price: '$38,000',
+    specialOfferPrice: '$32,000',
+    discount: '15% OFF',
+    image: '/assets/shutterstock_1069102985-1920w.jpeg',
+    category: 1,
+    isSpecialOffer: true,
+    countdown: true,
+    description: 'Special promotion on selected spinning frames',
+    features: ['High efficiency', 'Low maintenance', 'Durable construction'],
+    sku: 'TM-5-001',
+    warranty: '24 Months',
+    shipping: '2-5 Business Days'
+  }
+];
 
 export const BRAND_LOGOS = [
   '/assets/shutterstock_1069102985-1920w.jpeg',

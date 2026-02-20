@@ -26,9 +26,10 @@ const ProductDetail: React.FC = () => {
         console.log('Fetched products:', products);
         console.log('Looking for slug:', productSlug);
         
-        const fallback: Product[] = [];
-        const productsToUse = products.length > 0 ? products : fallback;
-
+        // Use fetched products, or combine with fallback if needed
+        const productsToUse = products.length > 0 ? products : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
+        
+        console.log('Using products:', productsToUse);
         setAllProducts(productsToUse);
 
         const found = findProductBySlug(productSlug || '', productsToUse);
@@ -43,6 +44,11 @@ const ProductDetail: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching products:', error);
+        // Fallback to constants if API fails
+        const fallbackProducts = [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS];
+        setAllProducts(fallbackProducts);
+        const found = findProductBySlug(productSlug || '', fallbackProducts);
+        setProduct(found || null);
       }
       setLoading(false);
     };
