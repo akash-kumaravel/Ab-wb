@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './src/components/Layout';
 import Home from './src/pages/Home';
+import HomeMinimal from './src/pages/HomeMinimal';
 import Shop from './src/pages/Shop';
 import ProductDetail from './src/pages/ProductDetail';
 import SearchResults from './src/pages/SearchResults';
@@ -23,7 +24,8 @@ const App: React.FC = () => (
         element={
           <Layout>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<HomeMinimal />} />
+              <Route path="/all-products" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/product/:productSlug" element={<ProductDetail />} />
               <Route path="/search" element={<SearchResults />} />
