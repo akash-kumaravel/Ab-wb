@@ -158,5 +158,25 @@
     "sku": "",
     "warranty": "24",
     "shipping": "10"
+  },
+  {
+    "id": 9,
+    "name": "AIR-JET L5200",
+    "price": "\u20b98,00,000",
+    "category": 2,
+    "image": "/static/uploads/67426a36-7fd3-4d24-8a6f-ed13fcd13360_46f5fcdb-1044-4587-84d2-36a88fcee8eb.jpg",
+    "description": "Sulzer L5200 combines advanced air control with improved production capability for modern high-performance weaving operations.",
+    "features": [
+      "Advanced air-control tech",
+      "Higher productivity",
+      "Reduced air consumption",
+      "Electronic monitoring",
+      "Excellent fabric quality"
+    ],
+    "model": "AIR-JET",
+    "series": "L Series Air-Jet Loom",
+    "sku": "",
+    "warranty": "24",
+    "shipping": "10"
   }
 ]
