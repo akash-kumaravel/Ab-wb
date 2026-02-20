@@ -479,6 +479,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <h3 className="text-sm font-medium text-gray-300 group-hover:text-blue-500 transition-colors cursor-pointer line-clamp-2 leading-snug">
           {product.name}
         </h3>
+        {product.model || product.series ? (
+          <div className="mt-1 text-xs text-gray-500 space-y-0.5">
+            {product.model && <p>Model: {product.model}</p>}
+            {product.series && <p>Series: {product.series}</p>}
+          </div>
+        ) : null}
         {product.isSpecialOffer && product.specialOfferPrice ? (
           <div className="mt-2 flex items-center gap-2">
             <p className="text-sm text-gray-500 line-through">{product.price}</p>

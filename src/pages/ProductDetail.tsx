@@ -140,6 +140,12 @@ const ProductDetail: React.FC = () => {
                 {/* TITLE */}
                 <div>
                   <h1 className="text-4xl font-bold text-white mb-2">{product.name}</h1>
+                  {product.model || product.series ? (
+                    <div className="text-sm text-gray-400 space-y-1">
+                      {product.model && <p>Model: <span className="text-white font-semibold">{product.model}</span></p>}
+                      {product.series && <p>Series: <span className="text-white font-semibold">{product.series}</span></p>}
+                    </div>
+                  ) : null}
                 </div>
 
                 {/* PRICE */}
@@ -198,6 +204,8 @@ const ProductDetail: React.FC = () => {
                   <h4 className="text-sm font-bold text-white mb-3 uppercase">Specifications</h4>
                   <div className="space-y-2 text-sm text-gray-400">
                     <div className="flex justify-between"><span>Category:</span><span className="text-white">{product.categoryName || 'Textile Machinery'}</span></div>
+                    {product.model && <div className="flex justify-between"><span>Model:</span><span className="text-white">{product.model}</span></div>}
+                    {product.series && <div className="flex justify-between"><span>Series:</span><span className="text-white">{product.series}</span></div>}
                     <div className="flex justify-between"><span>SKU:</span><span className="text-white">{product.sku || `TM-${product.id}-001`}</span></div>
                     <div className="flex justify-between"><span>Warranty:</span><span className="text-white">{product.warranty || '24 Months'}</span></div>
                     <div className="flex justify-between"><span>Shipping:</span><span className="text-white">{product.shipping || '2-5 Business Days'}</span></div>

@@ -13,6 +13,8 @@ interface ProductForm {
   sku: string;
   warranty: string;
   shipping: string;
+  model: string;
+  series: string;
 }
 
 interface SpecialOfferForm {
@@ -37,6 +39,8 @@ const AdminDashboard: React.FC = () => {
     sku: '',
     warranty: '',
     shipping: '',
+    model: '',
+    series: '',
   });
   const [specialOfferForm, setSpecialOfferForm] = useState<SpecialOfferForm>({
     productId: '',
@@ -152,6 +156,8 @@ const AdminDashboard: React.FC = () => {
         data.append('category', formData.category.toString());
         data.append('description', formData.description);
         data.append('sku', formData.sku);
+        data.append('model', formData.model);
+        data.append('series', formData.series);
         data.append('warranty', formData.warranty);
         data.append('shipping', formData.shipping);
 
@@ -179,6 +185,8 @@ const AdminDashboard: React.FC = () => {
             category: 1,
             image: '',
             description: '',
+            model: '',
+            series: '',
             features: '',
             sku: '',
             warranty: '',
@@ -207,6 +215,8 @@ const AdminDashboard: React.FC = () => {
       name: product.name,
       price: product.price,
       category: product.category || 1,
+      model: product.model || '',
+      series: product.series || '',
       image: product.image,
       description: product.description,
       features: Array.isArray(product.features) ? product.features.join('\n') : product.features || '',
@@ -245,6 +255,8 @@ const AdminDashboard: React.FC = () => {
       name: '',
       price: '',
       category: 1,
+      model: '',
+      series: '',
       image: '',
       description: '',
       features: '',
@@ -263,6 +275,8 @@ const AdminDashboard: React.FC = () => {
     setShowForm(true);
     setFormData({
       name: '',
+      model: '',
+      series: '',
       price: '',
       category: 1,
       image: '',
@@ -477,7 +491,37 @@ const AdminDashboard: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    name="sku"
+                    MODEL */}
+                <div>
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Model
+                  </label>
+                  <input
+                    type="text"
+                    name="model"
+                    value={formData.model}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="e.g., Rieter"
+                  />
+                </div>
+
+                {/* SERIES */}
+                <div>
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Series
+                  </label>
+                  <input
+                    type="text"
+                    name="series"
+                    value={formData.series}
+                    onChange={handleInputChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="e.g., R35"
+                  />
+                </div>
+
+                {/* name="sku"
                     value={formData.sku}
                     onChange={handleInputChange}
                     className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors"

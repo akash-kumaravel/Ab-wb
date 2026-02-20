@@ -27,5 +27,15 @@ export const findProductBySlug = (slugOrId: string, products: any[]): any | null
   
   // Then try matching by slug
   const normalizedSlug = slugify(slugOrId);
-  return products.find(p => slugify(p.name) === normalizedSlug) || null;
+  const bySlug = products.find(p => slugify(p.name) === normalizedSlug);
+  if (bySlug) return bySlug;
+  
+  // Finally, try case-insensitive partial match (more lenient)
+  const lowerInput = slugOrId.toLowerCase();
+  const partialMatch = products.find(p => 
+    p.name.toLowerCase().includes(lowerInput) || 
+    lowerInput.includes(p.name.toLowerCase())
+  );
+  
+  return partialMatch || null;
 };

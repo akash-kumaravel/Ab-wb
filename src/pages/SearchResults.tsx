@@ -78,6 +78,12 @@ const SearchResults: React.FC = () => {
       <h3 className="text-sm font-bold text-gray-300 group-hover:text-blue-500 transition-colors line-clamp-2 mb-2">
         {product.name}
       </h3>
+      {product.model || product.series ? (
+        <div className="text-xs text-gray-500 space-y-0.5 mb-2">
+          {product.model && <p>Model: {product.model}</p>}
+          {product.series && <p>Series: {product.series}</p>}
+        </div>
+      ) : null}
       <p className="text-blue-500 font-black">{product.price}</p>
     </div>
   );

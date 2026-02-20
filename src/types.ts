@@ -16,6 +16,8 @@ export interface Product {
   warranty?: string;
   shipping?: string;
   categoryName?: string;
+  model?: string;
+  series?: string;
 }
 
 export interface Category {
