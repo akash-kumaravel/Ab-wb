@@ -584,7 +584,10 @@ const CategoryMiniList: React.FC<CategoryMiniListProps> = ({ title, products, na
               <h4 className="text-xs font-bold uppercase leading-tight line-clamp-2 text-gray-400 group-hover:text-blue-500 transition-colors">
                 {p.name}
               </h4>
-              <p className="mt-1 font-black text-blue-500">{p.price}</p>
+              <div className="mt-1 text-xs text-gray-500 space-y-0.5">
+                {p.model && <p>Model: <span className="text-gray-300">{p.model}</span></p>}
+                {p.series && <p>Series: <span className="text-gray-300">{p.series}</span></p>}
+              </div>
             </div>
           </div>
         ))}

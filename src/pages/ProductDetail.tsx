@@ -168,8 +168,8 @@ const ProductDetail: React.FC = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
               {/* PRODUCT IMAGE */}
-              <div className="flex items-center justify-center">
-                <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden border border-gray-800 group flex items-center justify-center">
+              <div className="flex items-start justify-center">
+                <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden border border-gray-800 group flex items-start justify-center">
                   {product.image ? (
                     <>
                       <img
@@ -269,7 +269,6 @@ const ProductDetail: React.FC = () => {
                     <div className="flex justify-between"><span>Category:</span><span className="text-white">{product.categoryName || 'Textile Machinery'}</span></div>
                     {product.model && <div className="flex justify-between"><span>Model:</span><span className="text-white">{product.model}</span></div>}
                     {product.series && <div className="flex justify-between"><span>Series:</span><span className="text-white">{product.series}</span></div>}
-                    <div className="flex justify-between"><span>SKU:</span><span className="text-white">{product.sku || `TM-${product.id}-001`}</span></div>
                     <div className="flex justify-between"><span>Warranty:</span><span className="text-white">{product.warranty || '24 Months'}</span></div>
                     <div className="flex justify-between"><span>Shipping:</span><span className="text-white">{product.shipping || '2-5 Business Days'}</span></div>
                   </div>
