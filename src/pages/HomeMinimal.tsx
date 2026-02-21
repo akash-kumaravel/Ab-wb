@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { CATEGORIES } from '../constants';
 import { slugify } from '../utils/slugify';
 import { Product } from '../types';
-import { Truck, Headset, RefreshCcw, ShieldCheck } from 'lucide-react';
+import { Truck, Headset, RefreshCcw, ShieldCheck, Factory, Zap, Wind, Cog, Wrench, Package } from 'lucide-react';
 import ProductService from '../services/ProductService';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 const HomeMinimal: React.FC = () => {
   const navigate = useNavigate();
   // show categories instead of individual products on this minimal home
-  const categories = CATEGORIES.slice(0, 4);
+  const categories = CATEGORIES.slice(0, 6);
 
   const [containerHeight, setContainerHeight] = useState<number | null>(null);
   const [heroH, setHeroH] = useState<number | null>(null);
@@ -57,19 +58,19 @@ const HomeMinimal: React.FC = () => {
 
       // allocate proportions but clamp for very small screens
       const ww = window.innerWidth;
-      let hHeroRatio = 0.42;
-      let hSmallRatio = 0.12;
-      let hHeadingRatio = 0.08;
+      let hHeroRatio = 0.28;
+      let hSmallRatio = 0.08;
+      let hHeadingRatio = 0.05;
 
       // on very narrow screens give more space to categories
       if (ww <= 420) {
-        hHeroRatio = 0.30;
-        hSmallRatio = 0.08;
-        hHeadingRatio = 0.06;
+        hHeroRatio = 0.20;
+        hSmallRatio = 0.05;
+        hHeadingRatio = 0.04;
       } else if (ww <= 640) {
-        hHeroRatio = 0.34;
-        hSmallRatio = 0.10;
-        hHeadingRatio = 0.07;
+        hHeroRatio = 0.24;
+        hSmallRatio = 0.06;
+        hHeadingRatio = 0.045;
       }
 
       const hHero = Math.round(available * hHeroRatio);
@@ -127,7 +128,10 @@ const HomeMinimal: React.FC = () => {
 
             {/* heading */}
             <div className="flex-none flex items-center justify-start px-4 sm:px-6" style={headingH ? { height: `${headingH}px` } : undefined}>
-              <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
+              <div>
+                <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
+                <h3 className="text-xs sm:text-sm text-gray-400 mt-1">ALL TYPE OF WEAVING MACHINE AVAILABLE</h3>
+              </div>
             </div>
           </>
         )}
@@ -173,27 +177,24 @@ const HomeMinimal: React.FC = () => {
           ) : (
             // Show category buttons
             categories.map((cat, idx) => {
-              const icons = [Truck, Headset, RefreshCcw, ShieldCheck];
+              const icons = [Factory, Zap, Wind, Cog, Wrench, Package];
               const Icon = icons[idx % icons.length];
               return (
                 <div
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className="flex items-center gap-3 sm:gap-5 p-2 sm:p-4 bg-[#080808] border border-gray-800 rounded-sm group hover:border-blue-500 transition-colors cursor-pointer h-full"
+                  className="flex flex-col items-center justify-center gap-2 sm:gap-3 p-2 sm:p-4 bg-[#080808] border border-gray-800 rounded-sm group hover:border-blue-500 transition-colors cursor-pointer h-full"
                 >
-                  <div className="transition-transform duration-300 group-hover:scale-110">
-                    <Icon className="text-blue-500 w-4 h-4 sm:w-8 sm:h-8" />
-                  </div>
-
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-bold uppercase">{cat.name}</h3>
-                  </div>
+                  <Icon className="text-blue-500 w-6 h-6 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-110" />
+                  <h3 className="text-xs sm:text-sm font-bold uppercase text-center">{cat.name}</h3>
                 </div>
               );
             })
           )}
         </section>
+
       </div>
+      <WhatsAppButton />
     </div>
   );
 };

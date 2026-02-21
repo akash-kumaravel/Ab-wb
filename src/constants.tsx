@@ -46,18 +46,30 @@ export const CATEGORIES = [
   },
   {
     id: 3,
-    name: 'OE',
+    name: 'Rapier Weaving Machine',
+    icon: '/assets/shutterstock_1069102985-1920w.jpeg',
+    subCategories: ['Rapier Looms', 'Components', 'Upgrades']
+  },
+  {
+    id: 4,
+    name: 'OE Machine',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
     subCategories: ['Original Equipment', 'OE Parts', 'Accessories']
   },
   {
-    id: 4,
-    name: 'Spares & Parts',
+    id: 5,
+    name: 'Sulzer Spares',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
     subCategories: ['Spindles', 'Rollers', 'Needles', 'Modules']
   },
   {
-    id: 5,
+    id: 6,
+    name: 'Airjet Spares',
+    icon: '/assets/shutterstock_1069102985-1920w.jpeg',
+    subCategories: ['Nozzles', 'Channels', 'Sensors', 'Modules']
+  },
+  {
+    id: 7,
     name: 'Scrap',
     icon: '/assets/shutterstock_1069102985-1920w.jpeg',
     subCategories: ['Metal Scrap', 'Machine Scrap', 'Waste Materials']
