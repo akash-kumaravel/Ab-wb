@@ -59,7 +59,7 @@ const Navigation: React.FC = () => {
   }, []);
 
   return (
-    <nav className="sticky top-[88px] z-50 flex items-center justify-center py-2 px-4">
+    <nav className="relative z-40 flex items-center justify-center py-2 px-4">
       <div className="max-w-xl w-full relative" ref={dropdownRef}>
         <form onSubmit={handleSearch} className="relative">
             <input
@@ -71,11 +71,11 @@ const Navigation: React.FC = () => {
                 setShowDropdown(true);
               }}
               onFocus={() => searchQuery && setShowDropdown(true)}
-              className="w-full bg-black border border-gray-800 rounded-full py-2 px-6 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full bg-black border border-gray-800 rounded-full py-2 px-4 text-sm focus:outline-none focus:border-blue-500 transition-colors"
             />
             <button
               type="submit"
-              className="absolute right-0 top-0 bottom-0 bg-blue-600 hover:bg-blue-700 px-8 rounded-full flex items-center gap-2 text-sm font-bold transition-all uppercase"
+              className="absolute right-0 top-0 bottom-0 bg-blue-600 hover:bg-blue-700 px-4 sm:px-6 rounded-full flex items-center gap-2 text-sm font-bold transition-all uppercase"
             >
               <Search size={18} />
               Search

@@ -54,21 +54,32 @@ const HomeMinimal: React.FC = () => {
       }
       const navH = navEl ? navEl.getBoundingClientRect().height : 0;
       const available = Math.max(0, window.innerHeight - headerH - navH);
-      setContainerHeight(available);
 
-      // allocate proportions but clamp for very small screens
+      // compute viewport width early
       const ww = window.innerWidth;
+
+      // On small screens let the layout flow naturally (avoid forced heights)
+      if (ww <= 640) {
+        setContainerHeight(null);
+        setHeroH(null);
+        setSmallH(null);
+        setHeadingH(null);
+        setCategoriesH(null);
+        return;
+      }
+      setContainerHeight(available);
+      // allocate proportions but clamp for very small screens
       let hHeroRatio = 0.28;
       let hSmallRatio = 0.08;
       let hHeadingRatio = 0.05;
 
-      // on very narrow screens give more space to categories
+      // on very narrow screens give more space to the hero to make it larger
       if (ww <= 420) {
-        hHeroRatio = 0.20;
+        hHeroRatio = 0.38;
         hSmallRatio = 0.05;
-        hHeadingRatio = 0.04;
+        hHeadingRatio = 0.035;
       } else if (ww <= 640) {
-        hHeroRatio = 0.24;
+        hHeroRatio = 0.34;
         hSmallRatio = 0.06;
         hHeadingRatio = 0.045;
       }
@@ -76,8 +87,11 @@ const HomeMinimal: React.FC = () => {
       const hHero = Math.round(available * hHeroRatio);
       const hSmall = Math.round(available * hSmallRatio);
       const hHeading = Math.round(available * hHeadingRatio);
-      const hCats = Math.max(120, available - hHero - hSmall - hHeading);
-      setHeroH(hHero);
+      // ensure hero has a sensible minimum height on very small viewports
+      const minHero = ww <= 420 ? 220 : ww <= 640 ? 180 : 160;
+      const heroFinal = Math.max(hHero, minHero);
+      const hCats = Math.max(120, available - heroFinal - hSmall - hHeading);
+      setHeroH(heroFinal);
       setSmallH(hSmall);
       setHeadingH(hHeading);
       setCategoriesH(hCats);

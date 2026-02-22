@@ -18,7 +18,7 @@ const FOOTER_LINKS = {
     'Delivery Information',
     'Privacy Policy',
     'Terms & Conditions',
-    'About AB TEXTILE MACHINARY',
+    'About',
     'Secure Payment',
     'Warranty',
   ],
@@ -43,7 +43,11 @@ const Footer: React.FC = () => (
 
 const FooterAbout: React.FC = () => (
   <div className="space-y-6">
-    <div className="text-4xl font-black"><a href="https://www.memoinfotech.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">AB TEXTILE MACHINARY</a></div>
+    <div className="text-4xl font-black">
+      <a href="https://www.memoinfotech.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">
+        <img src="/assets/logo.png" alt="AB Textile Logo" className="h-20 object-contain" />
+      </a>
+    </div>
     <p className="text-sm leading-relaxed text-gray-500">
       Premium supplier of advanced textile machinery and equipment. We provide industrial-grade
       solutions for spinning, weaving, knitting, and dyeing operations globally.
