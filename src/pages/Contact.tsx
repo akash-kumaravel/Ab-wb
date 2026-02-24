@@ -62,15 +62,6 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <Mail className="text-blue-500 flex-shrink-0 mt-1" size={24} />
-                  <div>
-                    <p className="text-gray-400 text-sm">Email</p>
-                    <p className="text-white font-bold">sales@AB TEXTILE MACHINARY.com</p>
-                    <p className="text-white font-bold">support@AB TEXTILE MACHINARY.com</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
                   <MapPin className="text-blue-500 flex-shrink-0 mt-1" size={24} />
                   <div>
                     <p className="text-gray-400 text-sm">Address</p>
