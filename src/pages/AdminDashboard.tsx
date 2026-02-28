@@ -221,6 +221,7 @@ const AdminDashboard: React.FC = () => {
     });
     setImagePreview(product.image); // Show existing image
     setEditingId(product.id);
+    setFormType('product');
     setShowForm(true);
   };
 
