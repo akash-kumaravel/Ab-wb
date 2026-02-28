@@ -38,9 +38,9 @@ const Footer: React.FC = () => (
 const FooterAbout: React.FC = () => (
   <div className="space-y-6">
     <div>
-      <a href="https://www.memoinfotech.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+      <Link to="/" className="hover:opacity-80 transition-opacity inline-block">
         <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-16 object-contain" />
-      </a>
+      </Link>
     </div>
     <p className="text-sm leading-relaxed text-gray-400">
       Premium supplier of advanced textile machinery and equipment. We provide industrial-grade
