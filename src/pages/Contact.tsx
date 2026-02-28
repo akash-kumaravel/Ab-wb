@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 // ============================================
@@ -6,32 +6,6 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 // ============================================
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', company: '', message: '' });
-      setSubmitted(false);
-    }, 3000);
-  };
-
   return (
     <div className="min-h-screen bg-black">
       {/* PAGE HEADER */}
@@ -46,119 +20,92 @@ const Contact: React.FC = () => {
 
       {/* CONTACT CONTENT */}
       <section className="max-w-[1400px] mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* CONTACT INFO */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-8">Contact Information</h3>
-
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <Phone className="text-blue-500 flex-shrink-0 mt-1" size={24} />
-                  <div>
-                    <p className="text-gray-400 text-sm">Phone</p>
-                    <p className="text-white font-bold">+91 98431 40485</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <MapPin className="text-blue-500 flex-shrink-0 mt-1" size={24} />
-                  <div>
-                    <p className="text-gray-400 text-sm">Address</p>
-                    <p className="text-white font-bold">MR COMPLEX, CHETTIPALAYAM ROAD</p>
-                    <p className="text-gray-400 text-sm">PALLADAM</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <Clock className="text-blue-500 flex-shrink-0 mt-1" size={24} />
-                  <div>
-                    <p className="text-gray-400 text-sm">Business Hours</p>
-                    <p className="text-white font-bold">Mon - Fri: 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-400 text-sm">24/7 Emergency Support</p>
-                  </div>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* PHONE */}
+          <div className="bg-gray-900 p-8 border border-gray-800 rounded-sm hover:border-blue-500 transition-colors group">
+            <div className="flex justify-center mb-6">
+              <Phone className="text-blue-500 group-hover:scale-110 transition-transform" size={32} />
             </div>
+            <h3 className="text-lg font-bold text-white mb-4 text-center">Phone</h3>
+            <p className="text-gray-400 text-sm text-center mb-3">Call us for immediate support</p>
+            <a href="tel:+919344158524" className="text-blue-500 hover:text-blue-400 font-bold text-center block transition-colors">
+              +91 93441 58524
+            </a>
           </div>
 
-          {/* CONTACT FORM */}
-          <div className="lg:col-span-2">
-            <div className="bg-gray-900 p-8 border border-gray-800 rounded-sm">
-              <h3 className="text-2xl font-bold text-white mb-6">Send us a Message</h3>
-
-              {submitted ? (
-                <div className="flex items-center justify-center h-96">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-green-600/20 border border-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-3xl text-green-500">✓</span>
-                    </div>
-                    <p className="text-lg text-white font-bold">Thank you for your message!</p>
-                    <p className="text-gray-400">We'll get back to you shortly.</p>
-                  </div>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-bold text-white mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-sm focus:border-blue-500 outline-none transition-colors"
-                      placeholder="Your name"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-white mb-2">Email Address *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-sm focus:border-blue-500 outline-none transition-colors"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-white mb-2">Company Name</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-sm focus:border-blue-500 outline-none transition-colors"
-                      placeholder="Your company"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-white mb-2">Message *</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows={6}
-                      className="w-full bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-sm focus:border-blue-500 outline-none transition-colors resize-none"
-                      placeholder="Tell us about your inquiry..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-sm transition-colors"
-                  >
-                    Send Message
-                  </button>
-                </form>
-              )}
+          {/* EMAIL */}
+          <div className="bg-gray-900 p-8 border border-gray-800 rounded-sm hover:border-blue-500 transition-colors group">
+            <div className="flex justify-center mb-6">
+              <Mail className="text-blue-500 group-hover:scale-110 transition-transform" size={32} />
             </div>
+            <h3 className="text-lg font-bold text-white mb-4 text-center">Email</h3>
+            <p className="text-gray-400 text-sm text-center mb-3">Send us your queries</p>
+            <a href="mailto:rjtextilemachinery@gmail.com" className="text-blue-500 hover:text-blue-400 font-bold text-center block transition-colors break-all text-xs sm:text-sm">
+              rjtextilemachinery@gmail.com
+            </a>
+          </div>
+
+          {/* ADDRESS */}
+          <div className="bg-gray-900 p-8 border border-gray-800 rounded-sm hover:border-blue-500 transition-colors group">
+            <div className="flex justify-center mb-6">
+              <MapPin className="text-blue-500 group-hover:scale-110 transition-transform" size={32} />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-4 text-center">Address</h3>
+            <p className="text-gray-400 text-sm text-center">
+              MR COMPLEX,<br />
+              CHETTIPALAYAM ROAD,<br />
+              PALLADAM
+            </p>
+          </div>
+
+          {/* BUSINESS HOURS */}
+          <div className="bg-gray-900 p-8 border border-gray-800 rounded-sm hover:border-blue-500 transition-colors group">
+            <div className="flex justify-center mb-6">
+              <Clock className="text-blue-500 group-hover:scale-110 transition-transform" size={32} />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-4 text-center">Business Hours</h3>
+            <p className="text-gray-400 text-sm text-center mb-2">Mon - Fri: 9:00 AM - 6:00 PM</p>
+            <p className="text-blue-400 text-sm text-center">24/7 Emergency Support</p>
+          </div>
+        </div>
+
+        {/* MAP SECTION */}
+        <div className="mt-20 border border-gray-800 rounded-sm overflow-hidden">
+          <div className="bg-gray-900 p-4">
+            <h3 className="text-2xl font-bold text-white mb-2">Our Location</h3>
+            <p className="text-gray-400 text-sm">MR COMPLEX, CHETTIPALAYAM ROAD, PALLADAM</p>
+          </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.2467571234567!2d77.13333!3d11.03333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba96c1c1c1c1c1d%3A0x1c1c1c1c1c1c1c1c!2sPalladam%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full"
+          ></iframe>
+        </div>
+
+        {/* ADDITIONAL INFO */}
+        <div className="mt-20 bg-gradient-to-r from-blue-600/10 to-blue-400/10 border border-blue-500/20 rounded-sm p-12 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to Work with Us?</h2>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Contact our team today to discuss your textile machinery requirements. We're here to provide you with the best solutions and support.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="tel:+919344158524"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-sm transition-colors"
+            >
+              Call Now
+            </a>
+            <a
+              href="mailto:rjtextilemachinery@gmail.com"
+              className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-sm transition-colors border border-gray-700"
+            >
+              Send Email
+            </a>
           </div>
         </div>
       </section>

@@ -5,7 +5,7 @@ import { Product } from '../types';
 import ProductService from '../services/ProductService';
 import { slugify, findProductBySlug } from '../utils/slugify';
 
-const WHATSAPP_NUMBER = '919843140485';
+const WHATSAPP_NUMBER = '919344158524';
 
 const buildWhatsAppMessage = (product: Product): string => {
   const lines = [

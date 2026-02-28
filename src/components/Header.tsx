@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <header className={`sticky top-0 z-50 bg-black flex flex-row items-center justify-between gap-4 py-2 px-4 md:px-10`}>
       <Link to="/" className={`text-2xl md:text-4xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
-        <img src="/assets/logo.png" alt="AB Textile Logo" className="h-16 md:h-24 object-contain" />
+        <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-16 md:h-24 object-contain" />
       </Link>
 
       {/* NAVIGATION LINKS */}
@@ -79,7 +79,7 @@ const HeaderIcons: React.FC<{ open: boolean; setOpen: (v: boolean) => void }> = 
           <aside className="absolute left-0 top-0 h-full w-72 bg-black p-6 shadow-xl">
             <div className="flex items-center justify-between">
               <Link to="/" onClick={() => setOpen(false)}>
-                <img src="/assets/logo.png" alt="AB Textile Logo" className="h-10 object-contain" />
+                <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-10 object-contain" />
               </Link>
               <button onClick={() => setOpen(false)} className="p-2 rounded-md hover:bg-gray-900" aria-label="Close navigation">
                 <X size={20} />

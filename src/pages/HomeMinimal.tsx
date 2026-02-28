@@ -125,9 +125,11 @@ const HomeMinimal: React.FC = () => {
           <>
             {/* HERO: ~40-45% of viewport */}
             <header className="flex-none relative" style={heroH ? { height: `${heroH}px` } : undefined}>
-              <img
-                src="/assets/shutterstock_1069102985-1920w.jpeg"
-                alt="Hero"
+              <video
+                src="/assets/hero.mp4"
+                autoPlay
+                loop
+                muted
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/40" />

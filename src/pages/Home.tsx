@@ -80,79 +80,41 @@ const Home: React.FC = () => {
 
 // HERO SECTION
 const HeroSection: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = React.useState(0);
   const navigate = useNavigate();
 
-  const heroSlides = [
-    {
-      image: '/assets/shutterstock_1069102985-1920w.jpeg',
-      label: 'Premium Industrial Grade',
-      title: 'Advanced Textile Machinery Solutions',
-      buttonText: 'Shop Now'
-    },
-    {
-      image: '/assets/shutterstock_581092810-1920w.jpeg',
-      label: 'Cutting-Edge Technology',
-      title: 'Spinning & Yarn Production Systems',
-      buttonText: 'Explore Collection'
-    },
-    {
-      image: '/assets/shutterstock_2635629613-1920w.jpeg',
-      label: 'Industrial Excellence',
-      title: 'Weaving & Processing Equipment',
-      buttonText: 'View Products'
-    }
-  ];
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const heroSlide = {
+    video: '/assets/hero.mp4',
+    label: 'Premium Industrial Grade',
+    title: 'Advanced Textile Machinery Solutions',
+    buttonText: 'Shop Now'
+  };
 
   return (
     <section className="flex-1 relative overflow-hidden rounded-sm">
       <div className="relative flex items-center w-full h-full aspect-[21/9] lg:aspect-[16/6] bg-[#111111]">
-        {/* SLIDES */}
-        {heroSlides.map((slide, idx) => (
-          <div
-            key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ${idx === currentSlide ? 'opacity-100' : 'opacity-0'
-              }`}
-          >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="absolute inset-0 w-full h-full object-cover opacity-60"
-            />
-          </div>
-        ))}
+        {/* VIDEO */}
+        <div className="absolute inset-0">
+          <video
+            src={heroSlide.video}
+            autoPlay
+            loop
+            muted
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
+          />
+        </div>
 
         {/* CONTENT */}
-        <div className="relative z-10 px-8 lg:px-16 space-y-4 transition-all duration-500">
-          <p className="text-blue-500 italic text-xl font-medium">{heroSlides[currentSlide].label}</p>
+        <div className="relative z-10 px-8 lg:px-16 space-y-4">
+          <p className="text-blue-500 italic text-xl font-medium">{heroSlide.label}</p>
           <h1 className="text-4xl lg:text-6xl font-bold leading-tight max-w-md">
-            {heroSlides[currentSlide].title}
+            {heroSlide.title}
           </h1>
           <button
             onClick={() => navigate('/shop')}
             className="mt-8 bg-blue-600 hover:bg-blue-700 px-10 py-4 rounded-sm uppercase text-sm font-bold transition-all transform hover:-translate-y-1 cursor-pointer"
           >
-            {heroSlides[currentSlide].buttonText}
+            {heroSlide.buttonText}
           </button>
-        </div>
-
-        {/* INDICATORS */}
-        <div className="absolute bottom-6 right-10 flex gap-2">
-          {heroSlides.map((_, idx) => (
-            <div
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className={`w-3 h-3 rounded-full cursor-pointer transition-all ${idx === currentSlide ? 'bg-blue-600 w-8' : 'bg-gray-600 hover:bg-gray-500'
-                }`}
-            ></div>
-          ))}
         </div>
       </div>
     </section>

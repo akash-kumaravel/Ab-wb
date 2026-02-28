@@ -39,7 +39,7 @@ const FooterAbout: React.FC = () => (
   <div className="space-y-6">
     <div>
       <a href="https://www.memoinfotech.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-        <img src="/assets/logo.png" alt="AB Textile Logo" className="h-16 object-contain" />
+        <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-16 object-contain" />
       </a>
     </div>
     <p className="text-sm leading-relaxed text-gray-400">
@@ -53,8 +53,12 @@ const FooterAbout: React.FC = () => (
       </div>
       <div>
         <p className="text-xs font-bold uppercase text-gray-500 mb-2">Contact</p>
-        <a href="tel:+919843140485" className="text-lg font-bold text-blue-500 hover:text-blue-400 transition-colors">
-          +91 98431 40485
+        <a href="tel:+919344158524" className="text-lg font-bold text-blue-500 hover:text-blue-400 transition-colors">
+          +91 93441 58524
+        </a>
+        <p className="text-xs text-gray-500 mt-2">Email</p>
+        <a href="mailto:rjtextilemachinery@gmail.com" className="text-sm text-blue-500 hover:text-blue-400 transition-colors">
+          rjtextilemachinery@gmail.com
         </a>
       </div>
     </div>
@@ -87,7 +91,7 @@ const FooterBottom: React.FC = () => (
   <div className="border-t border-gray-900">
     <div className="max-w-[1400px] mx-auto px-4 lg:px-10 py-8 flex flex-col md:flex-row items-center justify-center text-xs text-gray-500 gap-2">
       <p>
-        © {new Date().getFullYear()} AB Textile. All rights reserved.
+        © {new Date().getFullYear()} RJ Textile. All rights reserved.
       </p>
       <span className="hidden md:inline">|</span>
       <p>
