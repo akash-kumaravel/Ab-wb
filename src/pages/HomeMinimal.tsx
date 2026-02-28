@@ -12,11 +12,7 @@ const HomeMinimal: React.FC = () => {
   // show categories instead of individual products on this minimal home
   const categories = CATEGORIES.slice(0, 6);
 
-  const [containerHeight, setContainerHeight] = useState<number | null>(null);
-  const [heroH, setHeroH] = useState<number | null>(null);
-  const [smallH, setSmallH] = useState<number | null>(null);
-  const [headingH, setHeadingH] = useState<number | null>(null);
-  const [categoriesH, setCategoriesH] = useState<number | null>(null);
+  // dynamic layout heights removed to simplify flow
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
@@ -38,93 +34,14 @@ const HomeMinimal: React.FC = () => {
     }
   }, [selectedCategory, allProducts]);
 
-  useEffect(() => {
-    const compute = () => {
-      const headerEl = document.querySelector('header');
-      const navEl = document.querySelector('nav');
-      // if header is absolute (overlay on root) don't subtract its height
-      let headerH = 0;
-      if (headerEl) {
-        try {
-          const isAbsolute = headerEl.classList.contains('absolute');
-          headerH = isAbsolute ? 0 : headerEl.getBoundingClientRect().height;
-        } catch (e) {
-          headerH = headerEl.getBoundingClientRect().height || 0;
-        }
-      }
-      const navH = navEl ? navEl.getBoundingClientRect().height : 0;
-      const available = Math.max(0, window.innerHeight - headerH - navH);
-
-      // compute viewport width early
-      const ww = window.innerWidth;
-
-      // On small screens let the layout flow naturally (avoid forced heights)
-      if (ww <= 640) {
-        setContainerHeight(null);
-        setHeroH(null);
-        setSmallH(null);
-        setHeadingH(null);
-        setCategoriesH(null);
-        return;
-      }
-      setContainerHeight(available);
-      // allocate proportions but clamp for very small screens
-      let hHeroRatio = 0.28;
-      let hSmallRatio = 0.08;
-      let hHeadingRatio = 0.05;
-
-      // on very narrow screens give more space to the hero to make it larger
-      if (ww <= 420) {
-        hHeroRatio = 0.38;
-        hSmallRatio = 0.05;
-        hHeadingRatio = 0.035;
-      } else if (ww <= 640) {
-        hHeroRatio = 0.34;
-        hSmallRatio = 0.06;
-        hHeadingRatio = 0.045;
-      }
-
-      const hHero = Math.round(available * hHeroRatio);
-      const hSmall = Math.round(available * hSmallRatio);
-      const hHeading = Math.round(available * hHeadingRatio);
-      // ensure hero has a sensible minimum height on very small viewports
-      const minHero = ww <= 420 ? 220 : ww <= 640 ? 180 : 160;
-      const heroFinal = Math.max(hHero, minHero);
-      const hCats = Math.max(120, available - heroFinal - hSmall - hHeading);
-      setHeroH(heroFinal);
-      setSmallH(hSmall);
-      setHeadingH(hHeading);
-      setCategoriesH(hCats);
-    };
-
-    compute();
-    window.addEventListener('resize', compute);
-
-    const ResizeObserverCtor = (window as any).ResizeObserver;
-    const ro: any = ResizeObserverCtor ? new ResizeObserverCtor(() => compute()) : null;
-    const headerEl = document.querySelector('header');
-    const navEl = document.querySelector('nav');
-    if (ro) {
-      if (headerEl) ro.observe(headerEl);
-      if (navEl) ro.observe(navEl);
-    }
-
-    return () => {
-      window.removeEventListener('resize', compute);
-      if (ro) ro.disconnect();
-    };
-  }, []);
 
   return (
-    <div
-      className="w-full overflow-hidden bg-black text-white"
-      style={containerHeight ? { height: `${containerHeight}px` } : undefined}
-    >
-      <div className="flex flex-col h-full">
+    <div className="w-full overflow-hidden bg-black text-white">
+      <div className="flex flex-col">
         {!selectedCategory && (
           <>
-            {/* HERO: ~40-45% of viewport */}
-            <header className="flex-none relative" style={heroH ? { height: `${heroH}px` } : undefined}>
+            {/* HERO: half viewport behind nav/search */}
+            <header className="relative w-full h-[50vh]">
               <video
                 src="/assets/hero.mp4"
                 autoPlay
@@ -136,14 +53,14 @@ const HomeMinimal: React.FC = () => {
             </header>
 
             {/* small content */}
-            <div className="flex-none flex items-center justify-center px-4 sm:px-6" style={smallH ? { height: `${smallH}px` } : undefined}>
+            <div className="flex-none flex items-center justify-center px-4 sm:px-6 py-4">
               <p className="text-center text-sm lg:text-base text-gray-300 max-w-2xl">
                 Trusted by industry leaders — fast delivery, genuine spares, and expert support.
               </p>
             </div>
 
             {/* heading */}
-            <div className="flex-none flex items-center justify-start px-4 sm:px-6" style={headingH ? { height: `${headingH}px` } : undefined}>
+            <div className="flex-none flex items-center justify-start px-4 sm:px-6 py-4">
               <div>
                 <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
                 <h3 className="text-xs sm:text-sm text-gray-400 mt-1">ALL TYPE OF WEAVING MACHINE AVAILABLE</h3>
@@ -153,7 +70,7 @@ const HomeMinimal: React.FC = () => {
         )}
 
         {/* categories grid (exact trust-badges style) */}
-        <section className={`${selectedCategory ? 'mt-0' : 'mt-3 sm:mt-6'} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 px-2 sm:px-6 h-full`} style={selectedCategory || categoriesH ? { height: selectedCategory ? '100%' : `${categoriesH}px` } : undefined}>
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 px-2 sm:px-6">
           {selectedCategory ? (
             // Show filtered products for selected category
             <div className="col-span-full h-full overflow-y-auto flex flex-col">

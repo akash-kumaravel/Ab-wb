@@ -9,15 +9,16 @@ const Header: React.FC = () => {
 
   const isActive = (path: string) => location.pathname === path;
   const { open, setOpen } = useHeaderDrawer() as any;
+  const isRoot = location.pathname === '/';
 
   return (
-    <header className={`sticky top-0 z-50 bg-black flex flex-row items-center justify-between gap-4 py-2 px-4 md:px-10`}>
-      <Link to="/" className={`text-2xl md:text-4xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
-        <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-16 md:h-24 object-contain" />
+    <header className={`sticky top-0 z-50 ${isRoot ? 'bg-transparent backdrop-blur-sm' : 'bg-black'} flex flex-row items-center justify-between gap-4 py-2 px-4 md:px-8`}>
+      <Link to="/" className={`text-2xl md:text-3xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
+        <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-14 md:h-18 object-contain" />
       </Link>
 
       {/* NAVIGATION LINKS */}
-      <div className="hidden lg:flex items-center space-x-10 text-sm font-bold uppercase tracking-wider">
+      <div className="hidden lg:flex items-center space-x-8 text-sm font-bold uppercase tracking-wider">
         <Link
           to="/"
           className={`transition-colors ${isActive('/') ? 'text-blue-500' : 'hover:text-blue-500'}`}
