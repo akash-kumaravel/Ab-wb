@@ -76,8 +76,7 @@ const AdminDashboard: React.FC = () => {
     navigate('/admin');
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {\n    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value,
@@ -216,6 +215,7 @@ const AdminDashboard: React.FC = () => {
       image: product.image,
       description: product.description,
       features: Array.isArray(product.features) ? product.features.join('\n') : product.features || '',
+      warranty: product.warranty || '',
       shipping: product.shipping || '',
     });
     setImagePreview(product.image); // Show existing image
@@ -275,6 +275,7 @@ const AdminDashboard: React.FC = () => {
       image: '',
       description: '',
       features: '',
+      warranty: '',
       shipping: '',
     });
     setImagePreview(null);
