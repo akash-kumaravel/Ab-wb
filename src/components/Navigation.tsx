@@ -97,10 +97,6 @@ const Navigation: React.FC = () => {
                             src={product.image}
                             alt={product.name}
                             className="w-12 h-12 object-cover rounded-sm"
-                            onError={(e) => {
-                              const img = e.target as HTMLImageElement;
-                              img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
-                            }}
                           />
                         ) : (
                           <div className="w-12 h-12 bg-gray-800 rounded-sm flex items-center justify-center text-gray-500 text-xs">

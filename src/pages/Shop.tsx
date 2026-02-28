@@ -61,10 +61,6 @@ const Shop: React.FC = () => {
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
-            }}
           />
         ) : (
           <div className="w-full h-full bg-gray-800 flex items-center justify-center">

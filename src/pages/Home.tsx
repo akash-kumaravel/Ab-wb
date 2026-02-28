@@ -405,10 +405,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 rounded-sm"
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              img.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80';
-            }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-500">
