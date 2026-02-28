@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <header className={`sticky top-0 z-50 bg-black flex flex-row items-center justify-between gap-4 py-2 px-4 md:px-10`}>
       <Link to="/" className={`text-2xl md:text-4xl font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
-        <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-16 md:h-24 object-contain" />
+        <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-16 md:h-24 object-contain" />
       </Link>
 
       {/* NAVIGATION LINKS */}

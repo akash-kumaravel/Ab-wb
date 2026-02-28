@@ -39,7 +39,7 @@ const FooterAbout: React.FC = () => (
   <div className="space-y-6">
     <div>
       <Link to="/" className="hover:opacity-80 transition-opacity inline-block">
-        <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-16 object-contain" />
+        <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-16 object-contain" />
       </Link>
     </div>
     <p className="text-sm leading-relaxed text-gray-400">
