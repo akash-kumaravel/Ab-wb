@@ -59,7 +59,7 @@ const Navigation: React.FC = () => {
   }, []);
 
   return (
-    <nav className="relative z-50 flex items-center justify-center py-0 px-4">
+    <nav className="relative z-40 flex items-center justify-center py-0 px-4">
       <div className="max-w-xl w-full relative" ref={dropdownRef}>
         <form onSubmit={handleSearch} className="relative">
             <input
@@ -83,7 +83,7 @@ const Navigation: React.FC = () => {
 
             {/* DROPDOWN SUGGESTIONS */}
             {showDropdown && searchQuery.trim() && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-gray-900 border border-gray-700 rounded-sm shadow-xl z-50">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-gray-900 border border-gray-700 rounded-sm shadow-xl z-30">
                 {searchResults.length > 0 ? (
                   <div className="max-h-96 overflow-y-auto">
                     {searchResults.map((product) => (

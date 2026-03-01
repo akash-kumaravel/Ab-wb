@@ -11,8 +11,11 @@ const Header: React.FC = () => {
   const { open, setOpen } = useHeaderDrawer() as any;
   const isRoot = location.pathname === '/';
 
+  // make header opaque whenever drawer is open, even on root page
+  const headerBg = isRoot && !open ? 'bg-black/60 backdrop-blur-sm' : 'bg-black';
+
   return (
-    <header className={`sticky top-0 z-50 ${isRoot ? 'bg-transparent backdrop-blur-sm' : 'bg-black'} flex flex-row items-center justify-between gap-3 py-0.5 px-3 md:px-5`}>
+    <header className={`sticky top-0 z-50 ${headerBg} flex flex-row items-center justify-between gap-3 py-0.5 px-3 md:px-5`}>
       <Link to="/" className={`font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
         <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-10 md:h-16 object-contain" />
       </Link>
@@ -76,11 +79,11 @@ const HeaderIcons: React.FC<{ open: boolean; setOpen: (v: boolean) => void }> = 
       {/* Mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-50">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} />
+          <div className="absolute inset-0 bg-black" onClick={() => setOpen(false)} />
           <aside className="absolute left-0 top-0 h-full w-72 bg-black p-6 shadow-xl">
             <div className="flex items-center justify-between">
               <Link to="/" onClick={() => setOpen(false)}>
-                <img src="/assets/logo.png" alt="RJ Textile Logo" className="h-12 object-contain" />
+                <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-12 object-contain" />
               </Link>
               <button onClick={() => setOpen(false)} className="p-2 rounded-md hover:bg-gray-900" aria-label="Close navigation">
                 <X size={20} />
