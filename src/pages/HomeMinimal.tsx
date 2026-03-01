@@ -46,9 +46,11 @@ const HomeMinimal: React.FC = () => {
                 <video
                   src="/assets/hero.mp4"
                   poster="/assets/hero.jpg"
-                  autoPlay
                   loop
                   muted
+                  preload="none"
+                  playsInline
+                  autoPlay
                   className="absolute inset-0 w-full h-full object-cover opacity-60 bg-black"
                 />
                 <div className="absolute inset-0 bg-black/40" />

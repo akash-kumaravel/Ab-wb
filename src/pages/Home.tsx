@@ -97,9 +97,11 @@ const HeroSection: React.FC = () => {
           <video
             src={heroSlide.video}
             poster="/assets/hero.jpg"
-            autoPlay
             loop
             muted
+            preload="none"
+            playsInline
+            autoPlay
             className="absolute inset-0 w-full h-full object-cover opacity-60 bg-black"
           />
         </div>
