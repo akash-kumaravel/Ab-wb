@@ -96,10 +96,11 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0">
           <video
             src={heroSlide.video}
+            poster="/assets/hero.jpg"
             autoPlay
             loop
             muted
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            className="absolute inset-0 w-full h-full object-cover opacity-60 bg-black"
           />
         </div>
 

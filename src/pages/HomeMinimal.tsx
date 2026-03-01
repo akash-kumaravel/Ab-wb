@@ -40,26 +40,41 @@ const HomeMinimal: React.FC = () => {
       <div className="flex flex-col">
         {!selectedCategory && (
           <>
-            {/* HERO: half viewport behind nav/search */}
-            <header className="relative w-full h-[50vh]">
-              <video
-                src="/assets/hero.mp4"
-                autoPlay
-                loop
-                muted
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40" />
-            </header>
+            {/* HERO: use same hero layout/text as main Home page */}
+            <section className="relative w-full">
+              <div className="relative flex items-center w-full h-[50vh] bg-[#111111]">
+                <video
+                  src="/assets/hero.mp4"
+                  poster="/assets/hero.jpg"
+                  autoPlay
+                  loop
+                  muted
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 bg-black"
+                />
+                <div className="absolute inset-0 bg-black/40" />
 
-            {/* small content */}
+                <div className="relative z-10 px-8 lg:px-16 space-y-4 max-w-3xl">
+                  <p className="text-blue-500 italic text-xl font-medium">Premium Industrial Grade</p>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                    Advanced Textile Machinery Solutions
+                  </h1>
+                  <button
+                    onClick={() => navigate('/shop')}
+                    className="mt-4 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-sm uppercase text-sm font-bold transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    Shop Now
+                  </button>
+                </div>
+              </div>
+            </section>
+            {/* small content (restored) */}
             <div className="flex-none flex items-center justify-center px-4 sm:px-6 py-4">
               <p className="text-center text-sm lg:text-base text-gray-300 max-w-2xl">
                 Trusted by industry leaders — fast delivery, genuine spares, and expert support.
               </p>
             </div>
 
-            {/* heading */}
+            {/* heading (restored) */}
             <div className="flex-none flex items-center justify-start px-4 sm:px-6 py-4">
               <div>
                 <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
