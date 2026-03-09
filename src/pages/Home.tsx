@@ -96,7 +96,7 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0">
           <video
             src={heroSlide.video}
-            poster="/assets/hero.jpg"
+            poster="/assets/machine cover.jpg"
             loop
             muted
             preload="none"
