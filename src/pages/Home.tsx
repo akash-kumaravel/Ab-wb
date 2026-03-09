@@ -83,7 +83,7 @@ const HeroSection: React.FC = () => {
   const navigate = useNavigate();
 
   const heroSlide = {
-    video: '/assets/hero.mp4',
+    video: '/assets/machine.mp4',
     label: 'Premium Industrial Grade',
     title: 'Advanced Textile Machinery Solutions',
     buttonText: 'Shop Now'
