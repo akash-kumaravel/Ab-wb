@@ -8,6 +8,8 @@ import ProductDetail from './src/pages/ProductDetail';
 import SearchResults from './src/pages/SearchResults';
 import About from './src/pages/About';
 import Contact from './src/pages/Contact';
+import RJSteelsTraders from './src/pages/RJSteelsTraders';
+import RJEnterprises from './src/pages/RJEnterprises';
 import AdminLogin from './src/pages/AdminLogin';
 import AdminDashboard from './src/pages/AdminDashboard';
 
@@ -30,6 +32,8 @@ const App: React.FC = () => (
               <Route path="/product/:productSlug" element={<ProductDetail />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/about" element={<About />} />
+              <Route path="/rj-steels-traders" element={<RJSteelsTraders />} />
+              <Route path="/rj-enterprises" element={<RJEnterprises />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </Layout>
