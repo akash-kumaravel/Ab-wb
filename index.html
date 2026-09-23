@@ -7,10 +7,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --brand-red: #d61f27;
+            --brand-red-dark: #a9121b;
+            --brand-gold: #d7b36a;
+            --brand-gold-soft: #f0d49d;
+            --brand-black: #0b0b0b;
+            --brand-white: #f5f5f5;
+
+            --color-primary-bg: #000000;
+            --color-surface-bg: #0c0c0c;
+            --color-card-bg: #111111;
+            --color-panel-bg: #141414;
+            --color-text-primary: #f5f5f5;
+            --color-text-secondary: #d1d5db;
+            --color-text-muted: #9ca3af;
+            --color-border-primary: #a9121b;
+            --color-border-subtle: #1f2937;
+            --color-border-soft: #374151;
+        }
+
+        html, body, #root, #root > div, main, .min-h-screen {
+            background-color: var(--color-primary-bg) !important;
+        }
+
         body {
             font-family: 'DM Sans', system-ui, sans-serif;
-            background-color: #000000;
-            color: #ffffff;
+            background-color: var(--brand-black);
+            color: var(--brand-white);
             margin: 0;
             overflow-x: hidden;
         }
@@ -23,21 +47,183 @@
         .font-mono {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
         }
-        /* Custom Scrollbar */
+
+        .bg-blue-600,
+        .bg-blue-700,
+        .from-blue-600,
+        .to-blue-800,
+        .border-blue-500,
+        .border-blue-600,
+        .border-blue-900,
+        .focus\:border-blue-500:focus,
+        .hover\:bg-blue-700:hover,
+        .hover\:border-blue-500:hover,
+        .ring-blue-500,
+        .focus\:ring-blue-500:focus,
+        .bg-blue-950,
+        .from-blue-950,
+        .to-blue-950 {
+            --tw-bg-opacity: 1 !important;
+            --tw-border-opacity: 1 !important;
+        }
+
+        .bg-gray-900,
+        .bg-gray-950,
+        .bg-slate-900,
+        .bg-slate-950,
+        .bg-neutral-900,
+        .bg-neutral-950,
+        .bg-zinc-900,
+        .bg-zinc-950,
+        .bg-black,
+        .bg-\[\#080808\],
+        .bg-\[\#111111\],
+        .bg-\[\#050505\],
+        .bg-\[\#0c0c0c\],
+        .bg-gray-900\/80,
+        .bg-gray-900\/50,
+        .bg-gray-900\/30,
+        .bg-slate-900\/80,
+        .bg-slate-900\/50,
+        .bg-slate-900\/30,
+        .bg-neutral-900\/80,
+        .bg-neutral-950\/80,
+        .bg-black\/80,
+        .bg-black\/60,
+        .bg-black\/50,
+        .bg-black\/40,
+        .bg-black\/30,
+        .from-slate-900,
+        .to-slate-900 {
+            background-color: #000000 !important;
+            --tw-bg-opacity: 1 !important;
+        }
+
+        .app-primary-bg,
+        .app-surface-bg,
+        .app-card-bg,
+        .app-panel-bg,
+        .app-red-bg,
+        .app-red-dark-bg,
+        .app-gold-bg {
+            background-color: var(--color-primary-bg) !important;
+        }
+
+        .app-surface-bg {
+            background-color: var(--color-surface-bg) !important;
+        }
+
+        .app-card-bg {
+            background-color: var(--color-card-bg) !important;
+        }
+
+        .app-panel-bg {
+            background-color: var(--color-panel-bg) !important;
+        }
+
+        .app-red-bg {
+            background-color: var(--brand-red) !important;
+        }
+
+        .app-red-dark-bg {
+            background-color: var(--brand-red-dark) !important;
+        }
+
+        .app-gold-bg {
+            background-color: var(--brand-gold) !important;
+        }
+
+        .app-text-primary,
+        .app-text-white {
+            color: var(--color-text-primary) !important;
+        }
+
+        .app-text-secondary {
+            color: var(--color-text-secondary) !important;
+        }
+
+        .app-text-muted {
+            color: var(--color-text-muted) !important;
+        }
+
+        .app-border-primary,
+        .app-border {
+            border-color: var(--color-border-primary) !important;
+        }
+
+        .app-border-subtle {
+            border-color: var(--color-border-subtle) !important;
+        }
+
+        .app-border-soft {
+            border-color: var(--color-border-soft) !important;
+        }
+
+        .bg-blue-600,
+        .hover\:bg-blue-700:hover,
+        .from-blue-600,
+        .from-blue-950,
+        .bg-blue-950,
+        .hover\:bg-blue-600:hover,
+        .group:hover .group-hover\:bg-blue-600,
+        .group:hover .group-hover\:bg-blue-700 {
+            background-color: var(--brand-red) !important;
+            --tw-gradient-from: var(--brand-red) !important;
+        }
+
+        .bg-blue-700,
+        .to-blue-800,
+        .to-blue-950,
+        .hover\:bg-blue-700:hover {
+            background-color: var(--brand-red-dark) !important;
+            --tw-gradient-to: var(--brand-red-dark) !important;
+        }
+
+        .text-blue-500,
+        .text-blue-400,
+        .hover\:text-blue-500:hover,
+        .hover\:text-blue-400:hover,
+        .group:hover .group-hover\:text-blue-500,
+        .group:hover .group-hover\:text-blue-400,
+        .group-hover\:text-blue-500:hover,
+        .text-blue-900 {
+            color: var(--brand-red) !important;
+        }
+
+        .border-blue-500,
+        .border-blue-600,
+        .border-blue-900,
+        .focus\:border-blue-500:focus,
+        .hover\:border-blue-500:hover,
+        .group:hover .group-hover\:border-blue-600\/50,
+        .group:hover .group-hover\:border-blue-600\/60,
+        .group:hover .group-hover\:border-blue-500,
+        .group-hover\:border-blue-600\/50:hover,
+        .group-hover\:border-blue-600\/60:hover {
+            border-color: #a9121b !important;
+        }
+
+        .bg-gradient-to-r.from-blue-600,
+        .bg-gradient-to-r.from-blue-950,
+        .bg-gradient-to-r.to-blue-800,
+        .bg-gradient-to-r.to-blue-950 {
+            --tw-gradient-from: var(--brand-red) !important;
+            --tw-gradient-to: var(--brand-red-dark) !important;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #000000;
+            background: var(--brand-black);
         }
         ::-webkit-scrollbar-thumb {
-            background: #2563eb;
+            background: var(--brand-red);
             border-radius: 4px;
         }
-        /* Selection color */
         ::selection {
-            background: #2563eb;
-            color: #ffffff;
+            background: var(--brand-red);
+            color: var(--brand-white);
         }
     </style>
 <script type="importmap">
