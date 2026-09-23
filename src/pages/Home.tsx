@@ -61,12 +61,14 @@ const Home: React.FC = () => {
     <>
       <HeroSection />
 
-      <TrustBadges />
-      <TrendingProducts navigate={navigate} products={products} loading={loading} />
-      <PopularCategories navigate={navigate} />
-      <PromotionalBanners />
-      <SpecialOffers navigate={navigate} products={products} loading={loading} />
-      <CategoryMiniListsSection navigate={navigate} products={products} />
+      <div className="mx-auto max-w-[1400px] px-4 lg:px-10">
+        <TrustBadges />
+        <TrendingProducts navigate={navigate} products={products} loading={loading} />
+        <PopularCategories navigate={navigate} />
+        <PromotionalBanners />
+        <SpecialOffers navigate={navigate} products={products} loading={loading} />
+        <CategoryMiniListsSection navigate={navigate} products={products} />
+      </div>
     </>
   );
 };

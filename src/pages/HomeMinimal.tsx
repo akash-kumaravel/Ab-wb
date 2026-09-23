@@ -75,14 +75,14 @@ const HomeMinimal: React.FC = () => {
               </div>
             </section>
             {/* small content (restored) */}
-            <div className="flex-none flex items-center justify-center px-4 sm:px-6 py-4">
+            <div className="mx-auto flex w-full max-w-[1400px] flex-none items-center justify-center px-4 py-4 sm:px-6 lg:px-10">
               <p className="text-center text-sm lg:text-base text-gray-300 max-w-2xl">
                 Trusted by industry leaders — fast delivery, genuine spares, and expert support.
               </p>
             </div>
 
             {/* heading (restored) */}
-            <div className="flex-none flex items-center justify-start px-4 sm:px-6 py-4">
+            <div className="mx-auto flex w-full max-w-[1400px] flex-none items-center justify-start px-4 py-4 sm:px-6 lg:px-10">
               <div>
                 <h2 className="text-base sm:text-lg lg:text-2xl font-bold">Products</h2>
                 <h3 className="text-xs sm:text-sm text-gray-400 mt-1">ALL TYPE OF WEAVING MACHINE AVAILABLE</h3>
@@ -92,7 +92,7 @@ const HomeMinimal: React.FC = () => {
         )}
 
         {/* categories grid (exact trust-badges style) */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 px-2 sm:px-6">
+        <section className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-2 px-4 sm:grid-cols-2 sm:gap-6 sm:px-6 lg:px-10 md:grid-cols-2 lg:grid-cols-4">
           {selectedCategory ? (
             // Show filtered products for selected category
             <div className="col-span-full h-full overflow-y-auto flex flex-col">
