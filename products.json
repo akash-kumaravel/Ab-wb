@@ -221,5 +221,20 @@
     "series": "66",
     "warranty": "66",
     "shipping": "666"
+  },
+  {
+    "id": 12,
+    "name": "lolaaaa",
+    "price": "aaaaa",
+    "category": 3,
+    "image": "https://www.canto.com/cdn/en/2019/08/19194138/image-url-3.jpg",
+    "description": "aaa",
+    "features": [
+      "aaa"
+    ],
+    "model": "aaa",
+    "series": "aaa",
+    "warranty": "aaa",
+    "shipping": "aaa"
   }
 ]
