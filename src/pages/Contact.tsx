@@ -102,7 +102,7 @@ const Contact: React.FC = () => {
             </a>
             <a
               href="mailto:rjtextilemachinery@gmail.com"
-              className="bg-[#0a1926] hover:bg-[#112639] text-white font-bold py-3 px-8 rounded-sm transition-colors border border-[#1d2d3d]"
+              className="bg-black hover:bg-[#a9121b] text-white font-bold py-3 px-8 rounded-sm transition-colors border border-[#1d2d3d]"
             >
               Send Email
             </a>
