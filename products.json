@@ -206,5 +206,20 @@
     "sku": "",
     "warranty": "undefined",
     "shipping": ""
+  },
+  {
+    "id": 11,
+    "name": "testingg",
+    "price": "66666",
+    "category": 3,
+    "image": "/static/uploads/8593108e-bdc1-49d5-88d9-0c6026e87963_86254.jpg",
+    "description": "666",
+    "features": [
+      "66"
+    ],
+    "model": "66",
+    "series": "66",
+    "warranty": "66",
+    "shipping": "666"
   }
 ]
