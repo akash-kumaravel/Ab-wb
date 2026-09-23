@@ -25,6 +25,7 @@ interface SpecialOfferForm {
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [formType, setFormType] = useState<'product' | 'special-offer' | 'category' | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -57,6 +58,7 @@ const AdminDashboard: React.FC = () => {
     }
     // Load products from server
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -68,6 +70,15 @@ const AdminDashboard: React.FC = () => {
       }
     } catch (error) {
       console.error('Error fetching products:', error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(`${getApiBaseURL()}/api/categories`);
+      if (response.ok) setCategories(await response.json());
+    } catch (error) {
+      console.error('Error fetching categories:', error);
     }
   };
 
@@ -116,14 +127,13 @@ const AdminDashboard: React.FC = () => {
 
         const response = await fetch(`${getApiBaseURL()}/api/products/${specialOfferForm.productId}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            discount: specialOfferForm.discount,
-            specialOfferPrice: specialOfferForm.specialOfferPrice,
-            isSpecialOffer: true,
-          }),
+          body: (() => {
+            const data = new FormData();
+            data.append('discount', specialOfferForm.discount);
+            data.append('specialOfferPrice', specialOfferForm.specialOfferPrice);
+            data.append('isSpecialOffer', 'true');
+            return data;
+          })(),
         });
 
         if (response.ok) {
@@ -138,7 +148,8 @@ const AdminDashboard: React.FC = () => {
           fetchProducts();
           setTimeout(() => setMessage(''), 3000);
         } else {
-          setMessage('Error adding special offer. Please try again.');
+          const result = await response.json().catch(() => ({}));
+          setMessage(result.error || 'Error adding special offer. Please try again.');
         }
       } else if (formType === 'product') {
         // Handle Product
@@ -197,6 +208,24 @@ const AdminDashboard: React.FC = () => {
         } else {
           setMessage('Error saving product. Please try again.');
         }
+      } else if (formType === 'category') {
+        const data = new FormData();
+        data.append('name', formData.name);
+        data.append('description', formData.description);
+        const response = await fetch(`${getApiBaseURL()}/api/categories`, {
+          method: 'POST',
+          body: data,
+        });
+        if (response.ok) {
+          setMessage('Category added successfully!');
+          setShowForm(false);
+          setFormType(null);
+          fetchCategories();
+          setTimeout(() => setMessage(''), 3000);
+        } else {
+          const result = await response.json().catch(() => ({}));
+          setMessage(result.error || 'Error adding category.');
+        }
       }
     } catch (error) {
       setMessage('Error connecting to server. Make sure it\'s running.');
@@ -243,6 +272,22 @@ const AdminDashboard: React.FC = () => {
         setMessage('Error connecting to server.');
         console.error('Error:', error);
       }
+    }
+  };
+
+  const handleDeleteCategory = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this category?')) return;
+    try {
+      const response = await fetch(`${getApiBaseURL()}/api/categories/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        setMessage('Category deleted successfully!');
+        fetchCategories();
+      } else {
+        setMessage('Error deleting category.');
+      }
+    } catch (error) {
+      setMessage('Error connecting to server.');
+      console.error('Error:', error);
     }
   };
 
@@ -700,6 +745,29 @@ const AdminDashboard: React.FC = () => {
             </form>
           </div>
         )}
+        <div className="bg-gray-900 border border-gray-800 rounded-sm overflow-hidden mb-8">
+          <div className="px-6 py-4 border-b border-gray-800">
+            <h2 className="text-xl font-bold">Categories</h2>
+          </div>
+          {categories.length === 0 ? (
+            <p className="px-6 py-6 text-gray-400">No categories yet.</p>
+          ) : (
+            <div className="divide-y divide-gray-800">
+              {categories.map(category => (
+                <div key={category.id} className="flex items-center justify-between px-6 py-4">
+                  <span>{category.name}</span>
+                  <button
+                    onClick={() => handleDeleteCategory(category.id)}
+                    className="p-2 bg-red-600 hover:bg-red-700 rounded-sm transition-colors"
+                    title="Delete category"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
         <div className="bg-gray-900 border border-gray-800 rounded-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
