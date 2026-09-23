@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Sulzer Weaving Machine",
+    "icon": "/assets/shutterstock_1069102985-1920w.jpeg",
+    "subCategories": ["Weaving Machines", "Parts", "Accessories"]
+  },
+  {
+    "id": 2,
+    "name": "Air-Jet Weaving Machine",
+    "icon": "/assets/shutterstock_1069102985-1920w.jpeg",
+    "subCategories": ["Air-Jet Looms", "Components", "Upgrades"]
+  },
+  {
+    "id": 3,
+    "name": "OE",
+    "icon": "/assets/shutterstock_1069102985-1920w.jpeg",
+    "subCategories": ["Original Equipment", "OE Parts", "Accessories"]
+  },
+  {
+    "id": 4,
+    "name": "Spares & Parts",
+    "icon": "/assets/shutterstock_1069102985-1920w.jpeg",
+    "subCategories": ["Spindles", "Rollers", "Needles", "Modules"]
+  },
+  {
+    "id": 5,
+    "name": "Scrap",
+    "icon": "/assets/shutterstock_1069102985-1920w.jpeg",
+    "subCategories": ["Metal Scrap", "Machine Scrap", "Waste Materials"]
+  }
+]
