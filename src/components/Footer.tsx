@@ -12,6 +12,8 @@ const FOOTER_LINKS = {
     { label: 'All Products', path: '/all-products' },
     { label: 'Shop', path: '/shop' },
     { label: 'About', path: '/about' },
+    { label: 'RJ Steels & Traders', path: '/rj-steels-traders' },
+    { label: 'RJ Enterprises', path: '/rj-enterprises' },
     { label: 'Contact Us', path: '/contact' },
   ],
 };

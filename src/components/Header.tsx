@@ -47,6 +47,18 @@ const Header: React.FC = () => {
           About
         </Link>
         <Link
+          to="/rj-steels-traders"
+          className={`transition-colors ${isActive('/rj-steels-traders') ? 'text-blue-500' : 'hover:text-blue-500'}`}
+        >
+          RJ Steels
+        </Link>
+        <Link
+          to="/rj-enterprises"
+          className={`transition-colors ${isActive('/rj-enterprises') ? 'text-blue-500' : 'hover:text-blue-500'}`}
+        >
+          RJ Enterprises
+        </Link>
+        <Link
           to="/contact"
           className={`transition-colors ${isActive('/contact') ? 'text-blue-500' : 'hover:text-blue-500'}`}
         >
@@ -95,6 +107,8 @@ const HeaderIcons: React.FC<{ open: boolean; setOpen: (v: boolean) => void }> = 
               <Link to="/all-products" onClick={() => setOpen(false)} className="hover:text-blue-500">All Products</Link>
               <Link to="/shop" onClick={() => setOpen(false)} className="hover:text-blue-500">Shop</Link>
               <Link to="/about" onClick={() => setOpen(false)} className="hover:text-blue-500">About</Link>
+              <Link to="/rj-steels-traders" onClick={() => setOpen(false)} className="hover:text-blue-500">RJ Steels</Link>
+              <Link to="/rj-enterprises" onClick={() => setOpen(false)} className="hover:text-blue-500">RJ Enterprises</Link>
               <Link to="/contact" onClick={() => setOpen(false)} className="hover:text-blue-500">Contact Us</Link>
               <Link
                 to="/admin"
