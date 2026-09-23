@@ -256,5 +256,15 @@
     "features": [
       "ddd"
     ]
+  },
+  {
+    "id": 15,
+    "name": "loo",
+    "price": "looo",
+    "image": "/static/uploads/30ff1206-214e-442f-befd-c63cad3c919d_How to implement a Research Paper.png",
+    "description": "olololo",
+    "features": [
+      "ollololo"
+    ]
   }
 ]
