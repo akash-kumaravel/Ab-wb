@@ -1,7 +1,24 @@
-// API service for fetching products from Hugging Face backend
-import getApiBaseURL from '../config/apiConfig';
+// Product data is sourced from the repository-backed products.json file so
+// Vercel can rebuild the frontend after GitHub updates without relying on a
+// live backend fetch for the storefront display.
+import productsData from '../../products.json';
 
-const API_BASE_URL = getApiBaseURL();
+const PRODUCTS: Product[] = productsData as Product[];
+
+const normalizeProductImage = (product: Product): Product => ({
+  ...product,
+  image: (() => {
+    const image = product.image || '';
+
+    if (!image) return '';
+    if (image.startsWith('http://') || image.startsWith('https://')) return image;
+    if (image.startsWith('/')) return image;
+    return image;
+  })()
+});
+
+const normalizeProducts = (products: Product[]): Product[] =>
+  products.map((product) => normalizeProductImage(product));
 
 export interface Product {
   id: number;
@@ -26,48 +43,12 @@ export interface Product {
 
 class ProductService {
   static async getAllProducts(): Promise<Product[]> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/products`);
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
-      }
-
-      const products = await response.json();
-
-      // Normalize image URLs
-      return products.map((product: any) => ({
-        ...product,
-        image: product.image.startsWith('/')
-          ? `${API_BASE_URL}${product.image}`
-          : product.image
-      }));
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      // Return empty array on error instead of throwing
-      return [];
-    }
+    return normalizeProducts(PRODUCTS);
   }
 
   static async getProductById(id: number): Promise<Product | null> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
-      }
-
-      const product = await response.json();
-
-      if (product && product.image && product.image.startsWith('/')) {
-        product.image = `${API_BASE_URL}${product.image}`;
-      }
-
-      return product;
-    } catch (error) {
-      console.error(`Error fetching product ${id}:`, error);
-      return null;
-    }
+    const product = PRODUCTS.find((item) => item.id === id);
+    return product ? normalizeProductImage(product) : null;
   }
 
   static async searchProducts(query: string, products: Product[]): Promise<Product[]> {

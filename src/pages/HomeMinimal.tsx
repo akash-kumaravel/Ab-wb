@@ -48,12 +48,17 @@ const HomeMinimal: React.FC = () => {
                   poster="/assets/hero.jpg"
                   loop
                   muted
-                  preload="none"
+                  preload="metadata"
                   playsInline
                   autoPlay
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 bg-black"
+                  onError={(event) => {
+                    const target = event.currentTarget as HTMLVideoElement;
+                    target.style.display = 'none';
+                  }}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
                 />
-                <div className="absolute inset-0 bg-black/40" />
+
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/35 to-black/20" />
 
                 <div className="relative z-10 px-8 lg:px-16 space-y-4 max-w-3xl">
                   <p className="text-blue-500 italic text-xl font-medium">Premium Industrial Grade</p>

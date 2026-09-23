@@ -15,6 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const isRoot = location.pathname === '/';
+  const isHeroPage = isRoot || location.pathname === '/all-products' || location.pathname === '/shop';
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -45,10 +46,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <div ref={mainRef} className={`min-h-screen bg-black text-white ${isRoot ? 'overflow-hidden' : ''}`}>
+    <div ref={mainRef} className={`min-h-screen bg-black text-white ${isRoot ? 'overflow-x-hidden relative' : ''}`}>
       <Header />
       <Navigation />
-      <main className={`max-w-[1400px] mx-auto px-4 lg:px-10 ${isRoot ? 'py-0' : 'py-8'}`}>
+      <main
+        className={
+          isHeroPage
+            ? 'w-screen relative left-1/2 -ml-[50vw] px-0 py-0 -mt-1'
+            : 'max-w-[1400px] mx-auto px-4 lg:px-10 py-8'
+        }
+      >
         {children}
       </main>
       {!isRoot && <Footer />}

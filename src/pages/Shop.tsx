@@ -83,13 +83,24 @@ const Shop: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* PAGE HEADER */}
-      <section className="bg-gradient-to-b from-blue-600/20 to-transparent py-20 px-4">
-        <div className="max-w-[1400px] mx-auto">
-          <h1 className="text-5xl font-bold text-white mb-4">Shop Textile Machinery</h1>
-          <p className="text-gray-400 text-lg">
-            Discover our comprehensive collection of premium textile machinery and equipment
-          </p>
+      <section className="relative w-full overflow-hidden">
+        <div className="relative flex items-center justify-center w-full h-[42vh] min-h-[320px] bg-[#111111]">
+          <img
+            src="/assets/machine cover.jpg"
+            alt="Shop banner"
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
+          />
+          <div className="absolute inset-0 bg-black/45" />
+
+          <div className="relative z-10 text-center px-4">
+            <p className="text-blue-500 italic text-xl font-medium mb-3">Premium Industrial Grade</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">
+              Shop Textile Machinery
+            </h1>
+            <p className="text-gray-200 text-base md:text-lg max-w-3xl mx-auto">
+              Discover our comprehensive collection of premium textile machinery and equipment
+            </p>
+          </div>
         </div>
       </section>
 
@@ -98,15 +109,15 @@ const Shop: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* SIDEBAR FILTERS */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-900 p-6 rounded-sm border border-gray-800 sticky top-4">
+            <div className="bg-black p-6 rounded-sm border border-[#a9121b]/60 sticky top-4">
               <h3 className="text-lg font-bold text-white mb-6">Categories</h3>
               <div className="space-y-3">
                 <button
                   onClick={() => setSelectedCategory(null)}
                   className={`w-full text-left px-4 py-2 rounded-sm transition-colors ${
                     selectedCategory === null
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      ? 'bg-[#d61f27] text-white'
+                      : 'text-gray-400 hover:text-white hover:bg-[#111111]'
                   }`}
                 >
                   All Products ({products.length})
@@ -117,8 +128,8 @@ const Shop: React.FC = () => {
                     onClick={() => setSelectedCategory(cat.id)}
                     className={`w-full text-left px-4 py-2 rounded-sm transition-colors ${
                       selectedCategory === cat.id
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        ? 'bg-[#d61f27] text-white'
+                        : 'text-gray-400 hover:text-white hover:bg-[#111111]'
                     }`}
                   >
                     {cat.name}

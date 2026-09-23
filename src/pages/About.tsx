@@ -10,12 +10,11 @@ const About: React.FC = () => {
     <div className="min-h-screen bg-black">
       {/* HERO SECTION */}
       <section className="relative py-32 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-blue-600/10"></div>
         <div className="relative max-w-[1400px] mx-auto text-center">
           <h1 className="text-6xl md:text-7xl font-black text-white mb-6 leading-tight">
             About RJ Textile Machinery
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-[#d7b36a] to-transparent mx-auto mb-8"></div>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Trusted textile machinery solutions built on partnership, integrity, and expertise
           </p>
@@ -38,15 +37,15 @@ const About: React.FC = () => {
             <div className="mt-8 pt-8 border-t border-gray-800">
               <div className="flex gap-12">
                 <div>
-                  <p className="text-4xl font-black text-blue-500 mb-2">2</p>
+                  <p className="text-4xl font-black text-[#d7b36a] mb-2">2</p>
                   <p className="text-gray-400">Dedicated Partners</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-black text-blue-500 mb-2">50+</p>
+                  <p className="text-4xl font-black text-[#d7b36a] mb-2">50+</p>
                   <p className="text-gray-400">Products & Spares</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-black text-blue-500 mb-2">50+</p>
+                  <p className="text-4xl font-black text-[#d7b36a] mb-2">50+</p>
                   <p className="text-gray-400">Global Clients</p>
                 </div>
               </div>
@@ -121,42 +120,42 @@ const About: React.FC = () => {
         <p className="text-gray-400 text-lg mb-12">We specialize in:</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="group bg-gradient-to-br from-blue-600/10 to-transparent border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300">
+          <div className="group bg-[#111111] border border-[#a9121b]/50 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <CheckCircle className="text-blue-500 group-hover:scale-110 transition-transform" size={28} />
+                <CheckCircle className="text-[#d7b36a] group-hover:scale-110 transition-transform" size={28} />
               </div>
               <span className="text-gray-300 text-lg font-semibold">Textile machinery sales</span>
             </div>
           </div>
-          <div className="group bg-gradient-to-br from-blue-600/10 to-transparent border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300">
+          <div className="group bg-[#111111] border border-[#a9121b]/50 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <CheckCircle className="text-blue-500 group-hover:scale-110 transition-transform" size={28} />
+                <CheckCircle className="text-[#d7b36a] group-hover:scale-110 transition-transform" size={28} />
               </div>
               <span className="text-gray-300 text-lg font-semibold">Sourcing of quality machines</span>
             </div>
           </div>
-          <div className="group bg-gradient-to-br from-blue-600/10 to-transparent border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300">
+          <div className="group bg-[#111111] border border-[#a9121b]/50 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <CheckCircle className="text-blue-500 group-hover:scale-110 transition-transform" size={28} />
+                <CheckCircle className="text-[#d7b36a] group-hover:scale-110 transition-transform" size={28} />
               </div>
               <span className="text-gray-300 text-lg font-semibold">Machinery consultation and selection</span>
             </div>
           </div>
-          <div className="group bg-gradient-to-br from-blue-600/10 to-transparent border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300">
+          <div className="group bg-[#111111] border border-[#a9121b]/50 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <CheckCircle className="text-blue-500 group-hover:scale-110 transition-transform" size={28} />
+                <CheckCircle className="text-[#d7b36a] group-hover:scale-110 transition-transform" size={28} />
               </div>
               <span className="text-gray-300 text-lg font-semibold">Installation coordination support</span>
             </div>
           </div>
-          <div className="group bg-gradient-to-br from-blue-600/10 to-transparent border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300">
+          <div className="group bg-[#111111] border border-[#a9121b]/50 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
-                <CheckCircle className="text-blue-500 group-hover:scale-110 transition-transform" size={28} />
+                <CheckCircle className="text-[#d7b36a] group-hover:scale-110 transition-transform" size={28} />
               </div>
               <span className="text-gray-300 text-lg font-semibold">After-sales assistance</span>
             </div>
@@ -202,49 +201,49 @@ const About: React.FC = () => {
         <h2 className="text-4xl font-black text-white mb-16 text-center">Why Choose RJ Textile Machinery</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="group bg-gradient-to-br from-gray-900 to-gray-900/50 border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-              <Target className="text-blue-500" size={28} />
+          <div className="group bg-[#111111] border border-[#a9121b]/60 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#a9121b]/20">
+            <div className="w-12 h-12 bg-[#a9121b]/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#a9121b]/30 transition-colors">
+              <Target className="text-[#d7b36a]" size={28} />
             </div>
             <h4 className="text-xl font-bold text-white mb-3">Partnership-driven Business Values</h4>
             <p className="text-gray-400">Built on transparency and integrity</p>
           </div>
 
-          <div className="group bg-gradient-to-br from-gray-900 to-gray-900/50 border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-              <Users className="text-blue-500" size={28} />
+          <div className="group bg-[#111111] border border-[#a9121b]/60 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#a9121b]/20">
+            <div className="w-12 h-12 bg-[#a9121b]/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#a9121b]/30 transition-colors">
+              <Users className="text-[#d7b36a]" size={28} />
             </div>
             <h4 className="text-xl font-bold text-white mb-3">Industry-focused Expertise</h4>
             <p className="text-gray-400">Hands-on textile manufacturing knowledge</p>
           </div>
 
-          <div className="group bg-gradient-to-br from-gray-900 to-gray-900/50 border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-              <Award className="text-blue-500" size={28} />
+          <div className="group bg-[#111111] border border-[#a9121b]/60 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#a9121b]/20">
+            <div className="w-12 h-12 bg-[#a9121b]/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#a9121b]/30 transition-colors">
+              <Award className="text-[#d7b36a]" size={28} />
             </div>
             <h4 className="text-xl font-bold text-white mb-3">Transparent Operations</h4>
             <p className="text-gray-400">Ethical dealings with all stakeholders</p>
           </div>
 
-          <div className="group bg-gradient-to-br from-gray-900 to-gray-900/50 border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-              <CheckCircle className="text-blue-500" size={28} />
+          <div className="group bg-[#111111] border border-[#a9121b]/60 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#a9121b]/20">
+            <div className="w-12 h-12 bg-[#a9121b]/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#a9121b]/30 transition-colors">
+              <CheckCircle className="text-[#d7b36a]" size={28} />
             </div>
             <h4 className="text-xl font-bold text-white mb-3">Strong Supplier Network</h4>
             <p className="text-gray-400">Quality machine sourcing access</p>
           </div>
 
-          <div className="group bg-gradient-to-br from-gray-900 to-gray-900/50 border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-              <Users className="text-blue-500" size={28} />
+          <div className="group bg-[#111111] border border-[#a9121b]/60 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#a9121b]/20">
+            <div className="w-12 h-12 bg-[#a9121b]/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#a9121b]/30 transition-colors">
+              <Users className="text-[#d7b36a]" size={28} />
             </div>
             <h4 className="text-xl font-bold text-white mb-3">Dedicated Support</h4>
             <p className="text-gray-400">Professional customer service</p>
           </div>
 
-          <div className="group bg-gradient-to-br from-gray-900 to-gray-900/50 border border-gray-800 group-hover:border-blue-600/50 p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10">
-            <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-              <Target className="text-blue-500" size={28} />
+          <div className="group bg-[#111111] border border-[#a9121b]/60 hover:border-[#d7b36a] p-8 rounded-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#a9121b]/20">
+            <div className="w-12 h-12 bg-[#a9121b]/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#a9121b]/30 transition-colors">
+              <Target className="text-[#d7b36a]" size={28} />
             </div>
             <h4 className="text-xl font-bold text-white mb-3">Long-term Relationships</h4>
             <p className="text-gray-400">Commitment to client success</p>
@@ -255,8 +254,7 @@ const About: React.FC = () => {
       {/* COMMITMENT SECTION */}
       <section className="max-w-[1400px] mx-auto px-4 py-24">
         <div className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-transparent to-blue-600/5 rounded-2xl"></div>
-          <div className="relative bg-gray-900/30 backdrop-blur border border-blue-600/30 rounded-2xl p-16 text-center">
+          <div className="relative bg-[#111111] border border-[#a9121b]/60 rounded-2xl p-16 text-center">
             <h2 className="text-4xl font-black text-white mb-8">Our Commitment</h2>
             <p className="text-gray-300 text-xl leading-relaxed max-w-2xl mx-auto">
               At RJ Textile Machinery, we believe business is built on trust. We are committed to delivering machinery solutions that meet our clients' operational goals while maintaining professional integrity and service excellence.

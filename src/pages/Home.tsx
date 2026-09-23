@@ -83,7 +83,8 @@ const HeroSection: React.FC = () => {
   const navigate = useNavigate();
 
   const heroSlide = {
-    video: '/assets/machine.mp4',
+    video: '/assets/hero.mp4',
+    poster: '/assets/hero.jpg',
     label: 'Premium Industrial Grade',
     title: 'Advanced Textile Machinery Solutions',
     buttonText: 'Shop Now'
@@ -96,14 +97,19 @@ const HeroSection: React.FC = () => {
         <div className="absolute inset-0">
           <video
             src={heroSlide.video}
-            poster="/assets/machine cover.jpg"
+            poster={heroSlide.poster}
             loop
             muted
-            preload="none"
+            preload="metadata"
             playsInline
             autoPlay
-            className="absolute inset-0 w-full h-full object-cover opacity-60 bg-black"
+            onError={(event) => {
+              const target = event.currentTarget as HTMLVideoElement;
+              target.style.display = 'none';
+            }}
+            className="absolute inset-0 w-full h-full object-cover bg-black"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/35 to-black/20" />
         </div>
 
         {/* CONTENT */}
@@ -266,13 +272,13 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
   const specialOfferProducts = products.filter(p => p.isSpecialOffer);
 
   return (
-    <section className="mt-24 bg-gradient-to-r from-blue-950/30 via-black to-blue-950/30 border border-blue-900/50 rounded-sm p-8">
-      <div className="flex items-center gap-3 mb-8 pb-4 border-b border-blue-900/50">
-        <div className="px-3 py-1 bg-blue-600 text-white text-xs font-black uppercase rounded-sm">
+    <section className="mt-24 rounded-sm p-8">
+      <div className="flex items-center gap-3 mb-8 pb-4 border-b border-[#a9121b]/50">
+        <div className="px-3 py-1 bg-[#d61f27] text-white text-xs font-black uppercase rounded-sm">
           Limited Time
         </div>
-        <h2 className="text-2xl font-bold">
-          Special <span className="font-light">Offers</span>
+        <h2 className="text-2xl font-bold text-white">
+          Special <span className="font-light text-[#d7b36a]">Offers</span>
         </h2>
       </div>
       {loading ? (
@@ -291,9 +297,9 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
               onClick={() => navigate(`/product/${slugify(product.name)}`)} 
               className="cursor-pointer relative group"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm opacity-0 group-hover:opacity-20 blur transition-all duration-300 -z-10"></div>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#d61f27] to-[#a9121b] rounded-sm opacity-0 group-hover:opacity-25 blur transition-all duration-300 -z-10"></div>
               <ProductCard product={product} />
-              <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-sm text-xs font-bold">
+              <div className="absolute top-2 right-2 bg-[#a9121b] text-white px-2 py-1 rounded-sm text-xs font-bold">
                 Hot Deal
               </div>
             </div>
@@ -465,7 +471,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 const CategoryCard: React.FC<{ category: Category; navigate: any }> = ({ category, navigate }) => (
   <div
     onClick={() => navigate(`/shop?category=${category.id}`)}
-    className="flex gap-6 p-6 bg-[#050505] border border-transparent rounded-sm group cursor-pointer hover:border-blue-500 transition-all transform hover:-translate-y-1"
+    className="flex gap-6 p-6 bg-[#050505] border border-transparent rounded-sm group cursor-pointer hover:border-[#a9121b] transition-all transform hover:-translate-y-1"
   >
     <div className="relative w-32 h-32 flex-shrink-0 flex items-center justify-center bg-[#0c0c0c] rounded-sm overflow-hidden">
       {category.icon ? (
@@ -509,11 +515,11 @@ const CategoryMiniList: React.FC<CategoryMiniListProps> = ({ title, products, na
 
   return (
     <div className="space-y-8">
-      <div className="relative pb-4 border-b border-gray-800">
-        <h2 className="text-xl font-bold uppercase tracking-tighter">
-          {firstWord} <span className="font-light">{restWords.join(' ')}</span>
+      <div className="relative pb-4 border-b border-[#a9121b]/50">
+        <h2 className="text-xl font-bold uppercase tracking-tighter text-white">
+          {firstWord} <span className="font-light text-[#d7b36a]">{restWords.join(' ')}</span>
         </h2>
-        <span className="absolute bottom-[-1px] left-0 w-16 h-[2px] bg-blue-500"></span>
+        <span className="absolute bottom-[-1px] left-0 w-16 h-[2px] bg-[#a9121b]"></span>
       </div>
 
       <div className="space-y-6">
@@ -523,7 +529,7 @@ const CategoryMiniList: React.FC<CategoryMiniListProps> = ({ title, products, na
             onClick={() => navigate(`/product/${slugify(p.name)}`)}
             className="flex items-center gap-4 cursor-pointer group"
           >
-            <div className="relative w-20 h-20 flex-shrink-0 flex items-center justify-center bg-[#080808] border border-gray-800 rounded-sm group-hover:border-blue-500 transition-colors">
+            <div className="relative w-20 h-20 flex-shrink-0 flex items-center justify-center bg-[#080808] border border-[#a9121b]/50 rounded-sm group-hover:border-[#a9121b] transition-colors">
               {p.image ? (
                 <img
                   src={p.image}
@@ -542,7 +548,7 @@ const CategoryMiniList: React.FC<CategoryMiniListProps> = ({ title, products, na
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase leading-tight line-clamp-2 text-gray-400 group-hover:text-blue-500 transition-colors">
+              <h4 className="text-xs font-bold uppercase leading-tight line-clamp-2 text-gray-400 group-hover:text-[#d7b36a] transition-colors">
                 {p.name}
               </h4>
               <div className="mt-1 text-xs text-gray-500 space-y-0.5">

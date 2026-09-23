@@ -58,9 +58,20 @@ const Navigation: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const isHeroPage =
+    location.pathname === '/' ||
+    location.pathname === '/all-products' ||
+    location.pathname === '/shop';
+
+  if (!isHeroPage) {
+    return null;
+  }
+
   return (
-    <nav className="relative z-40 flex items-center justify-center py-0 px-4">
-      <div className="max-w-xl w-full relative" ref={dropdownRef}>
+    <nav
+      className='absolute left-1/2 top-20 z-50 w-[min(92vw,640px)] -translate-x-1/2 px-4'
+    >
+      <div className={isHeroPage ? 'w-full relative' : 'max-w-xl w-full relative'} ref={dropdownRef}>
         <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
@@ -71,11 +82,19 @@ const Navigation: React.FC = () => {
                 setShowDropdown(true);
               }}
               onFocus={() => searchQuery && setShowDropdown(true)}
-              className="w-full bg-black/60 border border-gray-800 rounded-full h-10 px-4 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              className={
+                isHeroPage
+                  ? 'w-full bg-black/40 backdrop-blur-sm border border-white/10 rounded-full h-12 px-5 pr-28 text-sm text-white placeholder:text-gray-200 focus:outline-none focus:border-blue-500 transition-colors shadow-lg'
+                  : 'w-full bg-black/60 border border-gray-800 rounded-full h-10 px-4 text-sm focus:outline-none focus:border-blue-500 transition-colors'
+              }
             />
             <button
               type="submit"
-              className="absolute right-0 top-0 bottom-0 bg-blue-600 hover:bg-blue-700 px-4 sm:px-6 rounded-full flex items-center gap-2 text-sm font-bold transition-all uppercase"
+              className={
+                isHeroPage
+                  ? 'absolute right-1 top-1 bottom-1 bg-blue-600 hover:bg-blue-700 px-4 sm:px-6 rounded-full flex items-center gap-2 text-sm font-bold transition-all uppercase'
+                  : 'absolute right-0 top-0 bottom-0 bg-blue-600 hover:bg-blue-700 px-4 sm:px-6 rounded-full flex items-center gap-2 text-sm font-bold transition-all uppercase'
+              }
             >
               <Search size={18} />
               Search
