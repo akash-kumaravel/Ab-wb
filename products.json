@@ -246,5 +246,15 @@
     "features": [
       "gggg"
     ]
+  },
+  {
+    "id": 14,
+    "name": "dddddd",
+    "price": "dddddd",
+    "image": "/static/uploads/30057d2b-632a-4287-8078-ceeea7160f39_How to Write Synopsis for Research.png",
+    "description": "dddd",
+    "features": [
+      "ddd"
+    ]
   }
 ]
