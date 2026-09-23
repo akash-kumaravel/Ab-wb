@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   TRUST_BADGES,
   CATEGORIES,
-  TRENDING_PRODUCTS,
-  SPECIAL_OFFERS,
 } from '../constants';
 import { Product, Category } from '../types';
 import ProductService from '../services/ProductService';

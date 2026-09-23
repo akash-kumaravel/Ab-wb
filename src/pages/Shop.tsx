@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { TRENDING_PRODUCTS, SPECIAL_OFFERS, CATEGORIES } from '../constants';
+import { CATEGORIES } from '../constants';
 import { Product } from '../types';
 import ProductService from '../services/ProductService';
 import { slugify } from '../utils/slugify';
@@ -22,8 +22,7 @@ const Shop: React.FC = () => {
     const fetchProducts = async () => {
       setLoading(true);
       const data = await ProductService.getAllProducts();
-      // If no products from API, use fallback constants
-      setProducts(data.length > 0 ? data : [...TRENDING_PRODUCTS, ...SPECIAL_OFFERS]);
+      setProducts(data);
       setLoading(false);
     };
 
