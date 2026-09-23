@@ -93,11 +93,7 @@ const FooterBottom: React.FC = () => (
   <div className="border-t border-gray-900">
     <div className="max-w-[1400px] mx-auto px-4 lg:px-10 py-8 flex flex-col md:flex-row items-center justify-center text-xs text-gray-500 gap-2">
       <p>
-        © {new Date().getFullYear()} RJ Textile. All rights reserved.
-      </p>
-      <span className="hidden md:inline">|</span>
-      <p>
-        Developed by <a href="https://www.memoinfotech.com/" target="_blank" rel="noopener noreferrer" className="text-blue-500 font-semibold hover:text-blue-400 transition-colors">Memo Infotech</a>
+        © {new Date().getFullYear()} <a href="https://www.memoinfotech.com/" target="_blank" rel="noopener noreferrer" className="text-blue-500 font-semibold hover:text-blue-400 transition-colors">Memo Infotech</a>. All rights reserved.
       </p>
     </div>
   </div>
