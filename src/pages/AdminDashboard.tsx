@@ -275,6 +275,33 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  const handleRemoveSpecialOffer = async (id: number) => {
+    if (!confirm('Remove this product from special offers?')) return;
+
+    try {
+      const data = new FormData();
+      data.append('discount', '');
+      data.append('specialOfferPrice', '');
+      data.append('isSpecialOffer', 'false');
+      const response = await fetch(`${getApiBaseURL()}/api/products/${id}`, {
+        method: 'PUT',
+        body: data,
+      });
+
+      if (response.ok) {
+        setMessage('Special offer removed successfully!');
+        fetchProducts();
+        setTimeout(() => setMessage(''), 3000);
+      } else {
+        const result = await response.json().catch(() => ({}));
+        setMessage(result.error || 'Error removing special offer.');
+      }
+    } catch (error) {
+      setMessage('Error connecting to server.');
+      console.error('Error:', error);
+    }
+  };
+
   const handleDeleteCategory = async (id: number) => {
     if (!confirm('Are you sure you want to delete this category?')) return;
     try {
@@ -437,11 +464,9 @@ const AdminDashboard: React.FC = () => {
                     className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white focus:outline-none focus:border-blue-500 transition-colors"
                     required
                   >
-                    <option value={1}>Sulzer Weaving Machine</option>
-                    <option value={2}>Air-Jet Weaving Machine</option>
-                    <option value={3}>OE</option>
-                    <option value={4}>Spares & Parts</option>
-                    <option value={5}>Scrap</option>
+                    {categories.map(category => (
+                      <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
                   </select>
                 </div>
 
@@ -814,6 +839,15 @@ const AdminDashboard: React.FC = () => {
                           >
                             <Trash2 size={16} />
                           </button>
+                          {product.isSpecialOffer && (
+                            <button
+                              onClick={() => handleRemoveSpecialOffer(product.id)}
+                              className="p-2 bg-cyan-600 hover:bg-cyan-700 rounded-sm transition-colors"
+                              title="Remove special offer"
+                            >
+                              <span className="text-xs font-bold">Offer</span>
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>
