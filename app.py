@@ -460,10 +460,17 @@ def add_category():
             return jsonify({"error": "Category name is required"}), 400
         if any(category["name"].lower() == name.lower() for category in categories):
             return jsonify({"error": "Category already exists"}), 409
+        image_file = request.files.get("image")
+        image_url = request.form.get("image", "").strip()
+        if image_file:
+            uploaded_url = upload_image(image_file)
+            if not uploaded_url:
+                return jsonify({"error": "Category image upload failed"}), 500
+            image_url = uploaded_url
         category = {
             "id": max([item.get("id", 0) for item in categories], default=0) + 1,
             "name": name,
-            "icon": request.form.get("icon", "/assets/shutterstock_1069102985-1920w.jpeg"),
+            "icon": image_url or "/assets/shutterstock_1069102985-1920w.jpeg",
             "subCategories": []
         }
         categories.append(category)
