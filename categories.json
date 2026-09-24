@@ -3,30 +3,57 @@
     "id": 1,
     "name": "Sulzer Weaving Machine",
     "icon": "/assets/C Sulzer.png",
-    "subCategories": ["Weaving Machines", "Parts", "Accessories"]
+    "subCategories": [
+      "Weaving Machines",
+      "Parts",
+      "Accessories"
+    ]
   },
   {
     "id": 2,
     "name": "Air-Jet Weaving Machine",
     "icon": "/assets/C%20%20Air%20Jet.png",
-    "subCategories": ["Air-Jet Looms", "Components", "Upgrades"]
+    "subCategories": [
+      "Air-Jet Looms",
+      "Components",
+      "Upgrades"
+    ]
   },
   {
     "id": 3,
     "name": "OE",
     "icon": "/assets/C Oe machine.png",
-    "subCategories": ["Original Equipment", "OE Parts", "Accessories"]
+    "subCategories": [
+      "Original Equipment",
+      "OE Parts",
+      "Accessories"
+    ]
   },
   {
     "id": 4,
     "name": "Spares & Parts",
     "icon": "/assets/C Sulzar spare.jpg",
-    "subCategories": ["Spindles", "Rollers", "Needles", "Modules"]
+    "subCategories": [
+      "Spindles",
+      "Rollers",
+      "Needles",
+      "Modules"
+    ]
   },
   {
     "id": 5,
     "name": "Scrap",
     "icon": "/assets/C scarap.jpg",
-    "subCategories": ["Metal Scrap", "Machine Scrap", "Waste Materials"]
+    "subCategories": [
+      "Metal Scrap",
+      "Machine Scrap",
+      "Waste Materials"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "testing",
+    "icon": "/static/uploads/5480010b-892a-46ad-9b40-62c603da3518_Create_PhD_syllabus_thumbnail_il\u2026_20260924151012.jpeg",
+    "subCategories": []
   }
 ]
