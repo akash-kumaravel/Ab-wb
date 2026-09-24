@@ -236,6 +236,15 @@ def save_products(products):
     return True
 
 def load_categories():
+    # Keep the backend data in sync with the repository, just like products.
+    if GITHUB_TOKEN:
+        github_content, _ = get_file_from_github(CATEGORIES_FILE)
+        if github_content:
+            try:
+                return json.loads(github_content)
+            except Exception as e:
+                print(f"Error parsing categories.json from GitHub: {e}")
+
     if os.path.exists(CATEGORIES_FILE):
         try:
             with open(CATEGORIES_FILE, "r") as f:
@@ -248,7 +257,11 @@ def save_categories(categories):
     with open(CATEGORIES_FILE, "w") as f:
         json.dump(categories, f, indent=2)
     with open(CATEGORIES_FILE, "r") as f:
-        push_file_to_github(CATEGORIES_FILE, f.read(), "Update categories from server")
+        github_synced = push_file_to_github(
+            CATEGORIES_FILE, f.read(), "Update categories from server"
+        )
+    if GITHUB_TOKEN and not github_synced:
+        raise RuntimeError("categories.json could not be synced to GitHub")
 
 def upload_image(file):
     if not file:
@@ -406,7 +419,7 @@ def update_product(id):
             "image": image_url,
             "description": description,
             "features": features,
-            "category": int(category),
+            "category": int(category) if str(category).isdigit() else category,
             "model": model,
             "series": series,
             "warranty": warranty,
