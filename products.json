@@ -71,8 +71,8 @@
     "series": "S500",
     "warranty": "24",
     "shipping": "10",
-    "discount": "",
-    "specialOfferPrice": "",
-    "isSpecialOffer": false
+    "discount": "10",
+    "specialOfferPrice": "720,000",
+    "isSpecialOffer": true
   }
 ]
