@@ -50,5 +50,16 @@
       "24/7 Technical support",
       "Consistent fabric quality at high volumes"
     ]
+  },
+  {
+    "id": 4,
+    "name": "testing 2",
+    "price": "\u20b98,00,000",
+    "image": "/static/uploads/bf48cc03-4540-4663-919a-dbb8120ca3f3_ChatGPT Image Sep 24, 2026, 10_59_33 AM.png",
+    "category": 1,
+    "description": "testing",
+    "features": [
+      "testing"
+    ]
   }
 ]
