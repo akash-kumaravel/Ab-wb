@@ -50,28 +50,5 @@
       "24/7 Technical support",
       "Consistent fabric quality at high volumes"
     ]
-  },
-  {
-    "id": 4,
-    "name": "Rieter R35",
-    "price": "\u20b98,00,000",
-    "image": "/static/uploads/9e6aa170-b326-47b4-a7f9-089559474c5f_images (1).jfif",
-    "category": 3,
-    "description": "Sulzer Weaving Machine\r\nClick to view products\r\n\r\nAir-Jet Weaving Machine\r\nAir-Jet Weaving Machine\r\nClick to view products\r\n\r\nOE\r\nOE\r\nClick to view products\r\n\r\nSpares & Parts\r\nSpares & Parts\r\nClick to view products\r\n\r\nScrap\r\nScrap",
-    "features": [
-      "Sulzer Weaving Machine",
-      "Click to view products",
-      "Air-Jet Weaving Machine",
-      "Air-Jet Weaving Machine",
-      "Click to view products",
-      "OE",
-      "OE",
-      "Click to view products",
-      "Spares & Parts",
-      "Spares & Parts",
-      "Click to view products",
-      "Scrap",
-      "Scrap"
-    ]
   }
 ]
