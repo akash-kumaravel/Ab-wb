@@ -28,8 +28,8 @@ const Contact: React.FC = () => {
             </div>
             <h3 className="text-lg font-bold text-white mb-4 text-center">Phone</h3>
             <p className="text-gray-300 text-sm text-center mb-3">Call us for immediate support</p>
-            <a href="tel:+919344158524" className="text-[#ff3b30] hover:text-[#ff5b50] font-bold text-center block transition-colors">
-              +91 93441 58524
+            <a href="tel:+919843140485" className="text-[#ff3b30] hover:text-[#ff5b50] font-bold text-center block transition-colors">
+              +91 98431 40485
             </a>
           </div>
 
@@ -95,7 +95,7 @@ const Contact: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+919344158524"
+              href="tel:+919843140485"
               className="bg-[#ff3b30] hover:bg-[#ff5b50] text-white font-bold py-3 px-8 rounded-sm transition-colors"
             >
               Call Now

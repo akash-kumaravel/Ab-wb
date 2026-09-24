@@ -55,8 +55,8 @@ const FooterAbout: React.FC = () => (
       </div>
       <div>
         <p className="text-xs font-bold uppercase text-gray-500 mb-2">Contact</p>
-        <a href="tel:+919344158524" className="text-lg font-bold text-blue-500 hover:text-blue-400 transition-colors">
-          +91 93441 58524
+        <a href="tel:+919843140485" className="text-lg font-bold text-blue-500 hover:text-blue-400 transition-colors">
+          +91 98431 40485
         </a>
         <p className="text-xs text-gray-500 mt-2">Email</p>
         <a href="mailto:rjtextilemachinery@gmail.com" className="text-sm text-blue-500 hover:text-blue-400 transition-colors">
