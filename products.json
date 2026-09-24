@@ -65,6 +65,14 @@
       "Low maintenance requirements",
       "24/7 Technical support",
       "Consistent fabric quality at high volumes"
-    ]
+    ],
+    "category": 1,
+    "model": "Sulzer",
+    "series": "S500",
+    "warranty": "24",
+    "shipping": "10",
+    "discount": "",
+    "specialOfferPrice": "",
+    "isSpecialOffer": false
   }
 ]
