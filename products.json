@@ -16,5 +16,22 @@
       "Consistent fabric quality output",
       "Advanced automated controls"
     ]
+  },
+  {
+    "id": 2,
+    "name": "AIR-JET L5300",
+    "price": "\u20b98,00,000",
+    "image": "/static/uploads/85a6563d-caa7-444d-9b71-9e7f5066278a_images (1).jfif",
+    "description": "The AIR-JET L5300 is a high-speed air-jet weaving machine designed for efficient, high-volume fabric production. Utilizing advanced air-jet insertion technology, it delivers superior weaving speed and precision while minimizing yarn breakage. Built for demanding industrial environments, it's ideal for mills producing lightweight to medium-weight fabrics at scale.",
+    "features": [
+      "High-speed air-jet insertion technology",
+      "Energy-efficient operation",
+      "Low noise and vibration design",
+      "Precision electronic weft control",
+      "Suitable for lightweight to medium-weight fabrics",
+      "Durable heavy-duty construction",
+      "24/7 Technical support",
+      "Easy maintenance and quick changeover"
+    ]
   }
 ]
