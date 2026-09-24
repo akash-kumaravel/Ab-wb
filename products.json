@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "Rieter R35",
+    "price": "\u20b98,00,000",
+    "image": "/static/uploads/065e6d7d-91ee-4cfa-8270-bbd1ba98abeb_Rieter-R351.jpg",
+    "description": "High performance Sulzer  weaving machine engineered for heavy-duty industrial textile production. The Rieter R35 delivers consistent fabric quality at high speeds, with robust construction designed for continuous multi-shift operation. Ideal for mills producing wide width fabrics, this machine combines precision engineering with energy efficient operation to reduce per-meter production costs.",
+    "features": [
+      "High-precision engineering",
+      "Energy-efficient operation",
+      "24/7 Technical support",
+      "High-speed weaving performance",
+      "Suitable for wide-width fabric production",
+      "Durable heavy-duty construction",
+      "Low maintenance design",
+      "Consistent fabric quality output",
+      "Advanced automated controls"
+    ]
+  }
+]
