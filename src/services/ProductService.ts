@@ -5,6 +5,7 @@ import productsData from '../../products.json';
 import getApiBaseURL from '../config/apiConfig';
 
 const PRODUCTS: Product[] = productsData as Product[];
+const SERVER_REQUEST_TIMEOUT_MS = 4000;
 
 const normalizeProductImage = (product: Product): Product => ({
   ...product,
@@ -44,9 +45,16 @@ export interface Product {
 
 class ProductService {
   static async getAllProducts(): Promise<Product[]> {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(
+      () => controller.abort(),
+      SERVER_REQUEST_TIMEOUT_MS
+    );
+
     try {
       const response = await fetch(`${getApiBaseURL()}/api/products`, {
         cache: 'no-store',
+        signal: controller.signal,
       });
 
       if (response.ok) {
@@ -57,6 +65,8 @@ class ProductService {
       }
     } catch (error) {
       console.error('Error fetching products from server:', error);
+    } finally {
+      window.clearTimeout(timeoutId);
     }
 
     return normalizeProducts(PRODUCTS);
