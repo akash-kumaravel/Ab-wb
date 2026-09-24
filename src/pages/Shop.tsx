@@ -46,7 +46,7 @@ const Shop: React.FC = () => {
   }, []);
 
   const filteredProducts = selectedCategory
-    ? products.filter(p => p.category === selectedCategory)
+    ? products.filter(p => Number(p.category) === selectedCategory)
     : products;
 
   const ProductCardShop: React.FC<{ product: Product }> = ({ product }) => (

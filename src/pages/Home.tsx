@@ -313,28 +313,16 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
 
 // CATEGORY MINI LISTS SECTION
 const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }> = ({ navigate, products }) => {
-  // Filter products by category (1=Sulzer, 2=Air-Jet, 3=OE)
-  const sulzerProducts = products.filter(p => p.category === 1).slice(0, 3);
-  const airJetProducts = products.filter(p => p.category === 2).slice(0, 3);
-  const oeProducts = products.filter(p => p.category === 3).slice(0, 3);
-
   return (
     <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
-      <CategoryMiniList
-        title="Sulzer Weaving Machine"
-        products={sulzerProducts}
-        navigate={navigate}
-      />
-      <CategoryMiniList
-        title="Air-Jet Weaving Machine"
-        products={airJetProducts}
-        navigate={navigate}
-      />
-      <CategoryMiniList
-        title="OE"
-        products={oeProducts}
-        navigate={navigate}
-      />
+      {CATEGORIES.map((category) => (
+        <CategoryMiniList
+          key={category.id}
+          title={category.name}
+          products={products.filter((product) => Number(product.category) === category.id).slice(0, 3)}
+          navigate={navigate}
+        />
+      ))}
     </section>
   );
 };
