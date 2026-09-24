@@ -61,16 +61,5 @@
     "features": [
       "testing"
     ]
-  },
-  {
-    "id": 5,
-    "name": "test",
-    "price": "test",
-    "image": "/static/uploads/c52fed1a-8562-4823-a72b-d41ab797b449_RUHS PhD Syllabus.png",
-    "category": 1,
-    "description": "test",
-    "features": [
-      "test"
-    ]
   }
 ]
