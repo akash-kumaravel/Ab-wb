@@ -15,7 +15,15 @@
       "Low maintenance design",
       "Consistent fabric quality output",
       "Advanced automated controls"
-    ]
+    ],
+    "category": 1,
+    "model": "Rieter",
+    "series": "R35",
+    "warranty": "24",
+    "shipping": "10",
+    "discount": "",
+    "specialOfferPrice": "",
+    "isSpecialOffer": false
   },
   {
     "id": 2,
