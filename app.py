@@ -2,6 +2,7 @@ import os
 import json
 import uuid
 import base64
+import shutil
 import requests
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -20,8 +21,11 @@ GITHUB_BRANCH = os.environ.get("GITHUB_BRANCH", "main")
 GITHUB_REPO_FULL = f"{GITHUB_USERNAME}/{GITHUB_REPO_NAME}"
 
 DATA_FILE = "products.json"
+CATEGORIES_FILE = "categories.json"
 UPLOAD_FOLDER = "static/uploads"
+PUBLIC_UPLOAD_FOLDER = "public/static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(PUBLIC_UPLOAD_FOLDER, exist_ok=True)
 
 # GitHub API headers
 GITHUB_API_HEADERS = {
@@ -206,7 +210,9 @@ def save_products(products):
     # Sync products.json with GitHub
     with open(DATA_FILE, "r") as f:
         content = f.read()
-    push_file_to_github(DATA_FILE, content, "Update products.json from server")
+    github_synced = push_file_to_github(DATA_FILE, content, "Update products.json from server")
+    if GITHUB_TOKEN and not github_synced:
+        raise RuntimeError("products.json could not be synced to GitHub")
     
     # Sync products.json with Hugging Face Hub
     if HF_TOKEN:
@@ -227,6 +233,23 @@ def save_products(products):
     else:
         print("HF_TOKEN is not set, skipping sync to Hugging Face Hub.")
 
+    return True
+
+def load_categories():
+    if os.path.exists(CATEGORIES_FILE):
+        try:
+            with open(CATEGORIES_FILE, "r") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error loading categories: {e}")
+    return []
+
+def save_categories(categories):
+    with open(CATEGORIES_FILE, "w") as f:
+        json.dump(categories, f, indent=2)
+    with open(CATEGORIES_FILE, "r") as f:
+        push_file_to_github(CATEGORIES_FILE, f.read(), "Update categories from server")
+
 def upload_image(file):
     if not file:
         return None
@@ -234,12 +257,25 @@ def upload_image(file):
     filename = f"{uuid.uuid4()}_{file.filename}"
     filepath = os.path.join(UPLOAD_FOLDER, filename)
     file.save(filepath)
-    
-    # Sync image with GitHub
-    github_sync_path = filepath.replace("\\", "/")  # Normalize path for GitHub
+
+    # Vercel serves the frontend assets from public/, so keep the uploaded
+    # file in that repository path as well.
+    public_filepath = os.path.join(PUBLIC_UPLOAD_FOLDER, filename)
+    shutil.copyfile(filepath, public_filepath)
+
+    # Push the Vercel-served repository path, not the backend-only local path.
+    github_sync_path = os.path.relpath(public_filepath, start=os.getcwd()).replace("\\", "/")
+
     with open(filepath, "rb") as f:
         image_content = f.read()
-    push_file_to_github(github_sync_path, image_content, f"Upload product image: {filename}")
+    github_uploaded = push_file_to_github(
+        github_sync_path,
+        image_content,
+        f"Upload product image: {filename}"
+    )
+    if GITHUB_TOKEN and not github_uploaded:
+        print(f"Image upload failed; refusing to save product: {github_sync_path}")
+        return None
     
     # Sync image with Hugging Face Hub
     if HF_TOKEN:
@@ -254,7 +290,7 @@ def upload_image(file):
             print(f"Uploaded {filename} to Hugging Face Hub")
         except Exception as e:
             print(f"Failed to upload image to HF: {e}")
-            
+
     # Return the full URL for the image
     return f"/static/uploads/{filename}"
 
@@ -277,6 +313,7 @@ def add_product():
         
         name = request.form.get("name")
         price = request.form.get("price")
+        category = request.form.get("category")
         description = request.form.get("description", "")
         # Features come as a list of strings, but FormData sends them as individual entries or a single string?
         # Let's assume frontend sends a JSON string or we handle repeated keys
@@ -304,6 +341,7 @@ def add_product():
             "name": name,
             "price": price,
             "image": image_url,
+            "category": int(category) if category and category.isdigit() else category,
             "description": description,
             "features": features
         }
@@ -333,6 +371,18 @@ def update_product(id):
         
         features_json = request.form.get("features")
         features = json.loads(features_json) if features_json else existing_product.get("features", [])
+        category = request.form.get("category", existing_product.get("category", 1))
+        model = request.form.get("model", existing_product.get("model", ""))
+        series = request.form.get("series", existing_product.get("series", ""))
+        warranty = request.form.get("warranty", existing_product.get("warranty", ""))
+        shipping = request.form.get("shipping", existing_product.get("shipping", ""))
+        discount = request.form.get("discount", existing_product.get("discount", ""))
+        special_offer_price = request.form.get(
+            "specialOfferPrice", existing_product.get("specialOfferPrice", "")
+        )
+        is_special_offer = request.form.get(
+            "isSpecialOffer", str(existing_product.get("isSpecialOffer", False))
+        ).lower() == "true"
 
         # Handle Image
         image_file = request.files.get("image")
@@ -355,7 +405,15 @@ def update_product(id):
             "price": price,
             "image": image_url,
             "description": description,
-            "features": features
+            "features": features,
+            "category": int(category),
+            "model": model,
+            "series": series,
+            "warranty": warranty,
+            "shipping": shipping,
+            "discount": discount,
+            "specialOfferPrice": special_offer_price,
+            "isSpecialOffer": is_special_offer
         }
         
         products[product_index] = updated_product
@@ -375,6 +433,40 @@ def delete_product(id):
         
     save_products(filtered_products)
     return jsonify({"message": "Product deleted"})
+
+@app.route("/api/categories", methods=["GET"])
+def get_categories():
+    return jsonify(load_categories())
+
+@app.route("/api/categories", methods=["POST"])
+def add_category():
+    try:
+        categories = load_categories()
+        name = request.form.get("name", "").strip()
+        if not name:
+            return jsonify({"error": "Category name is required"}), 400
+        if any(category["name"].lower() == name.lower() for category in categories):
+            return jsonify({"error": "Category already exists"}), 409
+        category = {
+            "id": max([item.get("id", 0) for item in categories], default=0) + 1,
+            "name": name,
+            "icon": request.form.get("icon", "/assets/shutterstock_1069102985-1920w.jpeg"),
+            "subCategories": []
+        }
+        categories.append(category)
+        save_categories(categories)
+        return jsonify(category), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/categories/<int:id>", methods=["DELETE"])
+def delete_category(id):
+    categories = load_categories()
+    filtered_categories = [category for category in categories if category.get("id") != id]
+    if len(categories) == len(filtered_categories):
+        return jsonify({"error": "Category not found"}), 404
+    save_categories(filtered_categories)
+    return jsonify({"message": "Category deleted"})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=7860)
