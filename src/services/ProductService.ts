@@ -2,6 +2,7 @@
 // Vercel can rebuild the frontend after GitHub updates without relying on a
 // live backend fetch for the storefront display.
 import productsData from '../../products.json';
+import getApiBaseURL from '../config/apiConfig';
 
 const PRODUCTS: Product[] = productsData as Product[];
 
@@ -43,11 +44,27 @@ export interface Product {
 
 class ProductService {
   static async getAllProducts(): Promise<Product[]> {
+    try {
+      const response = await fetch(`${getApiBaseURL()}/api/products`, {
+        cache: 'no-store',
+      });
+
+      if (response.ok) {
+        const products = await response.json();
+        if (Array.isArray(products)) {
+          return normalizeProducts(products as Product[]);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching products from server:', error);
+    }
+
     return normalizeProducts(PRODUCTS);
   }
 
   static async getProductById(id: number): Promise<Product | null> {
-    const product = PRODUCTS.find((item) => item.id === id);
+    const products = await ProductService.getAllProducts();
+    const product = products.find((item) => item.id === id);
     return product ? normalizeProductImage(product) : null;
   }
 
