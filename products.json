@@ -40,7 +40,15 @@
       "Durable heavy-duty construction",
       "24/7 Technical support",
       "Easy maintenance and quick changeover"
-    ]
+    ],
+    "category": 1,
+    "model": "AIR-JET",
+    "series": "L5300",
+    "warranty": "24",
+    "shipping": "10",
+    "discount": "",
+    "specialOfferPrice": "",
+    "isSpecialOffer": false
   },
   {
     "id": 3,
