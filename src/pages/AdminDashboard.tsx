@@ -212,6 +212,11 @@ const AdminDashboard: React.FC = () => {
         const data = new FormData();
         data.append('name', formData.name);
         data.append('description', formData.description);
+        if (formData.image instanceof File) {
+          data.append('image', formData.image);
+        } else if (typeof formData.image === 'string' && formData.image.trim()) {
+          data.append('image', formData.image.trim());
+        }
         const response = await fetch(`${getApiBaseURL()}/api/categories`, {
           method: 'POST',
           body: data,
@@ -748,6 +753,28 @@ const AdminDashboard: React.FC = () => {
                     placeholder="Enter category description"
                     required
                   />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
+                    Category Image
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="w-full bg-black border border-gray-700 rounded-sm py-3 px-4 text-white"
+                  />
+                  <input
+                    type="text"
+                    name="image"
+                    value={typeof formData.image === 'string' ? formData.image : ''}
+                    onChange={handleInputChange}
+                    placeholder="Or enter image URL"
+                    className="w-full mt-2 bg-black border border-gray-800 rounded-sm py-2 px-3 text-sm text-gray-400 focus:outline-none focus:border-blue-500"
+                  />
+                  {imagePreview && (
+                    <img src={imagePreview} alt="Category preview" className="mt-3 h-24 w-24 rounded-sm object-cover" />
+                  )}
                 </div>
               </div>
               <div className="flex gap-4 pt-6">

@@ -8,6 +8,7 @@ import {
 import { Product, Category } from '../types';
 import ProductService from '../services/ProductService';
 import { slugify } from '../utils/slugify';
+import getApiBaseURL from '../config/apiConfig';
 
 // ============================================
 // PAGE CONSTANTS
@@ -30,6 +31,7 @@ const COUNTDOWN_ITEMS = [
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,6 +43,15 @@ const Home: React.FC = () => {
     };
 
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    fetch(`${getApiBaseURL()}/api/categories`)
+      .then(response => response.ok ? response.json() : Promise.reject(response.status))
+      .then(data => {
+        if (Array.isArray(data)) setCategories(data);
+      })
+      .catch(error => console.error('Error fetching categories:', error));
   }, []);
 
   // Re-fetch products when page becomes visible to get newly added items
@@ -64,10 +75,10 @@ const Home: React.FC = () => {
       <div className="mx-auto max-w-[1400px] px-4 lg:px-10">
         <TrustBadges />
         <TrendingProducts navigate={navigate} products={products} loading={loading} />
-        <PopularCategories navigate={navigate} />
+        <PopularCategories navigate={navigate} categories={categories} />
         <PromotionalBanners />
         <SpecialOffers navigate={navigate} products={products} loading={loading} />
-        <CategoryMiniListsSection navigate={navigate} products={products} />
+        <CategoryMiniListsSection navigate={navigate} products={products} categories={categories} />
       </div>
     </>
   );
@@ -229,13 +240,13 @@ const TrendingProducts: React.FC<{ navigate: any; products: Product[]; loading: 
 
 
 // CATEGORIES SECTION
-const PopularCategories: React.FC<{ navigate: any }> = ({ navigate }) => (
+const PopularCategories: React.FC<{ navigate: any; categories: Category[] }> = ({ navigate, categories }) => (
   <section className="mt-24">
     <h2 className="mb-10 border-b border-gray-800 pb-4 text-2xl font-bold">
       <span className="font-light">Categories</span>
     </h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {CATEGORIES.map((cat) => (
+      {categories.map((cat) => (
         <CategoryCard key={cat.id} category={cat} navigate={navigate} />
       ))}
     </div>
@@ -312,10 +323,10 @@ const SpecialOffers: React.FC<{ navigate: any; products: Product[]; loading: boo
 
 
 // CATEGORY MINI LISTS SECTION
-const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[] }> = ({ navigate, products }) => {
+const CategoryMiniListsSection: React.FC<{ navigate: any; products: Product[]; categories: Category[] }> = ({ navigate, products, categories }) => {
   return (
     <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
-      {CATEGORIES.map((category) => (
+      {categories.map((category) => (
         <CategoryMiniList
           key={category.id}
           title={category.name}
