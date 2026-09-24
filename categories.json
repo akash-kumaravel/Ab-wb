@@ -39,5 +39,11 @@
       "Needles",
       "Modules"
     ]
+  },
+  {
+    "id": 5,
+    "name": "spare",
+    "icon": "/assets/shutterstock_1069102985-1920w.jpeg",
+    "subCategories": []
   }
 ]
