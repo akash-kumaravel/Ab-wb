@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   const headerBg = isRoot && !open ? 'bg-black/60 backdrop-blur-sm' : 'bg-black';
 
   return (
-    <header className={`sticky top-0 z-50 ${headerBg} flex flex-row items-center justify-between gap-3 py-0.5 px-3 md:px-5`}>
+    <header className={`sticky top-0 z-[60] ${headerBg} flex flex-row items-center justify-between gap-3 py-0.5 px-3 md:px-5`}>
       <Link to="/" className={`font-black tracking-tighter hover:text-blue-500 transition-colors cursor-pointer text-left`}>
         <img src="/assets/RJ logo.png" alt="RJ Textile Logo" className="h-10 md:h-16 object-contain" />
       </Link>

@@ -69,7 +69,7 @@ const Navigation: React.FC = () => {
 
   return (
     <nav
-      className='absolute left-1/2 top-20 z-50 w-[min(92vw,640px)] -translate-x-1/2 px-4'
+      className='absolute left-1/2 top-20 z-40 w-[min(92vw,640px)] -translate-x-1/2 px-4'
     >
       <div className={isHeroPage ? 'w-full relative' : 'max-w-xl w-full relative'} ref={dropdownRef}>
         <form onSubmit={handleSearch} className="relative">
