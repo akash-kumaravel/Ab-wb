@@ -33,5 +33,22 @@
       "24/7 Technical support",
       "Easy maintenance and quick changeover"
     ]
+  },
+  {
+    "id": 3,
+    "name": "Sulzer S500",
+    "price": "\u20b98,00,000",
+    "image": "/static/uploads/88193b6d-6cbd-41e8-a73a-64444f1728e3_images (2).jfif",
+    "description": "The Sulzer S500 is a rugged projectile weaving machine built for heavy-duty industrial fabric production. Renowned for its reliability and versatility, it efficiently handles a wide range of yarn types and fabric widths, making it a trusted choice for mills producing technical textiles, denim, and other heavy fabrics. Its robust projectile insertion system ensures consistent quality even under continuous, high-volume operation.",
+    "features": [
+      "Reliable projectile insertion system",
+      "Handles wide range of yarn types",
+      "Suitable for wide-width fabric production",
+      "Heavy-duty industrial construction",
+      "Energy-efficient operation",
+      "Low maintenance requirements",
+      "24/7 Technical support",
+      "Consistent fabric quality at high volumes"
+    ]
   }
 ]
