@@ -21,9 +21,9 @@
     "series": "R35",
     "warranty": "24",
     "shipping": "10",
-    "discount": "10",
-    "specialOfferPrice": "720,000",
-    "isSpecialOffer": true
+    "discount": "",
+    "specialOfferPrice": "",
+    "isSpecialOffer": false
   },
   {
     "id": 2,
