@@ -129,7 +129,7 @@ const HomeMinimal: React.FC = () => {
               type="button"
               onClick={() => changeSlide(-1)}
               aria-label="Previous business"
-              className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/50 bg-black/40 transition-colors hover:bg-blue-600 sm:left-6"
+              className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 backdrop-blur-md transition-colors hover:border-white/50 hover:bg-white/20 hover:text-white sm:left-6"
             >
               <ArrowLeft size={20} />
             </button>
@@ -137,7 +137,7 @@ const HomeMinimal: React.FC = () => {
               type="button"
               onClick={() => changeSlide(1)}
               aria-label="Next business"
-              className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/50 bg-black/40 transition-colors hover:bg-blue-600 sm:right-6"
+              className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 backdrop-blur-md transition-colors hover:border-white/50 hover:bg-white/20 hover:text-white sm:right-6"
             >
               <ArrowRight size={20} />
             </button>

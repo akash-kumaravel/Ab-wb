@@ -63,7 +63,7 @@ const Navigation: React.FC = () => {
     location.pathname === '/all-products' ||
     location.pathname === '/shop';
 
-  if (!isHeroPage) {
+  if (location.pathname === '/' || !isHeroPage) {
     return null;
   }
 
