@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": 1,
+    "name": "SULZER PU 153 INCH MW MACHINE",
+    "price": "1150000",
+    "image": "/static/uploads/8e1bf1fa-9093-4b69-bc66-7d8e2417fb44_WhatsApp Image 2026-09-29 at 12.46.12 PM (6).jpeg",
+    "category": 1,
+    "description": "SULZER PU 390 CM  MW MACHINE",
+    "features": [
+      "SERIAL - 95000 ABOVE\\",
+      "H FRAME - 6NOS",
+      "LEVER - FULL",
+      "TLL - YES ",
+      "BEAM - 1.5 SET",
+      "CLOTH ROLL- 1.5",
+      "( SOME EXTRA SPARES AVAILABLE )"
+    ]
+  }
+]
