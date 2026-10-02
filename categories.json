@@ -39,5 +39,11 @@
       "Machine Scrap",
       "Waste Materials"
     ]
+  },
+  {
+    "id": 6,
+    "name": "Sulzer Weaving Machine",
+    "icon": "/static/uploads/e85df77d-0870-47ac-b159-5d6aa5a059f4_88576.jpg",
+    "subCategories": []
   }
 ]
