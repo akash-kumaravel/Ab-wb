@@ -82,8 +82,7 @@ const Shop: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      <section className="relative w-full overflow-hidden">
-        <div className="relative flex items-center justify-center w-full h-[42vh] min-h-[320px] bg-[#111111]">
+      <section className="page-hero red-accent-hero">
           <img
             src="/assets/machine cover.jpg"
             alt="Shop banner"
@@ -91,16 +90,15 @@ const Shop: React.FC = () => {
           />
           <div className="absolute inset-0 bg-black/45" />
 
-          <div className="relative z-10 text-center px-4">
-            <p className="text-blue-500 italic text-xl font-medium mb-3">Premium Industrial Grade</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">
+          <div className="page-hero-content">
+            <p className="page-hero-eyebrow">Premium Industrial Grade</p>
+            <h1 className="page-hero-title">
               Shop Textile Machinery
             </h1>
-            <p className="text-gray-200 text-base md:text-lg max-w-3xl mx-auto">
+            <p className="page-hero-description">
               Discover our comprehensive collection of premium textile machinery and equipment
             </p>
           </div>
-        </div>
       </section>
 
       {/* FILTERS AND PRODUCTS */}

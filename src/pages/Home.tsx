@@ -102,8 +102,8 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="flex-1 relative overflow-hidden rounded-sm">
-      <div className="relative flex items-center w-full h-full aspect-[21/9] lg:aspect-[16/6] bg-[#111111]">
+    <section className="red-accent-hero flex-1 relative overflow-hidden rounded-sm">
+      <div className="relative flex min-h-[320px] items-center w-full h-full aspect-[21/9] lg:aspect-[16/6] bg-[#111111]">
         {/* VIDEO */}
         <div className="absolute inset-0">
           <video
@@ -124,14 +124,14 @@ const HeroSection: React.FC = () => {
         </div>
 
         {/* CONTENT */}
-        <div className="relative z-10 px-8 lg:px-16 space-y-4">
-          <p className="text-blue-500 italic text-xl font-medium">{heroSlide.label}</p>
-          <h1 className="text-4xl lg:text-6xl font-bold leading-tight max-w-md">
+        <div className="relative z-10 max-w-3xl space-y-4 px-8 lg:px-16">
+          <p className="page-hero-eyebrow">{heroSlide.label}</p>
+          <h1 className="page-hero-title">
             {heroSlide.title}
           </h1>
           <button
             onClick={() => navigate('/shop')}
-            className="mt-8 bg-blue-600 hover:bg-blue-700 px-10 py-4 rounded-sm uppercase text-sm font-bold transition-all transform hover:-translate-y-1 cursor-pointer"
+            className="mt-8 bg-[#d61f27] px-10 py-4 rounded-sm uppercase text-sm font-bold transition-all transform hover:-translate-y-1 hover:bg-[#a9121b] cursor-pointer"
           >
             {heroSlide.buttonText}
           </button>

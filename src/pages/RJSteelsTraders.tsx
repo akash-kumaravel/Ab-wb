@@ -27,16 +27,16 @@ const steps = [
 
 const RJSteelsTraders: React.FC = () => (
   <div className="min-h-screen bg-black text-white">
-    <section className="relative isolate overflow-hidden border-b border-[#293033]">
+    <section className="page-hero featured-page-hero isolate">
       <img src="/assets/shutterstock_1069102985-1920w.jpeg" alt="Industrial metal recycling" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-25 grayscale" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black via-black/90 to-black/45" />
-      <div className="mx-auto max-w-[1400px] px-4 py-28 lg:px-10 lg:py-40">
-        <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.28em] text-[#d61f27]"><span className="h-px w-10 bg-[#d61f27]" />RJ Steels & Traders</p>
-        <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">Giving Scrap<br /><span className="text-[#d61f27]">a New Life.</span></h1>
-        <p className="mt-8 max-w-xl text-lg leading-relaxed text-gray-300 sm:text-xl">Scrap today. A cleaner tomorrow. We connect scrap generators and suppliers with buyers and recycling channels across the metal trading ecosystem.</p>
+      <div className="page-hero-content">
+        <p className="page-hero-eyebrow">RJ Steels & Traders</p>
+        <h1 className="page-hero-title">Giving Scrap<br />a New Life.</h1>
+        <p className="page-hero-description">Scrap today. A cleaner tomorrow. We connect scrap generators and suppliers with buyers and recycling channels across the metal trading ecosystem.</p>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Link to="/contact" className="inline-flex items-center justify-center gap-2 bg-[#d61f27] px-6 py-3 text-sm font-black uppercase tracking-wide text-white transition-colors hover:bg-[#a9121b]">Sell Your Scrap <ArrowRight size={17} /></Link>
-          <Link to="/contact" className="inline-flex items-center justify-center gap-2 border border-white/30 px-6 py-3 text-sm font-black uppercase tracking-wide transition-colors hover:border-[#d61f27] hover:text-[#d61f27]">Contact Our Team</Link>
+          <Link to="/contact" className="inline-flex items-center justify-center gap-2 bg-[#d61f27] px-6 py-3 text-sm font-bold uppercase text-white transition-colors hover:bg-[#a9121b]">Sell Your Scrap <ArrowRight size={17} /></Link>
+          <Link to="/contact" className="inline-flex items-center justify-center gap-2 border border-white/30 px-6 py-3 text-sm font-bold uppercase text-white transition-colors hover:border-[#d61f27] hover:text-[#d61f27]">Contact Our Team</Link>
         </div>
       </div>
     </section>

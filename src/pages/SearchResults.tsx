@@ -86,10 +86,11 @@ const SearchResults: React.FC = () => {
   return (
     <div className="min-h-screen bg-black">
       {/* PAGE HEADER */}
-      <section className="bg-gradient-to-b from-blue-600/20 to-transparent py-20 px-4">
-        <div className="max-w-[1400px] mx-auto">
-          <h1 className="text-5xl font-bold text-white mb-4">Search Results</h1>
-          <p className="text-gray-400 text-lg">
+      <section className="page-hero bg-gradient-to-b from-blue-600/20 to-transparent">
+        <div className="page-hero-content">
+          <p className="page-hero-eyebrow">Product catalogue</p>
+          <h1 className="page-hero-title">Search Results</h1>
+          <p className="page-hero-description">
             {results.length > 0
               ? `Found ${results.length} product${results.length !== 1 ? 's' : ''} matching "${query}"`
               : `No products found for "${query}"`}

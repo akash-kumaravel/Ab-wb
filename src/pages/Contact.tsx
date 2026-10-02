@@ -9,12 +9,19 @@ const Contact: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* PAGE HEADER */}
-      <section className="py-20 px-4">
-        <div className="max-w-[1400px] mx-auto">
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">Contact Us</h1>
-          <p className="text-xl text-white/70">
+      <section className="page-hero featured-page-hero isolate">
+        <img src="/assets/machine cover.jpg" alt="Textile machinery" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-25 grayscale" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black via-black/80 to-black/45" />
+        <div className="page-hero-content">
+          <p className="page-hero-eyebrow">Get in touch</p>
+          <h1 className="page-hero-title">Contact Us</h1>
+          <p className="page-hero-description">
             Get in touch with our team to discuss your textile machinery needs
           </p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <a href="tel:+919843140485" className="inline-flex items-center justify-center bg-[#d61f27] px-6 py-3 text-sm font-bold uppercase text-white transition-colors hover:bg-[#a9121b]">Call Our Team</a>
+            <a href="mailto:rjtextilemachinery@gmail.com" className="inline-flex items-center justify-center border border-white/30 px-6 py-3 text-sm font-bold uppercase text-white transition-colors hover:border-[#d61f27] hover:text-[#d61f27]">Email Us</a>
+          </div>
         </div>
       </section>
 

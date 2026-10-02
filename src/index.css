@@ -20,3 +20,63 @@
     overflow-x: hidden;
   }
 }
+
+@layer components {
+  .page-hero {
+    @apply relative flex min-h-[320px] items-center overflow-hidden bg-[#111111];
+  }
+
+  .featured-page-hero {
+    @apply min-h-[480px];
+  }
+
+  .featured-page-hero .page-hero-eyebrow {
+    color: #d61f27;
+  }
+
+  .red-accent-hero .page-hero-eyebrow {
+    color: #d61f27;
+  }
+
+  .page-hero-content {
+    @apply relative z-10 mx-auto w-full max-w-[1400px] px-4 py-20 lg:px-10;
+  }
+
+  .page-hero-eyebrow {
+    @apply mb-3 text-xs font-bold uppercase tracking-[0.2em] text-blue-400;
+    animation: page-hero-enter 600ms ease-out both;
+  }
+
+  .page-hero-title {
+    @apply mb-4 max-w-4xl text-white;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    animation: page-hero-enter 700ms ease-out 80ms both;
+  }
+
+  .page-hero-description {
+    @apply max-w-3xl text-lg leading-relaxed text-gray-200;
+    animation: page-hero-enter 700ms ease-out 160ms both;
+  }
+}
+
+@keyframes page-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero-eyebrow,
+  .page-hero-title,
+  .page-hero-description {
+    animation: none;
+  }
+}

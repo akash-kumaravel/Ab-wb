@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle, Users, Target, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // ============================================
 // ABOUT PAGE
@@ -9,15 +10,21 @@ const About: React.FC = () => {
   return (
     <div className="min-h-screen bg-black">
       {/* HERO SECTION */}
-      <section className="relative py-32 px-4 overflow-hidden">
-        <div className="relative max-w-[1400px] mx-auto text-center">
-          <h1 className="text-6xl md:text-7xl font-black text-white mb-6 leading-tight">
+      <section className="page-hero featured-page-hero isolate">
+        <img src="/assets/machine cover.jpg" alt="Textile machinery" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-25 grayscale" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black via-black/80 to-black/45" />
+        <div className="page-hero-content">
+          <p className="page-hero-eyebrow">About us</p>
+          <h1 className="page-hero-title">
             About RJ Textile Machinery
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-[#d7b36a] to-transparent mx-auto mb-8"></div>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="page-hero-description">
             Trusted textile machinery solutions built on partnership, integrity, and expertise
           </p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Link to="/shop" className="inline-flex items-center justify-center bg-[#d61f27] px-6 py-3 text-sm font-bold uppercase text-white transition-colors hover:bg-[#a9121b]">Explore Machinery</Link>
+            <Link to="/contact" className="inline-flex items-center justify-center border border-white/30 px-6 py-3 text-sm font-bold uppercase text-white transition-colors hover:border-[#d61f27] hover:text-[#d61f27]">Contact Our Team</Link>
+          </div>
         </div>
       </section>
 
