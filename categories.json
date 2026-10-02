@@ -35,5 +35,11 @@
     "name": "Sulzer Weaving Machine",
     "icon": "/static/uploads/e85df77d-0870-47ac-b159-5d6aa5a059f4_88576.jpg",
     "subCategories": []
+  },
+  {
+    "id": 7,
+    "name": "Air-Jet Weaving Machine",
+    "icon": "/static/uploads/d308f715-c609-459c-ae36-365864346378_88588.jpg",
+    "subCategories": []
   }
 ]
