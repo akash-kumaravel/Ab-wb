@@ -1,15 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Sulzer Weaving Machine",
-    "icon": "/assets/C Sulzer.png",
-    "subCategories": [
-      "Weaving Machines",
-      "Parts",
-      "Accessories"
-    ]
-  },
-  {
     "id": 2,
     "name": "Air-Jet Weaving Machine",
     "icon": "/assets/C%20%20Air%20Jet.png",
