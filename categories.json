@@ -1,15 +1,5 @@
 [
   {
-    "id": 2,
-    "name": "Air-Jet Weaving Machine",
-    "icon": "/assets/C%20%20Air%20Jet.png",
-    "subCategories": [
-      "Air-Jet Looms",
-      "Components",
-      "Upgrades"
-    ]
-  },
-  {
     "id": 3,
     "name": "OE",
     "icon": "/assets/C Oe machine.png",
