@@ -44,6 +44,7 @@ const businessSlides = [
       { name: 'Import', details: 'Explore products and procurement opportunities from international suppliers.', image: '/assets/import.png' },
       { name: 'Export', details: 'Connect products and businesses with buyers in international markets.', image: '/assets/export.png' },
       { name: 'Global Sourcing', details: 'Find suppliers and products that match your business requirements.', image: '/assets/global sourcing.png' },
+      { name: 'Machine Sourcing', details: 'Source machinery that matches production requirements, specifications and delivery needs.', image: '/assets/machine sourcing.png' },
       { name: 'International Trading', details: 'Build buyer and seller connections across markets.', image: '/assets/International Trading.jpg' },
       { name: 'Business Support', details: 'Coordinate trade requirements from initial discussions through next steps.', image: '/assets/business support.png' },
     ],

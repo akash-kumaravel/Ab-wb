@@ -1,9 +1,10 @@
 import React from 'react';
-import { ArrowRight, Globe2, Handshake, PackageSearch, Ship, TrendingUp } from 'lucide-react';
+import { ArrowRight, Cog, Globe2, Handshake, PackageSearch, Ship, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const services = [
   { icon: PackageSearch, title: 'Global Sourcing', description: 'Finding the right source for the right requirement through product, quality, quantity and delivery-led sourcing.' },
+  { icon: Cog, title: 'Machine Sourcing', description: 'Sourcing machinery to match your production requirements, specifications, budget and delivery needs.' },
   { icon: Ship, title: 'Import', description: 'Bringing global supply closer by helping businesses explore suppliers and international procurement opportunities.' },
   { icon: TrendingUp, title: 'Export', description: 'Taking products to new markets by connecting businesses with potential international buyers and opportunities.' },
   { icon: Handshake, title: 'International Trading', description: 'Connecting buyers, sellers and opportunities through thoughtful, relationship-driven trade facilitation.' },
