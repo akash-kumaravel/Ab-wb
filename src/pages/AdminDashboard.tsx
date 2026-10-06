@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import getApiBaseURL from '../config/apiConfig';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Trash2, Edit2, Upload } from 'lucide-react';
+import { LogOut, Plus, Trash2, Edit2, Upload, X } from 'lucide-react';
 
 interface ProductForm {
   name: string;
@@ -47,6 +47,8 @@ const AdminDashboard: React.FC = () => {
     specialOfferPrice: '',
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [productImages, setProductImages] = useState<string[]>([]);
+  const [newProductImages, setNewProductImages] = useState<{ file: File; preview: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -111,6 +113,29 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  const handleProductImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []).map(file => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+    setNewProductImages(prev => [...prev, ...files]);
+    e.target.value = '';
+  };
+
+  const handleRemoveProductImage = (image: string) => {
+    setProductImages(prev => prev.filter(item => item !== image));
+    if (formData.image === image) {
+      const nextImage = productImages.find(item => item !== image) || '';
+      setFormData(prev => ({ ...prev, image: nextImage }));
+      setImagePreview(nextImage || null);
+    }
+  };
+
+  const handleRemoveNewProductImage = (preview: string) => {
+    URL.revokeObjectURL(preview);
+    setNewProductImages(prev => prev.filter(item => item.preview !== preview));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -168,6 +193,8 @@ const AdminDashboard: React.FC = () => {
         data.append('series', formData.series);
         data.append('warranty', formData.warranty);
         data.append('shipping', formData.shipping);
+        data.append('images', JSON.stringify(productImages));
+        newProductImages.forEach(({ file }) => data.append('images', file));
 
         // Handle features as JSON string
         const featuresArray = formData.features.split('\n').filter(f => f.trim());
@@ -200,6 +227,9 @@ const AdminDashboard: React.FC = () => {
             shipping: '',
           });
           setImagePreview(null);
+          newProductImages.forEach(({ preview }) => URL.revokeObjectURL(preview));
+          setProductImages([]);
+          setNewProductImages([]);
           setEditingId(null);
           setShowForm(false);
           setFormType(null);
@@ -253,6 +283,9 @@ const AdminDashboard: React.FC = () => {
       warranty: product.warranty || '',
       shipping: product.shipping || '',
     });
+    setProductImages(Array.isArray(product.images) ? product.images : product.image ? [product.image] : []);
+    newProductImages.forEach(({ preview }) => URL.revokeObjectURL(preview));
+    setNewProductImages([]);
     setImagePreview(product.image); // Show existing image
     setEditingId(product.id);
     setFormType('product');
@@ -336,6 +369,9 @@ const AdminDashboard: React.FC = () => {
       warranty: '',
       shipping: '',
     });
+    newProductImages.forEach(({ preview }) => URL.revokeObjectURL(preview));
+    setProductImages([]);
+    setNewProductImages([]);
     setImagePreview(null);
     setEditingId(null);
     setShowForm(false);
@@ -357,6 +393,9 @@ const AdminDashboard: React.FC = () => {
       warranty: '',
       shipping: '',
     });
+    newProductImages.forEach(({ preview }) => URL.revokeObjectURL(preview));
+    setProductImages([]);
+    setNewProductImages([]);
     setImagePreview(null);
     setEditingId(null);
   };
@@ -475,52 +514,63 @@ const AdminDashboard: React.FC = () => {
                   </select>
                 </div>
 
-                {/* IMAGE UPLOAD */}
+                {/* PRODUCT GALLERY */}
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
-                    Product Image *
+                    Product Images
                   </label>
-
-                  <div className="flex gap-4 items-start">
-                    <div className="flex-1">
-                      <div className="relative border border-gray-700 border-dashed rounded-sm bg-black hover:border-blue-500 transition-colors">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileChange}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                        />
-                        <div className="p-4 flex flex-col items-center justify-center text-gray-400">
-                          <Upload size={24} className="mb-2" />
-                          <span className="text-sm">Click to upload image</span>
-                          <span className="text-xs text-gray-600 mt-1">or drag and drop</span>
-                        </div>
-                      </div>
-                      <input
-                        type="text"
-                        name="image"
-                        value={typeof formData.image === 'string' ? formData.image : ''}
-                        onChange={handleInputChange}
-                        placeholder="Or enter Image URL manually"
-                        className="w-full mt-2 bg-black border border-gray-800 rounded-sm py-2 px-3 text-sm text-gray-400 focus:outline-none focus:border-blue-500"
-                      />
+                  <div className="relative border border-gray-700 border-dashed rounded-sm bg-black hover:border-blue-500 transition-colors">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleProductImagesChange}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                    <div className="p-4 flex items-center justify-center gap-3 text-gray-400">
+                      <Upload size={22} />
+                      <span className="text-sm">Choose multiple product photos</span>
                     </div>
-
-                    {/* PREVIEW */}
-                    {imagePreview && (
-                      <div className="w-32 h-32 bg-gray-900 border-2 border-blue-500 rounded-sm overflow-hidden flex-shrink-0 flex items-center justify-center">
-                        <img
-                          src={imagePreview}
-                          alt="Preview"
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement;
-                            img.style.display = 'none';
-                          }}
-                        />
-                      </div>
-                    )}
                   </div>
+                  <input
+                    type="text"
+                    name="image"
+                    value={typeof formData.image === 'string' ? formData.image : ''}
+                    onChange={handleInputChange}
+                    placeholder="Main image URL (optional)"
+                    className="w-full mt-2 bg-black border border-gray-800 rounded-sm py-2 px-3 text-sm text-gray-400 focus:outline-none focus:border-blue-500"
+                  />
+                  {(productImages.length > 0 || newProductImages.length > 0) && (
+                    <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+                      {productImages.map((image, index) => (
+                        <div key={`${image}-${index}`} className="relative aspect-square bg-gray-800 border border-gray-700 rounded-sm overflow-hidden">
+                          <img src={image} alt={`Product view ${index + 1}`} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveProductImage(image)}
+                            aria-label={`Remove product image ${index + 1}`}
+                            className="absolute top-1 right-1 p-1 bg-black/80 text-white hover:bg-red-600 rounded-sm"
+                          >
+                            <X size={16} />
+                          </button>
+                          {formData.image === image && <span className="absolute bottom-0 inset-x-0 bg-black/75 text-center text-xs py-1">Main image</span>}
+                        </div>
+                      ))}
+                      {newProductImages.map(({ file, preview }) => (
+                        <div key={preview} className="relative aspect-square bg-gray-800 border border-blue-500 rounded-sm overflow-hidden">
+                          <img src={preview} alt={file.name} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveNewProductImage(preview)}
+                            aria-label={`Remove ${file.name}`}
+                            className="absolute top-1 right-1 p-1 bg-black/80 text-white hover:bg-red-600 rounded-sm"
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* DESCRIPTION */}

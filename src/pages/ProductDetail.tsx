@@ -39,6 +39,7 @@ const ProductDetail: React.FC = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [apiProducts, setApiProducts] = useState<Product[]>([]);
   const [copied, setCopied] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -84,6 +85,7 @@ const ProductDetail: React.FC = () => {
         }
 
         setProduct(found || null);
+        setSelectedImage(found?.images?.[0] || found?.image || '');
 
         if (found) {
           const related = validProducts.filter(p => p.id !== found!.id).slice(0, 4);
@@ -99,6 +101,11 @@ const ProductDetail: React.FC = () => {
 
     fetchData();
   }, [productSlug]);
+
+  const galleryImages = product
+    ? Array.from(new Set([...(product.images || []), product.image].filter(Boolean)))
+    : [];
+  const activeImage = galleryImages.includes(selectedImage) ? selectedImage : galleryImages[0];
 
   return (
     <div className="min-h-screen bg-black">
@@ -171,13 +178,13 @@ const ProductDetail: React.FC = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
               {/* PRODUCT IMAGE */}
-              <div className="flex items-start justify-center">
+              <div className="flex flex-col items-center">
                 <div className="relative w-full aspect-square bg-gray-900 rounded-sm overflow-hidden border border-gray-800 group flex items-start justify-center">
-                  {product.image ? (
+                  {activeImage ? (
                     <>
                       <img
-                        src={product.image}
-                        alt={product.name}
+                        src={activeImage}
+                        alt={`${product.name} view`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-4 right-4 flex gap-2">
@@ -199,6 +206,22 @@ const ProductDetail: React.FC = () => {
                     </div>
                   )}
                 </div>
+                {galleryImages.length > 1 && (
+                  <div className="mt-4 flex w-full gap-3 overflow-x-auto pb-2" aria-label="Product images">
+                    {galleryImages.map((image, index) => (
+                      <button
+                        key={`${image}-${index}`}
+                        type="button"
+                        onClick={() => setSelectedImage(image)}
+                        aria-label={`Show product image ${index + 1}`}
+                        aria-pressed={activeImage === image}
+                        className={`h-20 w-20 flex-none overflow-hidden rounded-sm border-2 transition-colors ${activeImage === image ? 'border-blue-500' : 'border-gray-800 hover:border-gray-500'}`}
+                      >
+                        <img src={image} alt="" className="h-full w-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* PRODUCT INFO */}
