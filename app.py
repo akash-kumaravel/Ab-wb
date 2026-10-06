@@ -177,9 +177,11 @@ def load_products():
                 # Sync all product images from GitHub
                 print("Syncing product images from GitHub...")
                 for product in products:
-                    if "image" in product and product["image"].startswith("/static/uploads/"):
-                        image_path = product["image"].lstrip("/")  # Remove leading slash
-                        sync_image_from_github(image_path)
+                    image_urls = [product.get("image", ""), *product.get("images", [])]
+                    for image_url in image_urls:
+                        if isinstance(image_url, str) and image_url.startswith("/static/uploads/"):
+                            image_path = image_url.lstrip("/")
+                            sync_image_from_github(image_path)
                 
                 return products
             except Exception as e:
@@ -333,18 +335,37 @@ def add_product():
         features_json = request.form.get("features")
         features = json.loads(features_json) if features_json else []
 
-        # Handle Image Upload
+        # Handle the primary image and any additional gallery images.
         image_file = request.files.get("image")
         image_url = request.form.get("image")  # Fallback if URL provided
-        
         if image_file:
             uploaded_url = upload_image(image_file)
-            if uploaded_url:
-                image_url = uploaded_url
+            if not uploaded_url:
+                return jsonify({"error": "Product image upload failed"}), 500
+            image_url = uploaded_url
+
+        try:
+            image_urls = json.loads(request.form.get("images", "[]"))
+        except (TypeError, json.JSONDecodeError):
+            return jsonify({"error": "Invalid product images"}), 400
+        if not isinstance(image_urls, list):
+            return jsonify({"error": "Product images must be a list"}), 400
+        image_urls = [url.strip() for url in image_urls if isinstance(url, str) and url.strip()]
+
+        for gallery_file in request.files.getlist("images"):
+            uploaded_url = upload_image(gallery_file)
+            if not uploaded_url:
+                return jsonify({"error": "Product image upload failed"}), 500
+            image_urls.append(uploaded_url)
+
+        if image_url and image_url not in image_urls:
+            image_urls.insert(0, image_url)
         
         # Provide default image if none provided
         if not image_url:
-            image_url = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+            image_url = image_urls[0] if image_urls else "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+        if image_url not in image_urls:
+            image_urls.insert(0, image_url)
         
         if not name or not price:
              return jsonify({"error": "Name and price are required"}), 400
@@ -354,6 +375,7 @@ def add_product():
             "name": name,
             "price": price,
             "image": image_url,
+            "images": list(dict.fromkeys(image_urls)),
             "category": int(category) if category and category.isdigit() else category,
             "description": description,
             "features": features
@@ -397,26 +419,44 @@ def update_product(id):
             "isSpecialOffer", str(existing_product.get("isSpecialOffer", False))
         ).lower() == "true"
 
-        # Handle Image
+        # Handle the primary image and any additional gallery images.
         image_file = request.files.get("image")
-        image_url = existing_product["image"]  # Default to existing
-        
+        image_url = request.form.get("image", existing_product.get("image", ""))
         if image_file:
             uploaded_url = upload_image(image_file)
-            if uploaded_url:
-                image_url = uploaded_url
-        elif request.form.get("image"):  # If URL string passed
-             image_url = request.form.get("image")
-        
-        # Ensure image URL is always set
+            if not uploaded_url:
+                return jsonify({"error": "Product image upload failed"}), 500
+            image_url = uploaded_url
+
+        try:
+            submitted_images = request.form.get("images")
+            image_urls = json.loads(submitted_images) if submitted_images is not None else existing_product.get(
+                "images", [existing_product.get("image", "")]
+            )
+        except (TypeError, json.JSONDecodeError):
+            return jsonify({"error": "Invalid product images"}), 400
+        if not isinstance(image_urls, list):
+            return jsonify({"error": "Product images must be a list"}), 400
+        image_urls = [url.strip() for url in image_urls if isinstance(url, str) and url.strip()]
+
+        for gallery_file in request.files.getlist("images"):
+            uploaded_url = upload_image(gallery_file)
+            if not uploaded_url:
+                return jsonify({"error": "Product image upload failed"}), 500
+            image_urls.append(uploaded_url)
+
         if not image_url:
-            image_url = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+            image_url = image_urls[0] if image_urls else ""
+        if image_url and image_url not in image_urls:
+            image_urls.insert(0, image_url)
+        image_urls = list(dict.fromkeys(image_urls))
 
         updated_product = {
             **existing_product,
             "name": name,
             "price": price,
             "image": image_url,
+            "images": image_urls,
             "description": description,
             "features": features,
             "category": int(category) if str(category).isdigit() else category,
