@@ -47,7 +47,7 @@ const businessSlides = [
       { name: 'International Trading', details: 'Build buyer and seller connections across markets.', image: '/assets/International Trading.jpg' },
       { name: 'Business Support', details: 'Coordinate trade requirements from initial discussions through next steps.', image: '/assets/business support.png' },
     ],
-    image: '/assets/enterprice.png',
+    image: '/assets/steels and trades.jpeg',
     href: '/rj-enterprises',
     action: 'Explore RJ Enterprises',
   },
