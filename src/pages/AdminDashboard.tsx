@@ -532,14 +532,6 @@ const AdminDashboard: React.FC = () => {
                       <span className="text-sm">Choose multiple product photos</span>
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    name="image"
-                    value={typeof formData.image === 'string' ? formData.image : ''}
-                    onChange={handleInputChange}
-                    placeholder="Main image URL (optional)"
-                    className="w-full mt-2 bg-black border border-gray-800 rounded-sm py-2 px-3 text-sm text-gray-400 focus:outline-none focus:border-blue-500"
-                  />
                   {(productImages.length > 0 || newProductImages.length > 0) && (
                     <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
                       {productImages.map((image, index) => (

@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, Share2, Check } from 'lucide-react';
+import { Share2, Check } from 'lucide-react';
 import { Product } from '../types';
 import ProductService from '../services/ProductService';
 import { slugify, findProductBySlug } from '../utils/slugify';
@@ -147,35 +147,8 @@ const ProductDetail: React.FC = () => {
 
       {!loading && product && (
         <>
-          {/* BREADCRUMB */}
-          <div className="max-w-[1400px] mx-auto px-4 py-6 flex items-center gap-2 text-sm text-gray-500">
-            <button
-              onClick={() => navigate('/')}
-              className="text-gray-400 hover:text-blue-500 transition-colors"
-            >
-              Home
-            </button>
-            <span>/</span>
-            <button
-              onClick={() => navigate('/shop')}
-              className="text-gray-400 hover:text-blue-500 transition-colors"
-            >
-              Products
-            </button>
-            <span>/</span>
-            <span className="text-white">{product.name}</span>
-          </div>
-
           {/* PRODUCT DETAIL SECTION */}
           <section className="max-w-[1400px] mx-auto px-4 py-12">
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-2 text-blue-500 hover:text-blue-400 mb-8 transition-colors"
-            >
-              <ChevronLeft size={18} />
-              Back
-            </button>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
               {/* PRODUCT IMAGE */}
               <div className="flex flex-col items-center">
