@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "SULZER PU 153 INCH MW MACHINE",
-    "price": "1150000",
+    "price": "\u20b91150000",
     "image": "/static/uploads/8e1bf1fa-9093-4b69-bc66-7d8e2417fb44_WhatsApp Image 2026-09-29 at 12.46.12 PM (6).jpeg",
     "category": 1,
     "description": "SULZER PU 390 CM  MW MACHINE",
@@ -16,9 +16,7 @@
       "( SOME EXTRA SPARES AVAILABLE )"
     ],
     "images": [
-      "/static/uploads/8e1bf1fa-9093-4b69-bc66-7d8e2417fb44_WhatsApp Image 2026-09-29 at 12.46.12 PM (6).jpeg",
-      "/static/uploads/91466e26-122b-4d8a-9980-d6554f31c2c3_enterprice.png",
-      "/static/uploads/cf0919ce-559c-434d-a8ed-157eee22cb99_steel.png"
+      "/static/uploads/8e1bf1fa-9093-4b69-bc66-7d8e2417fb44_WhatsApp Image 2026-09-29 at 12.46.12 PM (6).jpeg"
     ],
     "model": "",
     "series": "",
