@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'CloserTextExtraBoldItalic';
+  src: url('/closertext-extra-bold-italic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,6 +66,18 @@
   .page-hero-description {
     @apply max-w-3xl text-lg leading-relaxed text-gray-200;
     animation: page-hero-enter 700ms ease-out 160ms both;
+  }
+
+  .brand-heading {
+    font-family: 'CloserTextExtraBoldItalic', 'Arial Black', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    line-height: 0.88;
+    text-transform: none;
+    color: #ffffff;
+    text-shadow: none;
+    -webkit-text-stroke: 0;
   }
 }
 

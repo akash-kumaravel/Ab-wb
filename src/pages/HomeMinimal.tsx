@@ -8,7 +8,7 @@ const businessSlides = [
   {
     name: 'RJ Textile Machinery',
     tagline: 'Weave a Better Tomorrow',
-    description: 'Complete solutions for the textile weaving industry, from Sulzer, airjet and rapier machines to spares for all brands.',
+    description: 'Complete solution for the textile weaving industry, from Sulzer, air-jet and rapier spinning machines, OE sizing and warping machines to spares and machine availability for all brands.',
     supportingText: 'Trusted by industry leaders — fast delivery, genuine spares, and expert support.',
     productSubtitle: 'ALL TYPE OF WEAVING MACHINE AVAILABLE',
     products: null,
@@ -30,7 +30,7 @@ const businessSlides = [
       { name: 'Bars & Rods', details: 'TMT · MS · Alloy', image: '/assets/Bars & Rods.png' },
       { name: 'Plates', details: 'MS · HSLA · Boiler', image: '/assets/steel plates.jpg' },
     ],
-    image: '/assets/steel.png',
+    image: '/assets/steels and trades.jpeg',
     href: '/rj-steels-traders',
     action: 'Explore Steel',
   },
@@ -48,7 +48,7 @@ const businessSlides = [
       { name: 'International Trading', details: 'Build buyer and seller connections across markets.', image: '/assets/International Trading.jpg' },
       { name: 'Business Support', details: 'Coordinate trade requirements from initial discussions through next steps.', image: '/assets/business support.png' },
     ],
-    image: '/assets/steels and trades.jpeg',
+    image: '/assets/International Trading.jpg',
     href: '/rj-enterprises',
     action: 'Explore RJ Enterprises',
   },
@@ -114,8 +114,8 @@ const HomeMinimal: React.FC = () => {
             ))}
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/20" />
             <div key={slide.name} className="relative z-10 max-w-3xl space-y-4 px-8 pb-10 lg:px-16">
-              <p className="text-blue-400 text-sm font-bold uppercase tracking-[0.2em]">RJ Group</p>
-              <h1 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{slide.name}</h1>
+              <p className="text-blue-400 text-base font-black uppercase tracking-[0.24em] sm:text-lg lg:text-xl">RJ Group</p>
+              <h1 className="brand-heading whitespace-nowrap text-[2.1rem] font-black leading-[0.9] sm:text-[2.8rem] md:text-[3.7rem] lg:text-[4.3rem] xl:text-[4.8rem]">{slide.name}</h1>
               <h2 className="text-xl font-semibold text-blue-400 sm:text-2xl">{slide.tagline}</h2>
               <p className="max-w-2xl text-sm leading-relaxed text-gray-100 sm:text-base">{slide.description}</p>
               <button
