@@ -43,5 +43,11 @@
     "name": "SIZING MACHIES",
     "icon": "/static/uploads/37dfe0c0-8fba-48b3-806c-242012fc8ac7_Modern Textile Sizing Factory Line.png",
     "subCategories": []
+  },
+  {
+    "id": 10,
+    "name": "WARPING MACHINES",
+    "icon": "/static/uploads/55c679aa-444b-4c57-a31a-a370a018b4c8_RIETER R 70 Warping Machine Line.png",
+    "subCategories": []
   }
 ]
