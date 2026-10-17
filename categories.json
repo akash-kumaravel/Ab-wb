@@ -45,5 +45,11 @@
     "name": "RAPIER MACHIES",
     "icon": "/static/uploads/0669bbfb-5dee-4021-853a-f809c7b0cdef_Modern Rapier Loom Textile Mill.png",
     "subCategories": []
+  },
+  {
+    "id": 12,
+    "name": "OE MACHINES",
+    "icon": "/static/uploads/2c4e7658-1437-4159-b8ba-5c95e00de76c_WhatsApp Image 2026-09-29 at 10.39.09 AM (4).jpeg",
+    "subCategories": []
   }
 ]
