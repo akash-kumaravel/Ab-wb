@@ -1,15 +1,5 @@
 [
   {
-    "id": 3,
-    "name": "OE",
-    "icon": "/assets/C Oe machine.png",
-    "subCategories": [
-      "Original Equipment",
-      "OE Parts",
-      "Accessories"
-    ]
-  },
-  {
     "id": 4,
     "name": "Spares & Parts",
     "icon": "/assets/C Sulzar spare.jpg",
