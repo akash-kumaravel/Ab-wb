@@ -37,5 +37,11 @@
     "name": "SPINNING MACHINE",
     "icon": "/static/uploads/56af59db-e2e0-406d-8e2f-27fe2bef75b6_WhatsApp Image 2026-09-29 at 10.39.09 AM (2).jpeg",
     "subCategories": []
+  },
+  {
+    "id": 9,
+    "name": "SIZING MACHIES",
+    "icon": "/static/uploads/37dfe0c0-8fba-48b3-806c-242012fc8ac7_Modern Textile Sizing Factory Line.png",
+    "subCategories": []
   }
 ]
