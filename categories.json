@@ -49,5 +49,11 @@
     "name": "WARPING MACHINES",
     "icon": "/static/uploads/55c679aa-444b-4c57-a31a-a370a018b4c8_RIETER R 70 Warping Machine Line.png",
     "subCategories": []
+  },
+  {
+    "id": 11,
+    "name": "RAPIER MACHIES",
+    "icon": "/static/uploads/0669bbfb-5dee-4021-853a-f809c7b0cdef_Modern Rapier Loom Textile Mill.png",
+    "subCategories": []
   }
 ]
