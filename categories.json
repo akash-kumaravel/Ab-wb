@@ -31,5 +31,11 @@
     "name": "Air-Jet Weaving Machine",
     "icon": "/static/uploads/d308f715-c609-459c-ae36-365864346378_88588.jpg",
     "subCategories": []
+  },
+  {
+    "id": 8,
+    "name": "SPINNING MACHINE",
+    "icon": "/static/uploads/56af59db-e2e0-406d-8e2f-27fe2bef75b6_WhatsApp Image 2026-09-29 at 10.39.09 AM (2).jpeg",
+    "subCategories": []
   }
 ]
